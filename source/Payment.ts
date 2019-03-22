@@ -7,9 +7,10 @@ export interface Payment {
 	psp: number
 	merchant: number
 	method: Method
+	session: string
 	account?: number
-	amount: number
 	currency: Currency
+	amount: number
 	language: Language
 	order: string,
 	reference: string
@@ -25,9 +26,10 @@ export namespace Payment {
 			typeof(payment.psp) == "number" &&
 			typeof(payment.merchant) == "number" &&
 			Method.is(payment.method) &&
+			typeof(payment.session) == "string" &&
 			(payment.account == undefined || typeof(payment.account) == "number") &&
-			typeof(payment.amount) == "number" &&
 			Currency.is(payment.currency) &&
+			typeof(payment.amount) == "number" &&
 			Language.is(payment.language) &&
 			typeof(payment.order) == "string" &&
 			typeof(payment.reference) == "string" &&

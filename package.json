@@ -52,7 +52,7 @@
   "clean": "rm -rf build node_modules coverage"
  },
  "dependencies": {
-  "@certitrade/ct3-model": "^3.0.1"
+  "@certitrade/ct3-model": "^3.0.2"
  },
  "devDependencies": {
   "@types/jest": "^24.0.11",
