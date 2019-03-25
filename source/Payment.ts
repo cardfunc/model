@@ -11,7 +11,6 @@ export interface Payment {
 	account?: number
 	currency: Currency
 	amount: number
-	language: Language
 	order: string,
 	reference: string
 	description: string
@@ -30,10 +29,25 @@ export namespace Payment {
 			(payment.account == undefined || typeof(payment.account) == "number") &&
 			Currency.is(payment.currency) &&
 			typeof(payment.amount) == "number" &&
-			Language.is(payment.language) &&
 			typeof(payment.order) == "string" &&
 			typeof(payment.reference) == "string" &&
 			typeof(payment.description) == "string" &&
 			typeof(payment.timeout) == "number"
+	}
+	export function isCreatable(payment: Payment | any): payment is Payment {
+		return typeof(payment) == "object" &&
+			payment.id == undefined &&
+			payment.created == undefined &&
+			payment.psp == undefined &&
+			payment.merchant == undefined &&
+			Method.is(payment.method) &&
+			payment.session == undefined &&
+			(payment.account == undefined || typeof(payment.account) == "number") &&
+			Currency.is(payment.currency) &&
+			typeof(payment.amount) == "number" &&
+			(typeof(payment.order) == "string" || payment.order == undefined) &&
+			(typeof(payment.reference) == "string" || payment.reference == undefined) &&
+			(typeof(payment.description) == "string" || payment.description == undefined) &&
+			(typeof(payment.timeout) == "number" || payment.timeout == undefined)
 	}
 }
