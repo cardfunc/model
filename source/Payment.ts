@@ -14,7 +14,8 @@ export interface Payment {
 	order: string,
 	reference: string
 	description: string
-	timeout?: number
+	timeout: number
+	load3d?: string
 }
 
 export namespace Payment {
@@ -32,7 +33,8 @@ export namespace Payment {
 			typeof(payment.order) == "string" &&
 			typeof(payment.reference) == "string" &&
 			typeof(payment.description) == "string" &&
-			typeof(payment.timeout) == "number"
+			typeof(payment.timeout) == "number" &&
+			(typeof(payment.load3d) == "string" || payment.load3d == undefined)
 	}
 	export function isCreatable(payment: Payment | any): payment is Payment {
 		return typeof(payment) == "object" &&
