@@ -1,4 +1,4 @@
-import { DateTime, Currency, Language } from "@certitrade/ct3-model"
+import { DateTime, Currency } from "isoly"
 import { Method } from "./Method"
 
 export interface Payment {
