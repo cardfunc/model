@@ -13,6 +13,6 @@ export namespace Details {
 			(value.name == undefined || typeof(value.name) == "string") &&
 			typeof(value.number) == "string" &&
 			(value.csc == undefined || typeof(value.csc) == "number") &&
-			Expires.is(value)
+			Expires.is(value.expires)
 	}
 }
