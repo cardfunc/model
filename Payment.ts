@@ -1,9 +1,11 @@
 import { DateTime, Currency } from "isoly"
 import { Method } from "./Method"
+import { Status } from "./Status"
 
 export interface Payment {
 	id: number
 	created: DateTime
+	status: Status
 	psp: number
 	merchant: number
 	method: Method
@@ -23,6 +25,7 @@ export namespace Payment {
 		return typeof(payment) == "object" &&
 			typeof(payment.id) == "number" &&
 			DateTime.is(payment.created) &&
+			Status.is(payment.status) &&
 			typeof(payment.psp) == "number" &&
 			typeof(payment.merchant) == "number" &&
 			Method.is(payment.method) &&
@@ -36,10 +39,11 @@ export namespace Payment {
 			typeof(payment.timeout) == "number" &&
 			(typeof(payment.load3d) == "string" || payment.load3d == undefined)
 	}
-	export function isCreatable(payment: Payment | any): payment is Payment {
+	export function isCreatable(payment: Partial<Payment> | any): payment is Partial<Payment> {
 		return typeof(payment) == "object" &&
 			payment.id == undefined &&
 			payment.created == undefined &&
+			payment.status == undefined &&
 			payment.psp == undefined &&
 			payment.merchant == undefined &&
 			Method.is(payment.method) &&
