@@ -5,6 +5,7 @@ describe("Payment", () => {
 		const payment: Payment = {
 			id: 10001,
 			created: "2005-05-05T15:05:15Z",
+			status: "created",
 			psp: 100001,
 			merchant: 100001,
 			method: "card",
