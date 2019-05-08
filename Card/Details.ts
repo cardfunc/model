@@ -3,7 +3,7 @@ import { Expires } from "./Expires"
 export interface Details {
 	name?: string
 	number: string
-	csc?: number
+	csc?: string
 	expires: Expires
 }
 
@@ -12,7 +12,7 @@ export namespace Details {
 		return typeof(value) == "object" &&
 			(value.name == undefined || typeof(value.name) == "string") &&
 			typeof(value.number) == "string" &&
-			(value.csc == undefined || typeof(value.csc) == "number") &&
+			(value.csc == undefined || typeof(value.csc) == "string") &&
 			Expires.is(value.expires)
 	}
 }
