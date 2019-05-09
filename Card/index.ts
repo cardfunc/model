@@ -7,6 +7,7 @@ export namespace Card {
 	export namespace Details {
 		export const is = CardDetails.is
 	}
+	export type Expires = CardExpires
 	export namespace Expires {
 		export const is = CardExpires.is
 		export type Month = CardExpires.Month
