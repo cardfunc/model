@@ -6,18 +6,13 @@ export interface Payment {
 	id: number
 	created: DateTime
 	status: Status
-	psp: number
-	merchant: number
 	method: Method
-	session: string
 	account?: number
 	currency: Currency
 	amount: number
-	order: string,
+	order: string
 	reference: string
-	description: string
-	timeout: number
-	load3d?: string
+	verify?: { location: string, pareq: string }
 }
 
 export namespace Payment {
@@ -26,34 +21,26 @@ export namespace Payment {
 			typeof(payment.id) == "number" &&
 			DateTime.is(payment.created) &&
 			Status.is(payment.status) &&
-			typeof(payment.psp) == "number" &&
-			typeof(payment.merchant) == "number" &&
 			Method.is(payment.method) &&
-			typeof(payment.session) == "string" &&
 			(payment.account == undefined || typeof(payment.account) == "number") &&
 			Currency.is(payment.currency) &&
 			typeof(payment.amount) == "number" &&
 			typeof(payment.order) == "string" &&
 			typeof(payment.reference) == "string" &&
-			typeof(payment.description) == "string" &&
-			typeof(payment.timeout) == "number" &&
-			(typeof(payment.load3d) == "string" || payment.load3d == undefined)
+			(typeof(payment.load3d) == "string" || payment.load3d == undefined) &&
+			(payment.verify == undefined || typeof(payment.verify) == "object" && typeof(payment.verify.location) == "string" && typeof(payment.verify.pareq) == "string")
 	}
 	export function isCreatable(payment: Partial<Payment> | any): payment is Partial<Payment> {
 		return typeof(payment) == "object" &&
 			payment.id == undefined &&
 			payment.created == undefined &&
 			payment.status == undefined &&
-			payment.psp == undefined &&
-			payment.merchant == undefined &&
 			Method.is(payment.method) &&
-			payment.session == undefined &&
 			(payment.account == undefined || typeof(payment.account) == "number") &&
 			Currency.is(payment.currency) &&
 			typeof(payment.amount) == "number" &&
 			(typeof(payment.order) == "string" || payment.order == undefined) &&
 			(typeof(payment.reference) == "string" || payment.reference == undefined) &&
-			(typeof(payment.description) == "string" || payment.description == undefined) &&
-			(typeof(payment.timeout) == "number" || payment.timeout == undefined)
-	}
+			payment.verify == undefined
+		}
 }
