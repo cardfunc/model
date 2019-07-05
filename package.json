@@ -1,17 +1,17 @@
 {
- "name": "@certitrade/card3-model",
- "version": "3.0.12",
- "description": "Javascript library containing the model for the Certitrade Card 3 REST API.",
- "author": "Certitrade AB",
+ "name": "@cardfunc/model",
+ "version": "0.0.12",
+ "description": "Javascript library containing the model for the CardFunc REST API.",
+ "author": "CardFunc",
  "license": "MIT",
  "repository": {
   "type": "git",
-  "url": "git+https://github.com/certitrade/card3-model"
+  "url": "git+https://github.com/cardfunc/model"
  },
  "bugs": {
-  "url": "https://github.com/certitrade/card3-model/issues"
+  "url": "https://github.com/cardfunc/model/issues"
  },
- "homepage": "https://github.com/certitrade/card3-model#readme",
+ "homepage": "https://github.com/cardfunc/model#readme",
  "private": false,
  "main": "dist/index.js",
  "typings": "dist/index.d.ts",
@@ -48,7 +48,6 @@
   "test": "jest",
   "test:watch": "watch jest",
   "prepare": "npm run build",
-  "release": "release-it patch -n",
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
