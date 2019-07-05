@@ -1,17 +1,17 @@
 {
- "name": "@certitrade/card3-model",
- "version": "3.0.12",
- "description": "Javascript library containing the model for the Certitrade Card 3 REST API.",
- "author": "Certitrade AB",
+ "name": "@cardfunc/model",
+ "version": "0.0.12",
+ "description": "Javascript library containing the model for the CardFunc REST API.",
+ "author": "CardFunc",
  "license": "MIT",
  "repository": {
   "type": "git",
-  "url": "git+https://github.com/certitrade/card3-model"
+  "url": "git+https://github.com/cardfunc/model"
  },
  "bugs": {
-  "url": "https://github.com/certitrade/card3-model/issues"
+  "url": "https://github.com/cardfunc/model/issues"
  },
- "homepage": "https://github.com/certitrade/card3-model#readme",
+ "homepage": "https://github.com/cardfunc/model#readme",
  "private": false,
  "main": "dist/index.js",
  "typings": "dist/index.d.ts",
@@ -48,21 +48,20 @@
   "test": "jest",
   "test:watch": "watch jest",
   "prepare": "npm run build",
-  "release": "release-it patch -n",
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "isoly": "0.0.7"
+  "isoly": "0.0.9"
  },
  "devDependencies": {
-  "@types/jest": "^24.0.13",
-  "@types/node": "^12.0.7",
+  "@types/jest": "^24.0.15",
+  "@types/node": "^12.0.12",
   "babel-core": "^6.26.3",
   "babel-jest": "^24.8.0",
   "jest": "^24",
   "ts-jest": "^24.0.2",
-  "typescript": "^3.5.1",
-  "typescript-tslint-plugin": "^0.4.0",
+  "typescript": "^3.5.2",
+  "typescript-tslint-plugin": "^0.5.3",
   "watch": "^1.0.2"
  }
 }

@@ -1,2 +1,2 @@
-# card3-model
-Data model for Certitrade Card version 3.
+# CardFunc API Model
+Data model for CardFunc API.
