@@ -3,7 +3,7 @@ import * as authly from "authly"
 import { Card } from "../Card"
 
 export interface Creatable {
-	number?: authly.Identifier
+	number?: string
 	description?: string
 	ip?: string
 	amount?: number
@@ -15,8 +15,8 @@ export interface Creatable {
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return typeof(value) == "object" &&
-			(value.number == undefined || typeof(value.number)) &&
-			(value.description == undefined || typeof(value.description)) &&
+			(value.number == undefined || typeof(value.number) == "string") &&
+			(value.description == undefined || typeof(value.description) == "string") &&
 			(value.ip == undefined || typeof(value.ip) == "string") && (
 				typeof(value.amount) == "number" &&
 				isoly.Currency.is(value.currency) &&

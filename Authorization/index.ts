@@ -5,7 +5,7 @@ import { Creatable as AuthorizationCreatable } from "./Creatable"
 
 export interface Authorization {
 	id: authly.Identifier
-	number?: authly.Identifier
+	number?: string
 	description?: string
 	ip?: string
 	created: isoly.DateTime
