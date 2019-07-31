@@ -1,21 +1,18 @@
 import * as authly from "authly"
-import { Base } from "./Base"
 import { CategoryCode as MerchantCategoryCode } from "./CategoryCode"
 import { Creatable as MerchantCreatable } from "./Creatable"
 import { Key as MerchantKey } from "./Key"
 
-export interface Merchant extends Base {
+export interface Merchant extends MerchantCreatable {
 	id: authly.Identifier
-	user: string[]
 }
 
 // tslint:disable: no-shadowed-variable
 // tslint:disable-next-line:no-namespace
 export namespace Merchant {
 	export function is(value: any | Merchant): value is Merchant {
-		return Base.is(value) &&
-			(value.id == undefined && authly.Identifier.is(value.id)) &&
-			Array.isArray(value.user) && value.user.every((u: any) => typeof(u) == "string")
+		return Creatable.is(value) &&
+			((value as any).id == undefined && authly.Identifier.is((value as any).id))
 	}
 	export type Creatable = MerchantCreatable
 	export namespace Creatable {
