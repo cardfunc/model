@@ -28,7 +28,7 @@ export namespace Creatable {
 	export function is(value: any | Creatable): value is Creatable {
 		return typeof(value) == "object" &&
 			typeof(value.name) == "string" &&
-			(value.descriptor == undefined && typeof(value.descriptor) == "string") &&
+			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
 			Aquirer.Settings.is(value.acquirer) &&
 			CategoryCode.is(value.mcc) &&

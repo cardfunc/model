@@ -12,7 +12,7 @@ export interface Merchant extends MerchantCreatable {
 export namespace Merchant {
 	export function is(value: any | Merchant): value is Merchant {
 		return Creatable.is(value) &&
-			((value as any).id == undefined && authly.Identifier.is((value as any).id))
+			authly.Identifier.is((value as any).id)
 	}
 	export type Creatable = MerchantCreatable
 	export namespace Creatable {
