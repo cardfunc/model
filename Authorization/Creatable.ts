@@ -4,7 +4,7 @@ import { Card } from "../Card"
 
 export interface Creatable {
 	number?: string
-	description?: string
+	descriptor?: string
 	ip?: string
 	amount?: number
 	currency?: isoly.Currency
@@ -16,7 +16,7 @@ export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return typeof(value) == "object" &&
 			(value.number == undefined || typeof(value.number) == "string") &&
-			(value.description == undefined || typeof(value.description) == "string") &&
+			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
 			(value.ip == undefined || typeof(value.ip) == "string") && (
 				typeof(value.amount) == "number" &&
 				isoly.Currency.is(value.currency) &&
