@@ -1,11 +1,9 @@
+import { Authorization } from "./Authorization"
 import { Card } from "./Card"
-import { Method } from "./Method"
-import { Payment } from "./Payment"
-import { Status } from "./Status"
+import { Redirect } from "./Redirect"
 
 export {
+	Authorization,
 	Card,
-	Method,
-	Payment,
-	Status,
+	Redirect,
 }
