@@ -1,4 +1,4 @@
-import * as model from ".."
+import * as model from "../"
 
 describe("Authorization.Creatable", () => {
 	it("is", async () => {

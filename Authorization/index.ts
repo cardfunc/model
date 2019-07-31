@@ -6,7 +6,7 @@ import { Creatable as AuthorizationCreatable } from "./Creatable"
 export interface Authorization {
 	id: authly.Identifier
 	number?: string
-	description?: string
+	descriptor?: string
 	ip?: string
 	created: isoly.DateTime
 	amount?: number
@@ -19,7 +19,7 @@ export namespace Authorization {
 		return typeof(value) == "object" &&
 			authly.Identifier.is(value.id) &&
 			(value.number == undefined || typeof(value.number) == "string") &&
-			(value.description == undefined || typeof(value.description) == "string") &&
+			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
 			(value.ip == undefined || typeof(value.ip) == "string") &&
 			isoly.DateTime.is(value.created) &&
 			(
