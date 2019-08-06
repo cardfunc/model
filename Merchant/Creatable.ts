@@ -33,16 +33,16 @@ export namespace Creatable {
 			Aquirer.Settings.is(value.acquirer) &&
 			CategoryCode.is(value.mcc) &&
 			typeof(value.bin) == "object" &&
-			(value.amex == undefined || typeof(value.amex) == "string") &&
-			(value.dankort == undefined || typeof(value.dankort) == "string") &&
-			(value.diners == undefined || typeof(value.diners) == "string") &&
-			(value.discover == undefined || typeof(value.discover) == "string") &&
-			(value.electron == undefined || typeof(value.electron) == "string") &&
-			(value.interpayment == undefined || typeof(value.interpayment) == "string") &&
-			(value.jcb == undefined || typeof(value.jcb) == "string") &&
-			(value.maestro == undefined || typeof(value.maestro) == "string") &&
-			(value.mastercard == undefined || typeof(value.mastercard) == "string") &&
-			(value.unionpay == undefined || typeof(value.unionpay) == "string") &&
-			(value.visa == undefined || typeof(value.visa) == "string")
+			(value.bin.amex == undefined || typeof(value.bin.amex) == "string") &&
+			(value.bin.dankort == undefined || typeof(value.bin.dankort) == "string") &&
+			(value.bin.diners == undefined || typeof(value.bin.diners) == "string") &&
+			(value.bin.discover == undefined || typeof(value.bin.discover) == "string") &&
+			(value.bin.electron == undefined || typeof(value.bin.electron) == "string") &&
+			(value.bin.interpayment == undefined || typeof(value.bin.interpayment) == "string") &&
+			(value.bin.jcb == undefined || typeof(value.bin.jcb) == "string") &&
+			(value.bin.maestro == undefined || typeof(value.bin.maestro) == "string") &&
+			(value.bin.mastercard == undefined || typeof(value.bin.mastercard) == "string") &&
+			(value.bin.unionpay == undefined || typeof(value.bin.unionpay) == "string") &&
+			(value.bin.visa == undefined || typeof(value.bin.visa) == "string")
 	}
 }
