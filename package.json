@@ -1,6 +1,6 @@
 {
  "name": "@cardfunc/model",
- "version": "0.0.16",
+ "version": "0.0.17",
  "description": "Javascript library containing the model for the CardFunc REST API.",
  "author": "CardFunc",
  "license": "MIT",
