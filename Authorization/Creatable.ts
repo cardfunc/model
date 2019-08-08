@@ -28,4 +28,21 @@ export namespace Creatable {
 				value.account == "create" && value.amount == undefined && value.currency == undefined && Card.Creatable.is(value.card)
 			)
 	}
+	export type Safe = Omit<Creatable, "card">
+	export namespace Safe {
+		// tslint:disable-next-line: no-shadowed-variable
+		export function is(value: Safe | any): value is Safe {
+			return typeof(value) == "object" &&
+				(value.number == undefined || typeof(value.number) == "string") &&
+				(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
+				(value.ip == undefined || typeof(value.ip) == "string") && (
+					typeof(value.amount) == "number" &&
+					isoly.Currency.is(value.currency) &&
+					(
+						value.account == "create" || value.account == undefined || authly.Identifier.is(value.account)
+					) ||
+					value.account == "create" && value.amount == undefined && value.currency == undefined
+				)
+		}
+	}
 }
