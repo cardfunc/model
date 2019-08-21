@@ -1,12 +1,13 @@
 import * as isoly from "isoly"
-import * as Aquirer from "../Acquirer"
+import * as gracely from "gracely"
+import * as Acquirer from "../Acquirer"
 import { CategoryCode } from "./CategoryCode"
 
 export interface Creatable {
 	name: string
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
-	acquirer: Aquirer.Settings
+	acquirer: Acquirer.Settings
 	mcc: CategoryCode
 	bin: {
 		amex?: string,
@@ -30,19 +31,52 @@ export namespace Creatable {
 			typeof(value.name) == "string" &&
 			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
-			Aquirer.Settings.is(value.acquirer) &&
+			Acquirer.Settings.is(value.acquirer) &&
 			CategoryCode.is(value.mcc) &&
-			typeof(value.bin) == "object" &&
-			(value.bin.amex == undefined || typeof(value.bin.amex) == "string") &&
-			(value.bin.dankort == undefined || typeof(value.bin.dankort) == "string") &&
-			(value.bin.diners == undefined || typeof(value.bin.diners) == "string") &&
-			(value.bin.discover == undefined || typeof(value.bin.discover) == "string") &&
-			(value.bin.electron == undefined || typeof(value.bin.electron) == "string") &&
-			(value.bin.interpayment == undefined || typeof(value.bin.interpayment) == "string") &&
-			(value.bin.jcb == undefined || typeof(value.bin.jcb) == "string") &&
-			(value.bin.maestro == undefined || typeof(value.bin.maestro) == "string") &&
-			(value.bin.mastercard == undefined || typeof(value.bin.mastercard) == "string") &&
-			(value.bin.unionpay == undefined || typeof(value.bin.unionpay) == "string") &&
-			(value.bin.visa == undefined || typeof(value.bin.visa) == "string")
+			binIs(value.bin)
+	}
+	function binIs(bin: any): boolean {
+		return typeof(bin) == "object" &&
+		(bin.amex == undefined || typeof(bin.amex) == "string") &&
+		(bin.dankort == undefined || typeof(bin.dankort) == "string") &&
+		(bin.diners == undefined || typeof(bin.diners) == "string") &&
+		(bin.discover == undefined || typeof(bin.discover) == "string") &&
+		(bin.electron == undefined || typeof(bin.electron) == "string") &&
+		(bin.interpayment == undefined || typeof(bin.interpayment) == "string") &&
+		(bin.jcb == undefined || typeof(bin.jcb) == "string") &&
+		(bin.maestro == undefined || typeof(bin.maestro) == "string") &&
+		(bin.mastercard == undefined || typeof(bin.mastercard) == "string") &&
+		(bin.unionpay == undefined || typeof(bin.unionpay) == "string") &&
+		(bin.visa == undefined || typeof(bin.visa) == "string")
+	}
+	export function flaw(value: any | Creatable): gracely.Flaw {
+		return {
+			type: "model.Merchant.Creatable",
+			flaws: typeof(value) != "object" ? undefined :
+				[
+					typeof(value.name) == "string" || { property: "name", type: "" },
+					(value.descriptor == undefined || typeof(value.descriptor) == "string") || { property: "descriptor", type: "" },
+					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "" },
+					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "" },
+					CategoryCode.is(value.mcc) || { property: "mcc", type: "" },
+					binIs(value.bin) || {
+						type: "{ amex?: string, dankort?: string, diners?: string, discover?: string, electron?: string, interpayment?: string, jcb?: string, maestro?: string, mastercard?: string, unionpay?: string, visa?: string }",
+						flaws: typeof(value.bin) != "object" ? undefined :
+							[
+								typeof(value.bin.amex) == "string" || value.bin.amex == undefined || { property: "amex", type: "string | undefined" },
+								typeof(value.bin.dankort) == "string" || value.bin.dankort == undefined || { property: "dankort", type: "string | undefined" },
+								typeof(value.bin.diners) == "string" || value.bin.diners == undefined || { property: "diners", type: "string | undefined" },
+								typeof(value.bin.discover) == "string" || value.bin.discover == undefined || { property: "discover", type: "string | undefined" },
+								typeof(value.bin.electron) == "string" || value.bin.electron == undefined || { property: "electron", type: "string | undefined" },
+								typeof(value.bin.interpayment) == "string" || value.bin.interpayment == undefined || { property: "interpayment", type: "string | undefined" },
+								typeof(value.bin.jcb) == "string" || value.bin.jcb == undefined || { property: "jcb", type: "string | undefined" },
+								typeof(value.bin.maestro) == "string" || value.bin.maestro == undefined || { property: "maestro", type: "string | undefined" },
+								typeof(value.bin.mastercard) == "string" || value.bin.mastercard == undefined || { property: "mastercard", type: "string | undefined" },
+								typeof(value.bin.unionpay) == "string" || value.bin.unionpay == undefined || { property: "unionpay", type: "string | undefined" },
+								typeof(value.bin.visa) == "string" || value.bin.visa == undefined || { property: "visa", type: "string | undefined" },
+							].filter(gracely.Flaw.is) as gracely.Flaw[],
+						},
+				].filter(gracely.Flaw.is) as gracely.Flaw[],
+		}
 	}
 }
