@@ -8,8 +8,8 @@ export namespace Pan {
 			value.length >= 12 && value.length <= 19 &&
 			Array.from(value).every(c => c >= "0" && c <= "9")
 	}
-	export function scheme(pan: Pan): Scheme | undefined {
-		let result: Scheme | undefined
+	export function scheme(pan: Pan): Scheme {
+		let result: Scheme = "unknown"
 		for (const key in schemes)
 			if (schemes.hasOwnProperty(key) && schemes[key].identification.test(pan) && Scheme.is(key)) {
 				result = key
@@ -20,6 +20,9 @@ export namespace Pan {
 	export function valid(pan: Pan): boolean {
 		const s = scheme(pan)
 		return s != undefined && schemes[s].verification.test(pan)
+	}
+	export function last4(pan: Pan): string {
+		return pan.substring(pan.length - 4)
 	}
 }
 

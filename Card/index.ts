@@ -1,4 +1,3 @@
-import * as isoly from "isoly"
 import * as authly from "authly"
 import { Creatable as CardCreatable } from "./Creatable"
 import { Pan as CardPan } from "./Pan"
@@ -10,8 +9,8 @@ export interface Card {
 	id: authly.Identifier
 	scheme: CardScheme
 	last4: string
-	country: isoly.CountryCode.Alpha2
-	type: CardType
+	expires: CardExpires
+	type?: CardType
 }
 
 // tslint:disable: no-shadowed-variable
@@ -21,7 +20,15 @@ export namespace Card {
 			authly.Identifier.is(value.id) &&
 			CardScheme.is(value.scheme) &&
 			typeof(value.last4) == "string" && value.last4.length == 4 &&
-			CardType.is(value.type)
+			CardExpires.is(value.expires) &&
+			(value.type == undefined || CardType.is(value.type))
+	}
+	export function from(value: CardCreatable): Omit<Card, "id"> {
+		return {
+			scheme: CardPan.scheme(value.pan),
+			last4: CardPan.last4(value.pan),
+			expires: value.expires,
+		}
 	}
 	export type Creatable = CardCreatable
 	export namespace Creatable {
@@ -30,6 +37,9 @@ export namespace Card {
 	export type Pan = CardPan
 	export namespace Pan {
 		export const is = CardPan.is
+		export const scheme = CardPan.scheme
+		export const valid = CardPan.valid
+		export const last4 = CardPan.last4
 	}
 	export type Scheme = CardScheme
 	export namespace Scheme {
