@@ -1,4 +1,4 @@
-import * as model from "../../"
+import * as model from "../../index"
 
 describe("Expires.Month", () => {
 	it("is 12", async () => {

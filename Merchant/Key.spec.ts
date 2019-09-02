@@ -1,4 +1,4 @@
-import * as model from "../dist"
+import * as model from "../index"
 
 describe("Merchant.Key", () => {
 	const key = {

@@ -1,4 +1,4 @@
-import * as model from ".."
+import * as model from "../../index"
 
 describe("Authorization.Creatable.Safe", () => {
 	it("is", async () => {
