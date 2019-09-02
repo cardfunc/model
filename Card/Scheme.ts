@@ -1,4 +1,5 @@
 export type Scheme =
+	"unknown" |
 	"amex" |
 	"dankort" |
 	"diners" |
@@ -14,6 +15,7 @@ export type Scheme =
 export namespace Scheme {
 	export function is(value: Scheme | any): value is Scheme {
 		return typeof(value) == "string" && (
+			value == "unknown" ||
 			value == "amex" ||
 			value == "dankort" ||
 			value == "diners" ||
