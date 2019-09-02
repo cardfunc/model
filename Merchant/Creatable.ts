@@ -54,11 +54,11 @@ export namespace Creatable {
 			type: "model.Merchant.Creatable",
 			flaws: typeof(value) != "object" ? undefined :
 				[
-					typeof(value.name) == "string" || { property: "name", type: "" },
-					(value.descriptor == undefined || typeof(value.descriptor) == "string") || { property: "descriptor", type: "" },
-					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "" },
-					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "" },
-					CategoryCode.is(value.mcc) || { property: "mcc", type: "" },
+					typeof(value.name) == "string" || { property: "name", type: "string" },
+					(value.descriptor == undefined || typeof(value.descriptor) == "string") || { property: "descriptor", type: "string" },
+					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
+					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Settings" },
+					CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
 					binIs(value.bin) || {
 						type: "{ amex?: string, dankort?: string, diners?: string, discover?: string, electron?: string, interpayment?: string, jcb?: string, maestro?: string, mastercard?: string, unionpay?: string, visa?: string }",
 						flaws: typeof(value.bin) != "object" ? undefined :

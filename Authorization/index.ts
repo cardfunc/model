@@ -11,7 +11,7 @@ export interface Authorization {
 	created: isoly.DateTime
 	amount?: number
 	currency?: isoly.Currency
-	card: Card
+	card?: Card
 }
 
 export namespace Authorization {
@@ -26,7 +26,7 @@ export namespace Authorization {
 				typeof(value.amount) == "number" && isoly.Currency.is(value.currency) ||
 				value.amount == undefined && value.currency == undefined
 			) &&
-			Card.is(value.card)
+			(value.card == undefined || Card.is(value.card))
 	}
 	export type Creatable = AuthorizationCreatable
 	export namespace Creatable {

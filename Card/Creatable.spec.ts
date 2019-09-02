@@ -1,4 +1,4 @@
-import * as model from "../"
+import * as model from "../index"
 
 describe("Card.Creatable", () => {
 	it("is 12/20", async () => {
