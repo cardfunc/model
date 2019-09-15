@@ -1,6 +1,5 @@
 import * as isoly from "isoly"
 import * as authly from "authly"
-import { Card } from "../Card"
 import { Creatable as CaptureCreatable } from "./Creatable"
 
 export interface Capture extends CaptureCreatable {
@@ -25,4 +24,4 @@ export namespace Capture {
 		// tslint:disable-next-line: no-shadowed-variable
 		export const is = CaptureCreatable.is
 	}
-}
+
