@@ -5,26 +5,20 @@ import { Creatable as CaptureCreatable } from "./Creatable"
 
 export interface Capture extends CaptureCreatable {
 	id: authly.Identifier
+	reference: string
 	descriptor?: string
 	created: isoly.DateTime
-	amount?: number
-	currency?: isoly.Currency
-	card: Card
+	amount: number
 }
 
 export namespace Capture {
 	export function is(value: Capture | any): value is Capture {
 		return typeof(value) == "object" &&
 			authly.Identifier.is(value.id) &&
-			(value.number == undefined || typeof(value.number) == "string") &&
+			typeof(value.reference) == "string" &&
 			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
-			(value.ip == undefined || typeof(value.ip) == "string") &&
 			isoly.DateTime.is(value.created) &&
-			(
-				typeof(value.amount) == "number" && isoly.Currency.is(value.currency) ||
-				value.amount == undefined && value.currency == undefined
-			) &&
-			Card.is(value.card)
+			typeof(value.amount) == "number"
 	}
 	export type Creatable = CaptureCreatable
 	export namespace Creatable {

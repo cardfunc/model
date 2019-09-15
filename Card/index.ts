@@ -7,6 +7,7 @@ import { Type as CardType } from "./Type"
 
 export interface Card {
 	id: authly.Identifier
+	reference: string
 	scheme: CardScheme
 	last4: string
 	expires: CardExpires
@@ -18,12 +19,13 @@ export namespace Card {
 	export function is(value: Card | any): value is Card {
 		return typeof(value) == "object" &&
 			authly.Identifier.is(value.id) &&
+			typeof(value.reference) == "string" &&
 			CardScheme.is(value.scheme) &&
 			typeof(value.last4) == "string" && value.last4.length == 4 &&
 			CardExpires.is(value.expires) &&
 			(value.type == undefined || CardType.is(value.type))
 	}
-	export function from(value: CardCreatable): Omit<Card, "id"> {
+	export function from(value: CardCreatable): Omit<Card, "id" | "reference"> {
 		return {
 			scheme: CardPan.scheme(value.pan),
 			last4: CardPan.last4(value.pan),
