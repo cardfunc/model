@@ -4,6 +4,7 @@ describe("Card", () => {
 	it("is", async () => {
 		const card: model.Card = {
 			id: "1234abcd",
+			reference: "abc0123",
 			scheme: "visa",
 			last4: "9000",
 			expires: [1, 21],
