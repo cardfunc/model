@@ -12,22 +12,7 @@ export interface Refund {
 export namespace Refund {
 
 	export function is(value: Refund | any): value is Refund {
-
-		if ("amount" in value && typeof(value.amount) != "number") {
-			return false
-		}
-
-		return true
-	}
-
-	export function from(value: RefundCreatable): Omit<Refund, "id"> {
-
-		const refund = {
-			amount: value.amount,
-			textOnStatment: value.descriptor,
-		}
-
-		return refund
+		return typeof value.amount === "undefined" || typeof value.amount === "number"
 	}
 
 	export type Creatable = RefundCreatable
