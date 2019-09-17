@@ -5,11 +5,8 @@ export interface Creatable {
 
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
-
-		if ("descriptor" in value && typeof(value.descriptor) != "string") {
-			return false
-		}
-
-		return true
+		let result = true
+		if ("descriptor" in value && typeof(value.descriptor) != "string") result = false
+		return result
 	}
 }
