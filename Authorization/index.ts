@@ -1,5 +1,6 @@
 import * as isoly from "isoly"
 import * as authly from "authly"
+import { Cancel } from "../Cancel"
 import { Capture } from "../Capture"
 import { Card } from "../Card"
 import { Creatable as AuthorizationCreatable } from "./Creatable"
@@ -15,6 +16,7 @@ export interface Authorization {
 	currency?: isoly.Currency
 	card: Card
 	capture: Capture[],
+	cancel?: Cancel,
 }
 
 export namespace Authorization {
