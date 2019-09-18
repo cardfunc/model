@@ -4,17 +4,15 @@ import { Creatable as RefundCreatable } from "./Creatable"
 
 export interface Refund {
 	id: authly.Identifier,
-	amount?: number,
+	amount: number,
 	descriptor?: string,
-	created?: isoly.DateTime,
+	created: isoly.DateTime,
 }
 
 export namespace Refund {
-
 	export function is(value: Refund | any): value is Refund {
-		return typeof value.amount === "undefined" || typeof value.amount === "number"
+		return value.amount == undefined || typeof value.amount == "number"
 	}
-
 	export type Creatable = RefundCreatable
 	export namespace Creatable {
 		// tslint:disable-next-line: no-shadowed-variable

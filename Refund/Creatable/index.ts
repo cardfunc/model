@@ -5,8 +5,8 @@ export interface Creatable {
 
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
-		return (typeof value.amount     === "undefined" || typeof value.amount     == "number") &&
-		       (typeof value.descriptor === "undefined" || typeof value.descriptor == "string")
-		
+		return (value.amount == undefined || typeof value.amount == "number") &&
+						(value.descriptor == undefined || typeof value.descriptor == "string") &&
+						Object.keys(value).every(key => key == "amount" || key == "descriptor")
 	}
 }
