@@ -11,8 +11,13 @@ export interface Refund {
 
 export namespace Refund {
 	export function is(value: Refund | any): value is Refund {
-		return value.amount == undefined || typeof value.amount == "number"
+		return typeof value == "object" &&
+				authly.Identifier.is(value.id) &&
+				typeof value.amount == "number" &&
+				value.descriptor == undefined || typeof value.desciptor == "string" &&
+				isoly.DateTime.is(value.created)
 	}
+
 	export type Creatable = RefundCreatable
 	export namespace Creatable {
 		// tslint:disable-next-line: no-shadowed-variable
