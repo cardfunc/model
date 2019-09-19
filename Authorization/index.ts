@@ -16,6 +16,7 @@ export interface Authorization {
 	currency?: isoly.Currency
 	card: Card
 	capture: Capture[],
+	refund: Refund[],
 	cancel?: Cancel,
 }
 
