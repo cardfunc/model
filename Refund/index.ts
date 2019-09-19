@@ -4,6 +4,7 @@ import { Creatable as RefundCreatable } from "./Creatable"
 
 export interface Refund {
 	id: authly.Identifier,
+	reference: string,
 	amount: number,
 	descriptor?: string,
 	created: isoly.DateTime,
