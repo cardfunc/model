@@ -4,6 +4,7 @@ import { Cancel } from "../Cancel"
 import { Capture } from "../Capture"
 import { Card } from "../Card"
 import { Creatable as AuthorizationCreatable } from "./Creatable"
+import { Refund } from "../Refund"
 
 export interface Authorization {
 	id: authly.Identifier
@@ -16,7 +17,7 @@ export interface Authorization {
 	currency?: isoly.Currency
 	card: Card
 	capture: Capture[],
-	refund: Refund[],
+	refund?: Refund[],
 	cancel?: Cancel,
 }
 
