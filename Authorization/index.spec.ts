@@ -18,6 +18,7 @@ describe("Authorization", () => {
 				type: "credit",
 			},
 			capture: [],
+			refund: [],
 		}
 		expect(model.Authorization.is(authorization)).toBeTruthy()
 	})
