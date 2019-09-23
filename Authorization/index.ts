@@ -38,7 +38,7 @@ export namespace Authorization {
 			Array.isArray(value.capture) && value.capture.every(Capture.is)
 	}
 	export function verify(token: authly.Token): Authorization | undefined {
-		const result = new authly.Verifier("card").verify(token)
+		const result = authly.Verifier.create("card", authly.Algorithm.none())!.verify(token)
 		return is(result) ? result : undefined
 	}
 	export type Creatable = AuthorizationCreatable
