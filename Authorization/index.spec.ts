@@ -13,6 +13,7 @@ describe("Authorization", () => {
 				id: "1234abcd",
 				reference: "abc-0123-def",
 				scheme: "visa",
+				iin: "12345678",
 				last4: "9000",
 				expires: [1, 20],
 				type: "credit",
