@@ -9,6 +9,7 @@ export interface Card {
 	id: authly.Identifier
 	reference?: string
 	scheme: CardScheme
+	iin: string
 	last4: string
 	expires: CardExpires
 	type?: CardType
@@ -21,6 +22,7 @@ export namespace Card {
 			authly.Identifier.is(value.id) &&
 			(value.reference == undefined || typeof(value.reference) == "string") &&
 			CardScheme.is(value.scheme) &&
+			typeof(value.iin) == "string" && value.iin.length == 8 &&
 			typeof(value.last4) == "string" && value.last4.length == 4 &&
 			CardExpires.is(value.expires) &&
 			(value.type == undefined || CardType.is(value.type))
@@ -28,6 +30,7 @@ export namespace Card {
 	export function from(value: CardCreatable): Omit<Card, "id" | "reference"> {
 		return {
 			scheme: CardPan.scheme(value.pan),
+			iin: CardPan.iin(value.pan),
 			last4: CardPan.last4(value.pan),
 			expires: value.expires,
 		}
@@ -41,6 +44,7 @@ export namespace Card {
 		export const is = CardPan.is
 		export const scheme = CardPan.scheme
 		export const valid = CardPan.valid
+		export const iin = CardPan.iin
 		export const last4 = CardPan.last4
 	}
 	export type Scheme = CardScheme

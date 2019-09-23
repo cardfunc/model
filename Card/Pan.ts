@@ -21,6 +21,9 @@ export namespace Pan {
 		const s = scheme(pan)
 		return s != undefined && schemes[s].verification.test(pan)
 	}
+	export function iin(pan: Pan): string {
+		return pan.substring(0, 8)
+	}
 	export function last4(pan: Pan): string {
 		return pan.substring(pan.length - 4)
 	}

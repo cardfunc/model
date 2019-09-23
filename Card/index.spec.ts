@@ -6,6 +6,7 @@ describe("Card", () => {
 			id: "1234abcd",
 			reference: "abc0123",
 			scheme: "visa",
+			iin: "51051051",
 			last4: "9000",
 			expires: [1, 21],
 			type: "credit",
@@ -19,8 +20,9 @@ describe("Card", () => {
 			csc: "123",
 		}
 		expect(model.Card.from(card)).toEqual({
-			last4: "5100",
 			scheme: "mastercard",
+			iin: "51051051",
+			last4: "5100",
 			expires: [2, 22],
 		})
 	})
