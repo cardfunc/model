@@ -22,7 +22,7 @@ export namespace Card {
 			authly.Identifier.is(value.id) &&
 			(value.reference == undefined || typeof(value.reference) == "string") &&
 			CardScheme.is(value.scheme) &&
-			typeof(value.iin) == "string" && value.iin.length == 8 &&
+			typeof(value.iin) == "string" && (value.iin.length == 6 || value.iin.length == 8) &&
 			typeof(value.last4) == "string" && value.last4.length == 4 &&
 			CardExpires.is(value.expires) &&
 			(value.type == undefined || CardType.is(value.type))

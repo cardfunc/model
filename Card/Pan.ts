@@ -22,7 +22,7 @@ export namespace Pan {
 		return s != undefined && schemes[s].verification.test(pan)
 	}
 	export function iin(pan: Pan): string {
-		return pan.substring(0, 8)
+		return pan.substring(0, 6)
 	}
 	export function last4(pan: Pan): string {
 		return pan.substring(pan.length - 4)
