@@ -45,7 +45,7 @@ describe("Authorization", () => {
 				expires: [
 					1,
 					20,
-				]
+				],
 			},
 			capture: [],
 			refund: [],
