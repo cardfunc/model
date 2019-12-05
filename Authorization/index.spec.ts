@@ -24,28 +24,27 @@ describe("Authorization", () => {
 		expect(model.Authorization.is(authorization)).toBeTruthy()
 	})
 	it("verify", async () => {
-		const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJkIiwiaWF0IjoxNTY5MjY1MzQ3MDk4LCJpZCI6InhMRmp6RWYzX3M0YyIsIm51bWJlciI6InRlc3QwMDEiLCJyZWZlcmVuY2UiOiJjY2ExODEyMS05YjZjLTRkYjQtODJhZS0yZjk5ZjkxNGM0YWQiLCJkZXNjcmlwdG9yIjoidGVzdCB0cmFuc2FjdGlvbiIsImlwIjoiODIuMjA5LjE0MC4xOTUiLCJjcmVhdGVkIjoiMjAxOS0wOS0yM1QxOTowMjoyNiswMDowMCIsImFtb3VudCI6MTMzNy40MiwiY3VycmVuY3kiOiJTRUsiLCJjYXJkIjp7ImlkIjoiT2l0cGl5ZE8iLCJzY2hlbWUiOiJ2aXNhIiwiaWluIjoiNDExMTExMTEiLCJsYXN0NCI6IjExMTEiLCJleHBpcmVzIjpbMSwyMF19LCJjYXB0dXJlIjpbXSwicmVmdW5kIjpbXX0.Zw-j7VnqnXehpfs7aLmhdrVBzQ2rNsRAvL7o_0Y-JmFPX-6H3MTjd_3UZBLxL9GBoTcOMIOa0OrtAFf0-kwzBzTmTBOpSs9ISjI6PupemmDz5ye9wqtNgu6XLRBSs2f-XaJ9ZhMOFPgmiko-_jhAoZ0ZM4rll9Secib5TwNfmaaVGySbSPUTHNkSc9NtZivsVQJr45SQ5Y_bhOKcjueSrj8Czp3Al7Z6jGVWwRfwgZmv_YkSumSO8yiORWzsrVBP_SyrvOwovxL0xYu9eGDAOf3xmimqCkZe9fI-dtCTvnNc_SSLaZSA4ev1BR04jnP0ruSBLqebHydDl6BBltx1xQ"
+		const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJkIiwiaWF0IjoxNTcyODgwMzkxOTI4LCJpZCI6ImxqVnNEaVlCVHhBZyIsIm51bWJlciI6ImF4YjAxIiwicmVmZXJlbmNlIjoiMmJlNTNkN2ItYmViYi00YmE0LWFkODMtOTU2NGQ1NGZmMTVhIiwiZGVzY3JpcHRvciI6IkEgdGVzdCB0cmFuc2FjdGlvbiIsImNyZWF0ZWQiOiIyMDE5LTExLTA0VDE1OjEzOjExKzAwOjAwIiwiYW1vdW50IjoxMzM3LjQyLCJjdXJyZW5jeSI6IlNFSyIsImNhcmQiOnsiaWQiOiJmWjIxSnRkYiIsInNjaGVtZSI6InZpc2EiLCJpaW4iOiI0MTAwMDAiLCJsYXN0NCI6IjAwMDAiLCJleHBpcmVzIjpbMSwyMF19LCJjYXB0dXJlIjpbXSwicmVmdW5kIjpbXX0.vlJpdaQi4hbnIPF3GkOY21YtlH4lKj9TobqdWL1VkC3Y7RoSju3GkzeP7U65J3Tlfc8SY5Ru435h8NWB2nrWJuHoxE4w_Bh-Z_4JYtHKxFFW7Z1GJ1ZX2o0NcTXfyvkfMy6yGimPtc9-0AiMykBzOZiQzZtDTu0zgJO0fpDNO-L-Wj_fY6MNDJ_TEDXKPQK_EURaUM0rurekEvQFDHyk1R4vFvxO9or3y5KUjzq7F8E9WY70ndEZXVyQ8O2RU7CIrzEWYp_J3MHIQTN65SQ6wNdoTN9a3L7M0auB_7P1kjQLRbwi8IHoKgMCocj3_zMQTl4h7ZDNlJs1gdmb607h3w"
 		const authorization = await model.Authorization.verify(token)
 		expect(authorization).toEqual({
 			iss: "card",
-			iat: 1569265347098,
-			id: "xLFjzEf3_s4c",
-			number: "test001",
-			reference: "cca18121-9b6c-4db4-82ae-2f99f914c4ad",
-			descriptor: "test transaction",
-			ip: "82.209.140.195",
-			created: "2019-09-23T19:02:26+00:00",
+			iat: 1572880391928,
+			id: "ljVsDiYBTxAg",
+			number: "axb01",
+			reference: "2be53d7b-bebb-4ba4-ad83-9564d54ff15a",
+			descriptor: "A test transaction",
+			created: "2019-11-04T15:13:11+00:00",
 			amount: 1337.42,
 			currency: "SEK",
 			card: {
-				id: "OitpiydO",
+				id: "fZ21Jtdb",
 				scheme: "visa",
-				iin: "41111111",
-				last4: "1111",
+				iin: "410000",
+				last4: "0000",
 				expires: [
 					1,
 					20,
-				]
+				],
 			},
 			capture: [],
 			refund: [],
