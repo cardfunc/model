@@ -25,6 +25,7 @@ export interface Creatable {
 	emv3d?: {
 		protocol: "ch3d1",
 		url: string,
+		key: string,
 	}
 }
 
@@ -41,7 +42,7 @@ export namespace Creatable {
 			(value.emv3d == undefined || emv3dIs(value.emv3d))
 	}
 	function emv3dIs(value: any): value is { protocol: "ch3d1", url: string } {
-		return typeof value.emv3d == "object" && value.emv3d.protocol == "ch3d1" && typeof value.emv3d.url == "string"
+		return typeof value.emv3d == "object" && value.emv3d.protocol == "ch3d1" && typeof value.emv3d.url == "string" && typeof value.emv3d.key == "string"
 	}
 	function binIs(bin: any): boolean {
 		return typeof(bin) == "object" &&
@@ -85,11 +86,12 @@ export namespace Creatable {
 							].filter(gracely.Flaw.is) as gracely.Flaw[],
 						},
 					(value.emv3d == undefined || emv3dIs(value.emv3d)) || {
-						type: "{ protocol: \"ch3d1\", url: string }",
+						type: "{ protocol: \"ch3d1\", url: string, key: string }",
 						flaws: typeof value.emv3d != "object" ? undefined :
 							[
 								value.emv3d.protocol == "ch3d1" || { property: "protocol", type: "ch3d1" },
 								typeof value.emv3d.url == "string" || { property: "url", type: "string" },
+								typeof value.emv3d.key == "string" || { property: "key", type: "string" },
 							],
 					},
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
