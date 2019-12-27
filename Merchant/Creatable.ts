@@ -41,13 +41,13 @@ export namespace Creatable {
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
 			Acquirer.Settings.is(value.acquirer) &&
-			CategoryCode.is(value.mcc) &&
 			typeof value.mid == "string" &&
+			CategoryCode.is(value.mcc) &&
 			binIs(value.bin) &&
 			(value.emv3d == undefined || emv3dIs(value.emv3d))
 	}
 	function emv3dIs(value: any): value is { protocol: "ch3d1", url: string } {
-		return typeof value.emv3d == "object" && value.emv3d.protocol == "ch3d1" && typeof value.emv3d.url == "string" && typeof value.emv3d.key == "string"
+		return typeof value == "object" && value.protocol == "ch3d1" && typeof value.url == "string" && typeof value.key == "string"
 	}
 	function binIs(bin: any): boolean {
 		return typeof(bin) == "object" &&
@@ -73,8 +73,8 @@ export namespace Creatable {
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },
 					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
 					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Settings" },
-					CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
 					typeof value.mid == "string" || { property: "mid", type: "string" },
+					CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
 					binIs(value.bin) || {
 						type: "{ amex?: string, dankort?: string, diners?: string, discover?: string, electron?: string, interpayment?: string, jcb?: string, maestro?: string, mastercard?: string, unionpay?: string, visa?: string }",
 						flaws: typeof value.bin != "object" ? undefined :
