@@ -51,20 +51,20 @@
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "authly": "0.0.33",
-  "gracely": "0.0.19",
+  "authly": "0.0.34",
+  "gracely": "0.0.22",
   "isoly": "0.0.10"
  },
  "devDependencies": {
-  "@types/jest": "^24.0.18",
-  "@types/node": "^12.7.5",
+  "@types/jest": "^24.0.24",
+  "@types/node": "^12.12.21",
   "babel-core": "^6.26.3",
   "babel-jest": "^24.9.0",
   "jest": "^24",
-  "ts-jest": "^24.1.0",
-  "tslint": "^5.20.0",
-  "typescript": "^3.6.3",
-  "typescript-tslint-plugin": "^0.5.4",
+  "ts-jest": "^24.2.0",
+  "tslint": "^5.20.1",
+  "typescript": "^3.7.3",
+  "typescript-tslint-plugin": "^0.5.5",
   "watch": "^1.0.2"
  }
 }

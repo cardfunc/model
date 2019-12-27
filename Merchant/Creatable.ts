@@ -5,9 +5,11 @@ import { CategoryCode } from "./CategoryCode"
 
 export interface Creatable {
 	name: string
+	url: string
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
 	acquirer: Acquirer.Settings
+	mid: string,
 	mcc: CategoryCode
 	bin: {
 		amex?: string,
@@ -34,10 +36,12 @@ export namespace Creatable {
 	export function is(value: any | Creatable): value is Creatable {
 		return typeof value == "object" &&
 			typeof value.name == "string" &&
+			typeof value.url == "string" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
 			Acquirer.Settings.is(value.acquirer) &&
 			CategoryCode.is(value.mcc) &&
+			typeof value.mid == "string" &&
 			binIs(value.bin) &&
 			(value.emv3d == undefined || emv3dIs(value.emv3d))
 	}
@@ -64,10 +68,12 @@ export namespace Creatable {
 			flaws: typeof(value) != "object" ? undefined :
 				[
 					typeof(value.name) == "string" || { property: "name", type: "string" },
+					typeof(value.url) == "string" || { property: "url", type: "string" },
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },
 					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
 					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Settings" },
 					CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
+					typeof value.mid == "string" || { property: "mid", type: "string" },
 					binIs(value.bin) || {
 						type: "{ amex?: string, dankort?: string, diners?: string, discover?: string, electron?: string, interpayment?: string, jcb?: string, maestro?: string, mastercard?: string, unionpay?: string, visa?: string }",
 						flaws: typeof value.bin != "object" ? undefined :
