@@ -12,6 +12,7 @@ export interface Creatable {
 	mid: string,
 	mcc: CategoryCode
 	bin: {
+		[scheme: string]: string | undefined,
 		amex?: string,
 		dankort?: string,
 		diners?: string,
