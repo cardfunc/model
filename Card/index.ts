@@ -8,6 +8,7 @@ import { Type as CardType } from "./Type"
 export interface Card {
 	id: authly.Identifier
 	reference?: string
+	account?: authly.Identifier
 	scheme: CardScheme
 	iin: string
 	last4: string
@@ -21,6 +22,7 @@ export namespace Card {
 		return typeof(value) == "object" &&
 			authly.Identifier.is(value.id) &&
 			(value.reference == undefined || typeof(value.reference) == "string") &&
+			(value.account == undefined || typeof (value.account) == "string") &&
 			CardScheme.is(value.scheme) &&
 			typeof(value.iin) == "string" && value.iin.length == 6 &&
 			typeof(value.last4) == "string" && value.last4.length == 4 &&
