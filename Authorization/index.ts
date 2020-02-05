@@ -5,6 +5,7 @@ import { Capture } from "../Capture"
 import { Card } from "../Card"
 import { Creatable as AuthorizationCreatable } from "./Creatable"
 import { Refund } from "../Refund"
+import { verify as verifyToken } from "../verify"
 
 export interface Authorization {
 	id: authly.Identifier
@@ -38,8 +39,7 @@ export namespace Authorization {
 			Array.isArray(value.capture) && value.capture.every(Capture.is)
 	}
 	export async function verify(token: authly.Token): Promise<Authorization | undefined> {
-		const algorithm = authly.Algorithm.RS256("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzWkKmoMsdU6TRKeMYFlwwRxb7uuA3Xh1zsya9m9QLcF7FhSLxsaDF7hHWmbBLsKBCDT35hl8mIxOssQGcq5CvhntAmI7RgWExs/VgtyJK1uRxgUKS7wCuWxlB3akXY4f2UXcFn+wOqBdhh1yep726MvB/Jh4nDusXb5G4evVJLIrMKc8vvLqmEo9x8wuXz5s6qvIlHf6h7KLICNsX0ZCv6Tf3OYbZlfd0us+gQTvqhk+dj6P2UaUlQmsEAOerLvSKWDa1KNe0i58/aoDgC9FZGCmpg1mtPegQ09IAVgCaqQ6zqA1wPIWiOO89pWWne28tRCNYGvNY0eXUSG6qXv5LQIDAQAB")
-		const result = await authly.Verifier.create("card", algorithm)!.verify(token)
+		const result = await verifyToken(token)
 		return is(result) ? result : undefined
 	}
 	export type Creatable = AuthorizationCreatable

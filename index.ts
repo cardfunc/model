@@ -1,3 +1,4 @@
+import { Account } from "./Account"
 import * as Acquirer from "./Acquirer"
 import { Authorization } from "./Authorization"
 import { Capture } from "./Capture"
@@ -8,6 +9,7 @@ import { Redirect } from "./Redirect"
 import { Refund } from "./Refund"
 
 export {
+	Account,
 	Acquirer,
 	Authorization,
 	Capture,
