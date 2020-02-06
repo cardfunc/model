@@ -18,7 +18,7 @@ export namespace Creatable {
 				(
 					Card.Creatable.is(value.card) &&
 					(value.account == "create" || value.account == undefined) ||
-					authly.Identifier.is(value.account)
+					authly.Token.is(value.account)
 				) ||
 				value.account == "create" && value.amount == undefined && value.currency == undefined && Card.Creatable.is(value.card)
 			)
