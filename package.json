@@ -52,18 +52,18 @@
  },
  "dependencies": {
   "authly": "0.0.34",
-  "gracely": "0.0.22",
-  "isoly": "0.0.10"
+  "gracely": "0.0.24",
+  "isoly": "0.0.11"
  },
  "devDependencies": {
-  "@types/jest": "^24.0.24",
-  "@types/node": "^12.12.21",
+  "@types/jest": "^25.1.2",
+  "@types/node": "^13.7.0",
   "babel-core": "^6.26.3",
-  "babel-jest": "^24.9.0",
-  "jest": "^24",
-  "ts-jest": "^24.2.0",
-  "tslint": "^5.20.1",
-  "typescript": "^3.7.3",
+  "babel-jest": "^25.1.0",
+  "jest": "^25",
+  "ts-jest": "^25.2.0",
+  "tslint": "^6.0.0",
+  "typescript": "^3.7.5",
   "typescript-tslint-plugin": "^0.5.5",
   "watch": "^1.0.2"
  }
