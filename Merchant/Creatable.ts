@@ -9,9 +9,9 @@ export interface Creatable {
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
 	acquirer: Acquirer.Settings
-	mid: string,
-	mcc: CategoryCode
-	bin: {
+	mid?: string,
+	mcc?: CategoryCode
+	bin?: {
 		[scheme: string]: string | undefined,
 		amex?: string,
 		dankort?: string,
@@ -41,9 +41,9 @@ export namespace Creatable {
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
 			Acquirer.Settings.is(value.acquirer) &&
-			typeof value.mid == "string" &&
-			CategoryCode.is(value.mcc) &&
-			binIs(value.bin) &&
+			(value.mid == undefined || typeof value.mid == "string") &&
+			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
+			(value.bin == undefined || binIs(value.bin)) &&
 			(value.emv3d == undefined || emv3dIs(value.emv3d))
 	}
 	function emv3dIs(value: any): value is { protocol: "ch3d1", url: string } {
@@ -73,9 +73,9 @@ export namespace Creatable {
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },
 					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
 					Acquirer.Settings.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Settings" },
-					typeof value.mid == "string" || { property: "mid", type: "string" },
-					CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
-					binIs(value.bin) || {
+					value.mid == undefined || typeof value.mid == "string" || { property: "mid", type: "string" },
+					value.mcc == undefined || CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
+					value.bin == undefined || binIs(value.bin) || {
 						type: "{ amex?: string, dankort?: string, diners?: string, discover?: string, electron?: string, interpayment?: string, jcb?: string, maestro?: string, mastercard?: string, unionpay?: string, visa?: string }",
 						flaws: typeof value.bin != "object" ? undefined :
 							[

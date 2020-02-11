@@ -24,6 +24,7 @@ describe("Merchant.Creatable", () => {
 		},
 	}
 	it("is", () => expect(model.Merchant.Creatable.is(key)).toBeTruthy())
+	it("is simple", () => expect(model.Merchant.Creatable.is({ ...key, mid: undefined, mcc: undefined, bin: undefined })).toBeTruthy())
 	it("flaw", () => {
 		const k = key
 		delete k.url
