@@ -1,5 +1,5 @@
 import { Account } from "./Account"
-import * as Acquirer from "./Acquirer"
+import { Acquirer } from "./Acquirer"
 import { Authorization } from "./Authorization"
 import { Capture } from "./Capture"
 import { Cancel } from "./Cancel"
