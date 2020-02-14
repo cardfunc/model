@@ -11,9 +11,9 @@ export interface Cancel {
 export namespace Cancel {
 	export function is(value: Cancel | any): value is Cancel {
 		return typeof value == "object" &&
-		       authly.Identifier.is(value.id) &&
-		       (value.descriptor == undefined || typeof value.descriptor == "string") &&
-		       typeof value.reference == "string" &&
-		       isoly.DateTime.is(value.created)
+			authly.Identifier.is(value.id) &&
+			(value.descriptor == undefined || typeof value.descriptor == "string") &&
+			typeof value.reference == "string" &&
+			isoly.DateTime.is(value.created)
 	}
 }
