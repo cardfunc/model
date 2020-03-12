@@ -20,6 +20,7 @@ export interface Authorization {
 	capture: Capture[],
 	refund: Refund[],
 	cancel?: Cancel,
+	callback?: string,
 }
 
 export namespace Authorization {
@@ -36,7 +37,10 @@ export namespace Authorization {
 				value.amount == undefined && value.currency == undefined
 			) &&
 			Card.is(value.card) &&
-			Array.isArray(value.capture) && value.capture.every(Capture.is)
+			Array.isArray(value.capture) && value.capture.every(Capture.is) &&
+			Array.isArray(value.refund) && value.refund.every(Refund.is) &&
+			(value.cancel == undefined || Cancel.is(value.cancel)) &&
+			(value.callback == undefined || typeof(value.callback) == "string")
 	}
 	export async function verify(token: authly.Token): Promise<Authorization | undefined> {
 		const result = await verifyToken(token)
