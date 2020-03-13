@@ -48,11 +48,11 @@ export namespace Authorization {
 	}
 	export type Creatable = AuthorizationCreatable
 	export namespace Creatable {
-		// tslint:disable-next-line: no-shadowed-variable
+		// tslint:disable: no-shadowed-variable
 		export const is = AuthorizationCreatable.is
+		export const verify = AuthorizationCreatable.verify
 		export type Safe = AuthorizationCreatable.Safe
 		export namespace Safe {
-			// tslint:disable-next-line: no-shadowed-variable
 			export const is = AuthorizationCreatable.Safe.is
 		}
 	}
