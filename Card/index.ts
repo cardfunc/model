@@ -37,6 +37,9 @@ export namespace Card {
 			expires: value.expires,
 		}
 	}
+	export function generateId(): authly.Identifier {
+		return authly.Identifier.generate(8)
+	}
 	export type Creatable = CardCreatable
 	export namespace Creatable {
 		export const is = CardCreatable.is
