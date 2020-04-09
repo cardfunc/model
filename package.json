@@ -51,7 +51,7 @@
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "authly": "0.0.37",
+  "authly": "0.0.38",
   "gracely": "0.0.24",
   "isoly": "0.0.11"
  },
