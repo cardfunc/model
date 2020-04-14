@@ -8,6 +8,7 @@ export interface Safe {
 	amount?: number
 	currency?: isoly.Currency
 	account?: "create" | authly.Identifier
+	cardToken?: authly.Token
 	pares?: string
 	callback?: string
 }
@@ -25,6 +26,7 @@ export namespace Safe {
 				value.account == "create" && value.amount == undefined && value.currency == undefined &&
 				value.card == undefined
 			) &&
+			(value.cardToken == undefined || authly.Token.is(value.cardToken)) &&
 			(value.pares == undefined || typeof value.pares == "string") &&
 			(value.callback == undefined || typeof(value.callback) == "string")
 	}
