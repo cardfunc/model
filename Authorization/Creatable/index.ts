@@ -1,10 +1,11 @@
 import * as isoly from "isoly"
 import * as authly from "authly"
 import { Card } from "../../Card"
+import { Base as CBase } from "./Base"
 import { Safe as CSafe } from "./Safe"
 import { verify as verifyToken } from "../../verify"
 
-export interface Creatable extends CSafe {
+export interface Creatable extends CBase {
 	card?: Card.Creatable
 }
 
@@ -27,6 +28,11 @@ export namespace Creatable {
 	export async function verify(token: authly.Token): Promise<Creatable | undefined> {
 		const result = await verifyToken(token)
 		return is(result) ? result : undefined
+	}
+	export type Base = CBase
+	export namespace Base {
+		// tslint:disable-next-line: no-shadowed-variable
+		export const is = CBase.is
 	}
 	export type Safe = CSafe
 	export namespace Safe {

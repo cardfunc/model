@@ -1,14 +1,20 @@
 import * as isoly from "isoly"
 import * as authly from "authly"
-import { Base as CBase } from "./Base"
 
-export interface Safe extends CBase {
-	card?: authly.Token
+export interface Base {
+	number?: string
+	descriptor?: string
+	ip?: string
+	amount?: number
+	currency?: isoly.Currency
+	account?: "create" | authly.Token
+	pares?: string
+	callback?: string
 }
 
-export namespace Safe {
+export namespace Base {
 	// tslint:disable-next-line: no-shadowed-variable
-	export function is(value: Safe | any): value is Safe {
+	export function is(value: Base | any): value is Base {
 		return typeof value == "object" &&
 			(value.number == undefined || typeof value.number == "string") &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
@@ -16,16 +22,9 @@ export namespace Safe {
 				typeof value.amount == "number" &&
 				isoly.Currency.is(value.currency) &&
 				(value.account == "create" || value.account == undefined || authly.Token.is(value.account)) ||
-				value.account == "create" && value.amount == undefined && value.currency == undefined &&
-				value.card == undefined
+				value.account == "create" && value.amount == undefined && value.currency == undefined
 			) &&
-			(value.card == undefined || authly.Token.is(value.card)) &&
 			(value.pares == undefined || typeof value.pares == "string") &&
 			(value.callback == undefined || typeof(value.callback) == "string")
-	}
-	export type Base = CBase
-	export namespace Base {
-		// tslint:disable-next-line: no-shadowed-variable
-		export const is = CBase.is
 	}
 }
