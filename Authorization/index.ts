@@ -58,6 +58,16 @@ export namespace Authorization {
 		export type Safe = AuthorizationCreatable.Safe
 		export namespace Safe {
 			export const is = AuthorizationCreatable.Safe.is
+			export type Card = AuthorizationCreatable.Safe.Card
+			export namespace Card {
+				export const is = AuthorizationCreatable.Safe.Card.is
+				export const verify = AuthorizationCreatable.Safe.Card.verify
+			}
+		}
+		export type Unsafe = AuthorizationCreatable.Unsafe
+		export namespace Unsafe {
+			export const is = AuthorizationCreatable.Unsafe.is
+			export const verify = AuthorizationCreatable.Unsafe.verify
 		}
 	}
 }
