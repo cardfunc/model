@@ -2,17 +2,12 @@ import * as authly from "authly"
 import { Base as CBase } from "./Base"
 import { Safe as CSafe } from "./Safe"
 import { Unsafe as CUnsafe } from "./Unsafe"
-import { verify as verifyToken } from "../../verify"
 
 export type Creatable = CSafe | CUnsafe
 
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return CSafe.is(value) || CUnsafe.is(value)
-	}
-	export async function verify(token: authly.Token): Promise<Creatable | undefined> {
-		const result = await verifyToken(token)
-		return is(result) ? result : undefined
 	}
 	// tslint:disable: no-shadowed-variable
 	export type Base = CBase
@@ -22,15 +17,9 @@ export namespace Creatable {
 	export type Safe = CSafe
 	export namespace Safe {
 		export const is = CSafe.is
-		export type Card = CSafe.Card
-		export namespace Card {
-			export const is = CSafe.Card.is
-			export const verify = CSafe.Card.verify
-		}
 	}
 	export type Unsafe = CUnsafe
 	export namespace Unsafe {
 		export const is = CUnsafe.is
-		export const verify = CUnsafe.verify
 	}
 }

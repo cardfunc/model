@@ -1,18 +1,18 @@
 import * as authly from "authly"
-import { verify as verifyToken } from "../../../verify"
+import { verify as verifyToken } from "../verify"
 
-export interface Card {
+export interface Token {
 	id: authly.Identifier
 	pares?: string
 }
 
-export namespace Card {
-	export function is(value: Card | any): value is Card {
+export namespace Token {
+	export function is(value: Token | any): value is Token {
 		return typeof value == "object" &&
 			authly.Identifier.is(value.id) &&
 			(value.pares == undefined || typeof value.pares == "string")
 	}
-	export async function verify(token: authly.Token): Promise<Card & authly.Payload | undefined> {
+	export async function verify(token: authly.Token): Promise<Token & authly.Payload | undefined> {
 		const result = await verifyToken(token)
 		return is(result) ? result : undefined
 	}
