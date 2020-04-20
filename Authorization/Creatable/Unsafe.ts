@@ -10,17 +10,13 @@ export interface Unsafe extends CBase {
 export namespace Unsafe {
 	export function is(value: Unsafe | any): value is Unsafe {
 		return typeof(value) == "object" &&
-			(value.number == undefined || typeof(value.number) == "string") &&
-			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
-			(value.ip == undefined || typeof(value.ip) == "string") && (
-				typeof(value.amount) == "number" &&
-				isoly.Currency.is(value.currency) &&
-				(
-					Card.Creatable.is(value.card) &&
-					(value.account == "create" || value.account == undefined) ||
-					authly.Token.is(value.account)
-				) ||
-				value.account == "create" && value.amount == undefined && value.currency == undefined && Card.Creatable.is(value.card)
-			)
+		(
+			typeof(value.amount) == "number" && isoly.Currency.is(value.currency) &&
+			(
+				Card.Creatable.is(value.card) && (value.account == "create" || value.account == undefined) ||
+				authly.Token.is(value.account)
+			) ||
+			value.amount == undefined && value.currency == undefined && Card.Creatable.is(value.card) && value.account == "create"
+		) && CBase.is(value)
 	}
 }
