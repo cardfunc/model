@@ -4,6 +4,7 @@ import { Pan as CardPan } from "./Pan"
 import { Scheme as CardScheme } from "./Scheme"
 import { Expires as CardExpires } from "./Expires"
 import { Type as CardType } from "./Type"
+import { Token as CardToken } from "./Token"
 
 export interface Card {
 	id: authly.Identifier
@@ -71,5 +72,10 @@ export namespace Card {
 		export namespace Type {
 			export const is = CardType.is
 		}
+	}
+	export type Token = CardToken
+	export namespace Token {
+		export const is = CardToken.is
+		export const verify = CardToken.verify
 	}
 }
