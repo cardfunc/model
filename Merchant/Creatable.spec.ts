@@ -38,4 +38,29 @@ describe("Merchant.Creatable", () => {
 			type: "model.Merchant.Creatable",
 		})
 	})
+	it("is with emv3dv2", () => {
+		const key2 = {
+			name: "test",
+			url: "http://example.com",
+			descriptor: "test transaction",
+			country: "SE",
+			acquirer: {
+				protocol: "clearhaus",
+				url: "https://gateway.test.clearhaus.com",
+				key: "36e74a69-7fee-4a37-bcd9-6a1422028ff3",
+			},
+			mid: "1234",
+			mcc: "1234",
+			bin: {
+				mastercard: "134678",
+				visa: "1234",
+			},
+			emv3d: {
+				protocol: "ch3d2",
+				url: "http://localhost:7082/",
+				key: "no-key",
+			},
+		}
+		expect(model.Merchant.Creatable.is(key2)).toBeTruthy()
+	})
 })
