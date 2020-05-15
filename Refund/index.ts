@@ -15,7 +15,7 @@ export namespace Refund {
 		return typeof value == "object" &&
 				authly.Identifier.is(value.id) &&
 				typeof value.amount == "number" &&
-				(value.descriptor == undefined || typeof value.desciptor == "string") &&
+				(value.descriptor == undefined || typeof value.descriptor == "string") &&
 				isoly.DateTime.is(value.created)
 	}
 
