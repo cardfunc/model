@@ -2,14 +2,14 @@ import * as authly from "authly"
 import { verify as verifyToken } from "../verify"
 
 export interface Token {
-	type: "authorization" | "recurring" | "network"
+	type: "authorization" | "recurring"
 	card: authly.Identifier
 }
 
 export namespace Token {
 	export function is(value: Token | any): value is Token {
 		return typeof value == "object" &&
-			(value.type == "authorization" || value.type == "recurring" || value.type == "network") &&
+			(value.type == "authorization" || value.type == "recurring") &&
 			authly.Identifier.is(value.card)
 	}
 	export async function verify(token: authly.Token): Promise<Token & authly.Payload | undefined> {
