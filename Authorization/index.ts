@@ -50,10 +50,17 @@ export namespace Authorization {
 	export namespace Creatable {
 		// tslint:disable: no-shadowed-variable
 		export const is = AuthorizationCreatable.is
-		export const verify = AuthorizationCreatable.verify
+		export type Base = AuthorizationCreatable.Base
+		export namespace Base {
+			export const is = AuthorizationCreatable.Base.is
+		}
 		export type Safe = AuthorizationCreatable.Safe
 		export namespace Safe {
 			export const is = AuthorizationCreatable.Safe.is
+		}
+		export type Unsafe = AuthorizationCreatable.Unsafe
+		export namespace Unsafe {
+			export const is = AuthorizationCreatable.Unsafe.is
 		}
 	}
 }
