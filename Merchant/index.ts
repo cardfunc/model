@@ -1,5 +1,6 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
+import { Key as MerchantKey } from "./Key"
 import * as MerchantV1 from "./V1"
 import { Configuration } from "./Configuration"
 
@@ -39,6 +40,11 @@ export namespace Merchant {
 					] },
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
+	}
+	export type Key = MerchantKey
+	export namespace Key {
+		export const is = MerchantKey.is
+		export const flaw = MerchantKey.flaw
 	}
 	export namespace V1 {
 		export type Key = MerchantV1.Key
