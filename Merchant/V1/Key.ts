@@ -8,6 +8,7 @@ export interface Key extends authly.Payload, Configuration {
 	aud: "public" | "private"
 	iat: number
 	name: string
+	url: string
 }
 
 export namespace Key {
@@ -18,6 +19,7 @@ export namespace Key {
 			typeof(value as any).iat == "number" &&
 			((value as any).aud == "public" || (value as any).aud == "private") &&
 			typeof value.name == "string" &&
+			typeof value.url == "string" &&
 			Configuration.is(value)
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
@@ -30,6 +32,7 @@ export namespace Key {
 					typeof value.aud == "string" || { property: "aud", type: `"public" | "private"`, condition: "Key audience." },
 					typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 					typeof value.name == "string" || { property: "name", type: "string" },
+					typeof value.url == "string" || { property: "url", type: "string" },
 					...(Configuration.flaw(value).flaws || []),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
