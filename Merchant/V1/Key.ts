@@ -1,10 +1,15 @@
 import * as isoly from "isoly"
 import * as gracely from "gracely"
-import { Acquirer } from "../Acquirer"
-import { CategoryCode } from "./CategoryCode"
-import { Emv3d } from "./Emv3d"
+import * as authly from "authly"
+import { Acquirer } from "../../Acquirer"
+import { CategoryCode } from "../CategoryCode"
+import { Emv3d } from "../Emv3d"
 
-export interface Creatable {
+export interface Key extends authly.Payload {
+	sub: string
+	iss: string
+	aud: "public" | "private"
+	iat: number
 	name: string
 	url: string
 	descriptor?: string
@@ -15,10 +20,13 @@ export interface Creatable {
 	emv3d?: Emv3d,
 }
 
-// tslint:disable-next-line:no-namespace
-export namespace Creatable {
-	export function is(value: any | Creatable): value is Creatable {
-		return typeof value == "object" &&
+export namespace Key {
+	export function is(value: Key | any): value is Key {
+		return authly.Identifier.is((value as any).sub) &&
+			typeof(value as any).iss == "string" &&
+			typeof(value as any).iat == "number" &&
+			((value as any).aud == "public" || (value as any).aud == "private") &&
+			typeof value == "object" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
@@ -28,11 +36,15 @@ export namespace Creatable {
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || Emv3d.is(value.emv3d))
 	}
-	export function flaw(value: any | Creatable): gracely.Flaw {
+	export function flaw(value: any | Key): gracely.Flaw {
 		return {
-			type: "model.Merchant.Creatable",
+			type: "model.Merchant.Key",
 			flaws: typeof(value) != "object" ? undefined :
 				[
+					typeof value.sub == "string" || { property: "sub", type: "authly.Identifier", condition: "Merchant identifier." },
+					typeof value.iss == "string" || { property: "iss", type: "string", condition: "Key issuer." },
+					typeof value.aud == "string" || { property: "aud", type: `"public" | "private"`, condition: "Key audience." },
+					typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 					typeof(value.name) == "string" || { property: "name", type: "string" },
 					typeof(value.url) == "string" || { property: "url", type: "string" },
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },
