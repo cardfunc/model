@@ -45,6 +45,7 @@ export namespace Merchant {
 	export namespace Key {
 		export const is = MerchantKey.is
 		export const flaw = MerchantKey.flaw
+		export const upgrade = MerchantKey.upgrade
 	}
 	export namespace V1 {
 		export type Key = MerchantV1.Key
