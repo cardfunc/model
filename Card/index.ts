@@ -1,4 +1,5 @@
 import * as authly from "authly"
+import { Change as CardChange } from "./Change"
 import { Creatable as CardCreatable } from "./Creatable"
 import { Pan as CardPan } from "./Pan"
 import { Scheme as CardScheme } from "./Scheme"
@@ -40,6 +41,10 @@ export namespace Card {
 	}
 	export function generateId(): authly.Identifier {
 		return authly.Identifier.generate(8)
+	}
+	export type Change = CardChange
+	export namespace Change {
+		export const is = CardChange.is
 	}
 	export type Creatable = CardCreatable
 	export namespace Creatable {
