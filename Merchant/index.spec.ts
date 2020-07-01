@@ -5,28 +5,32 @@ describe("Merchant", () => {
 		id: "par9",
 		name: "test",
 		url: "http://example.com",
-		descriptor: "test transaction",
-		country: "SE",
-		acquirer: {
-			protocol: "clearhaus",
-			url: "https://gateway.test.clearhaus.com",
-			key: "36e74a69-7fee-4a37-bcd9-6a1422028ff3",
-		},
-		mcc: "1234",
-		mid: "1234",
-		bin: {
-			mastercard: "134678",
-			visa: "1234",
+		card: {
+			url: "https://api.cardfunc.com",
+			descriptor: "test transaction",
+			country: "SE",
+			acquirer: {
+				protocol: "clearhaus",
+				url: "https://gateway.test.clearhaus.com",
+				key: "36e74a69-7fee-4a37-bcd9-6a1422028ff3",
+			},
+			mcc: "1234",
+			mid: "1234",
+			bin: {
+				mastercard: "134678",
+				visa: "1234",
+			},
 		},
 	}
-	it("is", () => expect(model.Merchant.is({ id: "123", name: "Merchant Ltd.", url: "http://example.com", country: "GB", acquirer: { protocol: "clearhaus", url: "https://example.com/", key: "secret-api-key" }, mcc: "1234", mid: "1234", bin: { visa: "1234", mastercard: "54321" } })).toBeTruthy())
-	it("is 2", () => {
+	it("is", () => {
 		expect(model.Merchant.is(merchant)).toBeTruthy()
 	})
-	it("is missing id name", () => expect(model.Merchant.is({ country: "GB", acquirer: { protocol: "clearhaus", url: "https://example.com/", key: "secret-api-key" }, mcc: "1234", bin: { visa: "1234", mastercard: "54321" } })).toBeFalsy())
+	it("is missing id name", () => expect(model.Merchant.is({ ...merchant, name: undefined })).toBeFalsy())
 	it("flaw", () => {
-		expect(model.Merchant.flaw(merchant)).toEqual({
-			flaws: [],
+		expect(model.Merchant.flaw({ ...merchant, url: undefined })).toEqual({
+			flaws: [
+				{ property: "url", type: "string" },
+			],
 			type: "model.Merchant",
 		})
 	})
