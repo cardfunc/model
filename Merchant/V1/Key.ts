@@ -1,8 +1,8 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Configuration } from "../Configuration"
+import { Card as CardConfiguration } from "../Configuration/Card"
 
-export interface Key extends authly.Payload, Configuration {
+export interface Key extends authly.Payload, CardConfiguration {
 	sub: string
 	iss: string
 	aud: "public" | "private"
@@ -20,7 +20,7 @@ export namespace Key {
 			((value as any).aud == "public" || (value as any).aud == "private") &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
-			Configuration.is(value)
+			CardConfiguration.is(value)
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
 		return {
@@ -33,7 +33,7 @@ export namespace Key {
 					typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 					typeof value.name == "string" || { property: "name", type: "string" },
 					typeof value.url == "string" || { property: "url", type: "string" },
-					...(Configuration.flaw(value).flaws || []),
+					...(CardConfiguration.flaw(value).flaws || []),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
