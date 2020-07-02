@@ -1,10 +1,10 @@
 import * as isoly from "isoly"
 import * as gracely from "gracely"
-import { Acquirer } from "../Acquirer"
-import { CategoryCode } from "./CategoryCode"
-import { Emv3d } from "./Emv3d"
+import { Acquirer } from "../../Acquirer"
+import { CategoryCode } from "../CategoryCode"
+import { Emv3d } from "../Emv3d"
 
-export interface Configuration {
+export interface Card {
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
 	acquirer: Acquirer
@@ -12,8 +12,8 @@ export interface Configuration {
 	mcc?: CategoryCode,
 	emv3d?: Emv3d,
 }
-export namespace Configuration {
-	export function is(value: Configuration | any): value is Configuration {
+export namespace Card {
+	export function is(value: Card | any): value is Card {
 		return typeof value == "object" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
@@ -22,10 +22,10 @@ export namespace Configuration {
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || Emv3d.is(value.emv3d))
 	}
-	export function flaw(value: any | Configuration): gracely.Flaw {
+	export function flaw(value: any | Card): gracely.Flaw {
 		return {
-			type: "model.Merchant.Configuration",
-			flaws: typeof(value) != "object" ? undefined :
+			type: "model.Merchant.Configuration.Card",
+			flaws: typeof value != "object" ? undefined :
 				[
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },
 					isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },

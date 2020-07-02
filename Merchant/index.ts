@@ -2,16 +2,13 @@ import * as gracely from "gracely"
 import * as authly from "authly"
 import { Key as MerchantKey } from "./Key"
 import * as MerchantV1 from "./V1"
-import { Configuration } from "./Configuration"
+import { Configuration as CConfiguration } from "./Configuration"
 
 export interface Merchant {
 	id: authly.Identifier
 	name: string
 	url: string
-	card: Configuration & {
-		url: string
-		id?: string
-	}
+	card: CConfiguration
 }
 
 // tslint:disable: no-shadowed-variable
@@ -21,7 +18,7 @@ export namespace Merchant {
 			authly.Identifier.is((value as any).id) &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
-			Configuration.is(value.card) &&
+			CConfiguration.is(value.card) &&
 			typeof value.card.url == "string" &&
 			(value.card.id == undefined || authly.Identifier.is(value.card.id))
 	}
@@ -33,12 +30,23 @@ export namespace Merchant {
 					authly.Identifier.is((value as any).id) || { property: "id", type: "authly.Identifier" },
 					typeof value.name == "string" || { property: "name", type: "string" },
 					typeof value.url == "string" || { property: "url", type: "string" },
-					(Configuration.is(value.card) && typeof value.card.url == "string" && (value.card.id == undefined || authly.Identifier.is(value.card.id))) || { property: "card", type: "Merchant.Configuration & { url: string, id?: string }", flaws: [
-						...(Configuration.flaw(value.card).flaws ?? []),
-						typeof value.card.url == "string" || { property: "url", type: "string" },
-						value.card.id == undefined || authly.Identifier.is(value.card.id) || { property: "id", type: "string | undefined" },
-					] },
+					...(CConfiguration.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration", flaws: undefined }]),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
+		}
+	}
+	export type Configuration = CConfiguration
+	export namespace Configuration {
+		export const is = CConfiguration.is
+		export const flaw = CConfiguration.flaw
+		export type Card = CConfiguration.Card
+		export namespace Card {
+			export const is = CConfiguration.Card.is
+			export const flaw = CConfiguration.Card.flaw
+		}
+		export type Override = CConfiguration.Override
+		export namespace Override {
+			export const is = CConfiguration.Override.is
+			export const flaw = CConfiguration.Override.flaw
 		}
 	}
 	export type Key = MerchantKey

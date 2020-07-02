@@ -10,10 +10,7 @@ export interface Key {
 	iat: number
 	name: string
 	url: string
-	card: Configuration & {
-		url: string
-		id?: string
-	}
+	card: Configuration
 }
 
 export namespace Key {
@@ -25,13 +22,11 @@ export namespace Key {
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
-			Configuration.is(value.card) &&
-			typeof value.card.url == "string" &&
-			(value.card.id == undefined || authly.Identifier.is(value.card.id))
+			Configuration.is(value.card)
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
 		return {
-			type: "model.Key",
+			type: "model.Merchant.Key",
 			flaws: typeof value != "object" ? undefined :
 				[
 					typeof value.sub == "string" || { property: "sub", type: "authly.Identifier", condition: "Merchant identifier." },
@@ -40,11 +35,7 @@ export namespace Key {
 					typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 					typeof value.name == "string" || { property: "name", type: "string" },
 					typeof value.url == "string" || { property: "url", type: "string" },
-					(Configuration.is(value.card) && typeof value.card.url == "string" && (value.card.id == undefined || authly.Identifier.is(value.card.id))) || { property: "card", type: "Key.Configuration & { url: string, id?: string }", flaws: [
-						...(Configuration.flaw(value.card).flaws ?? []),
-						typeof value.card.url == "string" || { property: "url", type: "string" },
-						value.card.id == undefined || authly.Identifier.is(value.card.id) || { property: "id", type: "string | undefined" },
-					] },
+					...(Configuration.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration", flaws: undefined }]),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
