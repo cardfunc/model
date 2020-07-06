@@ -11,6 +11,7 @@ export interface Key {
 	name: string
 	url: string
 	card: Configuration
+	mixed?: authly.Token
 }
 
 export namespace Key {
@@ -22,6 +23,7 @@ export namespace Key {
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
+			(value.mixed == undefined || authly.Token.is(value.mixed)) &&
 			Configuration.is(value.card)
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
@@ -35,6 +37,7 @@ export namespace Key {
 					typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 					typeof value.name == "string" || { property: "name", type: "string" },
 					typeof value.url == "string" || { property: "url", type: "string" },
+					value.mixed == undefined || typeof value.mixed == "string" || { property: "mixed", type: "authly.Token", condition: "Alternate key." },
 					...(Configuration.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration", flaws: undefined }]),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
