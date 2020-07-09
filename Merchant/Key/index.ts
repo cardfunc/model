@@ -1,7 +1,8 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Configuration } from "./Configuration"
-import * as V1 from "./V1"
+import { Configuration } from "../Configuration"
+import { Safe as KSafe } from "./Safe"
+import * as V1 from "../V1"
 
 export interface Key {
 	sub: string
@@ -66,5 +67,12 @@ export namespace Key {
 					emv3d: key.emv3d,
 				}
 			}
+	}
+	// tslint:disable: no-shadowed-variable
+	export type Safe = KSafe
+	export namespace Safe {
+		export const is = KSafe.is
+		export const flaw = KSafe.flaw
+		export const upgrade = KSafe.upgrade
 	}
 }

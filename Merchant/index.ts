@@ -42,11 +42,21 @@ export namespace Merchant {
 		export namespace Card {
 			export const is = CConfiguration.Card.is
 			export const flaw = CConfiguration.Card.flaw
+			export type Safe = CConfiguration.Card.Safe
+			export namespace Safe {
+				export const is = CConfiguration.Card.Safe.is
+				export const flaw = CConfiguration.Card.Safe.flaw
+			}
 		}
 		export type Override = CConfiguration.Override
 		export namespace Override {
 			export const is = CConfiguration.Override.is
 			export const flaw = CConfiguration.Override.flaw
+		}
+		export type Safe = CConfiguration.Safe
+		export namespace Safe {
+			export const is = CConfiguration.Safe.is
+			export const flaw = CConfiguration.Safe.flaw
 		}
 	}
 	export type Key = MerchantKey
@@ -54,12 +64,23 @@ export namespace Merchant {
 		export const is = MerchantKey.is
 		export const flaw = MerchantKey.flaw
 		export const upgrade = MerchantKey.upgrade
+		export type Safe = MerchantKey.Safe
+		export namespace Safe {
+			export const is = MerchantKey.Safe.is
+			export const flaw = MerchantKey.Safe.flaw
+			export const upgrade = MerchantKey.Safe.upgrade
+		}
 	}
 	export namespace V1 {
 		export type Key = MerchantV1.Key
 		export namespace Key {
 			export const is = MerchantV1.Key.is
 			export const flaw = MerchantV1.Key.flaw
+			export type Safe = MerchantV1.Key.Safe
+			export namespace Safe {
+				export const is = MerchantV1.Key.Safe.is
+				export const flaw = MerchantV1.Key.Safe.flaw
+			}
 		}
 	}
 }
