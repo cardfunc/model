@@ -1,34 +1,45 @@
 import * as gracely from "gracely"
-import { Card as CCard } from "./Card"
-import { Override as COverride } from "./Override"
+import { Card as ConfigurationCard } from "./Card"
+import { Override as ConfigurationOverride } from "./Override"
+import { KeyInfo as ConfigurationKeyInfo } from "./KeyInfo"
 
-export type Configuration = CCard & COverride
+export type Configuration = ConfigurationCard & ConfigurationOverride
 
 export namespace Configuration {
 	export function is(value: Configuration | any): value is Configuration {
 		return typeof value == "object" &&
-			CCard.is(value) &&
-			COverride.is(value)
+			ConfigurationCard.is(value) &&
+			ConfigurationOverride.is(value)
 	}
 	export function flaw(value: any | Configuration): gracely.Flaw {
 		return {
 			type: "model.Merchant.Configuration",
 			flaws: typeof value != "object" ? undefined :
 				[
-					...(CCard.flaw(value).flaws ?? []),
-					...(COverride.flaw(value).flaws ?? []),
+					...(ConfigurationCard.flaw(value).flaws ?? []),
+					...(ConfigurationOverride.flaw(value).flaws ?? []),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
 	// tslint:disable: no-shadowed-variable
-	export type Card = CCard
+	export type Card = ConfigurationCard
 	export namespace Card {
-		export const is = CCard.is
-		export const flaw = CCard.flaw
+		export const is = ConfigurationCard.is
+		export const flaw = ConfigurationCard.flaw
+		export type KeyInfo = ConfigurationCard.KeyInfo
+		export namespace KeyInfo {
+			export const is = ConfigurationCard.KeyInfo.is
+			export const flaw = ConfigurationCard.KeyInfo.flaw
+		}
 	}
-	export type Override = COverride
+	export type Override = ConfigurationOverride
 	export namespace Override {
-		export const is = COverride.is
-		export const flaw = COverride.flaw
+		export const is = ConfigurationOverride.is
+		export const flaw = ConfigurationOverride.flaw
+	}
+	export type KeyInfo = ConfigurationKeyInfo
+	export namespace KeyInfo {
+		export const is = ConfigurationKeyInfo.is
+		export const flaw = ConfigurationKeyInfo.flaw
 	}
 }

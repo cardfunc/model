@@ -36,7 +36,6 @@ describe("Merchant", () => {
 		})
 	})
 	it("flaw of {} as a merchant", () => {
-		console.log("model.Merchant.flaw(merchant): ", model.Merchant.flaw({}))
 		expect(model.Merchant.flaw({})).toEqual({
 			type: 'model.Merchant',
 			flaws: [

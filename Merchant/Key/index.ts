@@ -1,7 +1,8 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Configuration } from "./Configuration"
-import * as V1 from "./V1"
+import { Configuration } from "../Configuration"
+import { KeyInfo as KeyKeyInfo } from "./KeyInfo"
+import * as V1 from "../V1"
 
 export interface Key {
 	sub: string
@@ -66,5 +67,13 @@ export namespace Key {
 					emv3d: key.emv3d,
 				}
 			}
+	}
+	// tslint:disable: no-shadowed-variable
+	export type KeyInfo = KeyKeyInfo
+	export namespace KeyInfo {
+		export const is = KeyKeyInfo.is
+		export const flaw = KeyKeyInfo.flaw
+		export const unpack = KeyKeyInfo.unpack
+		export const upgrade = KeyKeyInfo.upgrade
 	}
 }

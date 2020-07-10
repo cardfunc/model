@@ -1,8 +1,9 @@
 import * as isoly from "isoly"
 import * as gracely from "gracely"
-import { Acquirer } from "../../Acquirer"
-import { CategoryCode } from "../CategoryCode"
-import { Emv3d } from "../Emv3d"
+import { Acquirer } from "../../../Acquirer"
+import { CategoryCode } from "../../CategoryCode"
+import { Emv3d } from "../../Emv3d"
+import { KeyInfo as CardKeyInfo } from "./KeyInfo"
 
 export interface Card {
 	descriptor?: string
@@ -35,5 +36,11 @@ export namespace Card {
 					value.emv3d == undefined || Emv3d.is(value.emv3d) || { property: "emv3d", ...Emv3d.flaw(value.emv3d) },
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
+	}
+	// tslint:disable: no-shadowed-variable
+	export type KeyInfo = CardKeyInfo
+	export namespace KeyInfo {
+		export const is = CardKeyInfo.is
+		export const flaw = CardKeyInfo.flaw
 	}
 }
