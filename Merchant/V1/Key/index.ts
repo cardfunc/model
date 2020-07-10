@@ -1,7 +1,7 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
 import { Card as CardConfiguration } from "../../Configuration/Card"
-import { Safe as KSafe } from "./Safe"
+import { KeyInfo as KeyKeyInfo } from "./KeyInfo"
 
 export interface Key extends authly.Payload, CardConfiguration {
 	sub: string
@@ -39,9 +39,9 @@ export namespace Key {
 		}
 	}
 	// tslint:disable: no-shadowed-variable
-	export type Safe = KSafe
-	export namespace Safe {
-		export const is = KSafe.is
-		export const flaw = KSafe.flaw
+	export type KeyInfo = KeyKeyInfo
+	export namespace KeyInfo {
+		export const is = KeyKeyInfo.is
+		export const flaw = KeyKeyInfo.flaw
 	}
 }

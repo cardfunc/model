@@ -2,7 +2,7 @@ import * as isoly from "isoly"
 import * as gracely from "gracely"
 import { CategoryCode } from "../../CategoryCode"
 
-export interface Safe {
+export interface KeyInfo {
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
 	acquirer: string
@@ -10,8 +10,8 @@ export interface Safe {
 	mcc?: CategoryCode,
 	emv3d?: string,
 }
-export namespace Safe {
-	export function is(value: Safe | any): value is Safe {
+export namespace KeyInfo {
+	export function is(value: KeyInfo | any): value is KeyInfo {
 		return typeof value == "object" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
@@ -20,9 +20,9 @@ export namespace Safe {
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || typeof value.emv3d == "string")
 	}
-	export function flaw(value: any | Safe): gracely.Flaw {
+	export function flaw(value: any | KeyInfo): gracely.Flaw {
 		return {
-			type: "model.Merchant.Configuration.Card.Safe",
+			type: "model.Merchant.Configuration.Card.KeyInfo",
 			flaws: typeof value != "object" ? undefined :
 				[
 					(value.descriptor == undefined || typeof value.descriptor  == "string") || { property: "descriptor", type: "string" },

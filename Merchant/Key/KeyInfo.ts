@@ -1,21 +1,21 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Safe as ConfigurationSafe } from "../Configuration/Safe"
-import * as V1 from "../V1"
+import { KeyInfo as ConfigurationKeyInfo } from "../Configuration/KeyInfo"
+import * as model from "../../index"
 
-export interface Safe {
+export interface KeyInfo {
 	sub: string
 	iss: string
 	aud: "public" | "private"
 	iat: number
 	name: string
 	url: string
-	card: ConfigurationSafe
+	card: ConfigurationKeyInfo
 	mixed?: authly.Token
 }
 
-export namespace Safe {
-	export function is(value: any | Safe): value is Safe {
+export namespace KeyInfo {
+	export function is(value: any | KeyInfo): value is KeyInfo {
 		return typeof value == "object" &&
 			authly.Identifier.is(value.sub) &&
 			typeof value.iss == "string" &&
@@ -24,11 +24,11 @@ export namespace Safe {
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
 			(value.mixed == undefined || authly.Token.is(value.mixed)) &&
-			ConfigurationSafe.is(value.card)
+			ConfigurationKeyInfo.is(value.card)
 	}
-	export function flaw(value: any | Safe): gracely.Flaw {
+	export function flaw(value: any | KeyInfo): gracely.Flaw {
 		return {
-			type: "model.Merchant.Key.Safe",
+			type: "model.Merchant.Key.KeyInfo",
 			flaws: typeof value != "object" ? undefined :
 				[
 					typeof value.sub == "string" || { property: "sub", type: "authly.Identifier", condition: "Merchant identifier." },
@@ -38,13 +38,13 @@ export namespace Safe {
 					typeof value.name == "string" || { property: "name", type: "string" },
 					typeof value.url == "string" || { property: "url", type: "string" },
 					value.mixed == undefined || typeof value.mixed == "string" || { property: "mixed", type: "authly.Token", condition: "Alternate key." },
-					...(ConfigurationSafe.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration.Safe", flaws: undefined }]),
+					...(ConfigurationKeyInfo.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration.KeyInfo", flaws: undefined }]),
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
-	export function upgrade(key: Safe | V1.Key.Safe): Safe
-	export function upgrade(key: Safe | V1.Key.Safe | undefined): Safe | undefined
-	export function upgrade(key: Safe | V1.Key.Safe | undefined): Safe | undefined {
+	export function upgrade(key: KeyInfo | model.Merchant.V1.Key.KeyInfo): KeyInfo
+	export function upgrade(key: KeyInfo | model.Merchant.V1.Key.KeyInfo | undefined): KeyInfo | undefined
+	export function upgrade(key: KeyInfo | model.Merchant.V1.Key.KeyInfo | undefined): KeyInfo | undefined {
 		return key == undefined
 			? undefined
 			: is(key)
@@ -66,5 +66,22 @@ export namespace Safe {
 					emv3d: key.emv3d,
 				}
 			}
+	}
+	export async function unpack(key: authly.Token | undefined, audience: "private" | "public"): Promise<KeyInfo | undefined> {
+		let result
+		if (key) {
+			result = await authly.Verifier.create(audience).verify(key)
+			if (result && (result as any).option?.card) {
+				const cardKey = await authly.Verifier.create(audience).verify((result as any).option.card)
+				result = cardKey && model.Merchant.V1.Key.KeyInfo.is(cardKey) ? upgrade(cardKey) : undefined
+			}
+			else {
+				if (model.Merchant.V1.Key.KeyInfo.is(result))
+					result = model.Merchant.Key.KeyInfo.upgrade(result)
+				if (!model.Merchant.Key.KeyInfo.is(result))
+					result = undefined
+			}
+		}
+		return result
 	}
 }

@@ -3,7 +3,7 @@ import * as gracely from "gracely"
 import { Acquirer } from "../../../Acquirer"
 import { CategoryCode } from "../../CategoryCode"
 import { Emv3d } from "../../Emv3d"
-import { Safe as CSafe } from "./Safe"
+import { KeyInfo as CardKeyInfo } from "./KeyInfo"
 
 export interface Card {
 	descriptor?: string
@@ -38,9 +38,9 @@ export namespace Card {
 		}
 	}
 	// tslint:disable: no-shadowed-variable
-	export type Safe = CSafe
-	export namespace Safe {
-		export const is = CSafe.is
-		export const flaw = CSafe.flaw
+	export type KeyInfo = CardKeyInfo
+	export namespace KeyInfo {
+		export const is = CardKeyInfo.is
+		export const flaw = CardKeyInfo.flaw
 	}
 }

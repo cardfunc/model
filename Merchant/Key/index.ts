@@ -1,7 +1,7 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
 import { Configuration } from "../Configuration"
-import { Safe as KSafe } from "./Safe"
+import { KeyInfo as KeyKeyInfo } from "./KeyInfo"
 import * as V1 from "../V1"
 
 export interface Key {
@@ -69,10 +69,11 @@ export namespace Key {
 			}
 	}
 	// tslint:disable: no-shadowed-variable
-	export type Safe = KSafe
-	export namespace Safe {
-		export const is = KSafe.is
-		export const flaw = KSafe.flaw
-		export const upgrade = KSafe.upgrade
+	export type KeyInfo = KeyKeyInfo
+	export namespace KeyInfo {
+		export const is = KeyKeyInfo.is
+		export const flaw = KeyKeyInfo.flaw
+		export const unpack = KeyKeyInfo.unpack
+		export const upgrade = KeyKeyInfo.upgrade
 	}
 }
