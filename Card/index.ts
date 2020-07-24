@@ -31,13 +31,31 @@ export namespace Card {
 			CardExpires.is(value.expires) &&
 			(value.type == undefined || CardType.is(value.type))
 	}
-	export function from(value: CardCreatable): Omit<Card, "id" | "reference"> {
-		return {
-			scheme: CardPan.scheme(value.pan),
-			iin: CardPan.iin(value.pan),
-			last4: CardPan.last4(value.pan),
-			expires: value.expires,
+	export function from(value: CardCreatable): Omit<Card, "id" | "reference">
+	export function from(value: Change): Omit<Partial<Card>, "id" | "reference">
+	export function from(value: CardCreatable | Change): Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference"> {
+		let result: Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference">
+		if (CardCreatable.is(value))
+			result = {
+				scheme: CardPan.scheme(value.pan),
+				iin: CardPan.iin(value.pan),
+				last4: CardPan.last4(value.pan),
+				expires: value.expires,
+			}
+		else {
+			result = {}
+			if (value.pan) {
+				result = {
+					...result,
+					scheme: Pan.scheme(value.pan),
+					iin: Pan.iin(value.pan),
+					last4: Pan.last4(value.pan),
+				}
+			}
+			if (value.expires)
+				result = { ...result, expires: value.expires }
 		}
+		return result
 	}
 	export function generateId(): authly.Identifier {
 		return authly.Identifier.generate(8)
