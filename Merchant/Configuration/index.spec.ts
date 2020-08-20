@@ -1,4 +1,5 @@
 import * as model from "../../index"
+import { Emv3d } from "../Emv3d"
 
 describe("model.Merchant.Configuration", () => {
 	it("flaws of very faulty configuration", () => {
@@ -20,13 +21,9 @@ describe("model.Merchant.Configuration", () => {
 				{ property: 'acquirer', type: 'model.Acquirer.Settings' },
 				{ property: 'mid', type: 'string' },
 				{ property: 'mcc', type: 'model.Merchant.CategoryCode' },
-				{
-					property: 'emv3d',
-					type: 'model.Merchant.Emv3d',
-					flaws: undefined
-				},
+				{ property: "emv3d", ...Emv3d.flaw(configuration.emv3d ?? "") },
 				{ property: 'url', type: 'string' },
-				{ property: 'id', type: 'string | undefined' }
+				{ property: 'id', type: 'string | undefined' },
 			]
 		})
 	})

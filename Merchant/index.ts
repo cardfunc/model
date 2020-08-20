@@ -3,6 +3,7 @@ import * as authly from "authly"
 import { Key as MerchantKey } from "./Key"
 import * as MerchantV1 from "./V1"
 import { Configuration as MerchantConfiguration } from "./Configuration"
+import { Emv3d as MerchantEmv3d } from "./Emv3d"
 
 export interface Merchant {
 	id: authly.Identifier
@@ -57,6 +58,21 @@ export namespace Merchant {
 		export namespace KeyInfo {
 			export const is = MerchantConfiguration.KeyInfo.is
 			export const flaw = MerchantConfiguration.KeyInfo.flaw
+		}
+	}
+	export type Emv3d = MerchantEmv3d
+	export namespace Emv3d {
+		export const is = MerchantEmv3d.is
+		export const flaw = MerchantEmv3d.flaw
+		export type Configuration = MerchantEmv3d.Configuration
+		export namespace Configuration {
+			export const is = MerchantEmv3d.Configuration.is
+			export const flaw = MerchantEmv3d.Configuration.flaw
+		}
+		export type Protocol = MerchantEmv3d.Protocol
+		export namespace Protocol {
+			export const is = MerchantEmv3d.Protocol.is
+			export const flaw = MerchantEmv3d.Protocol.flaw
 		}
 	}
 	export type Key = MerchantKey
