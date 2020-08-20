@@ -41,6 +41,17 @@ describe("Card Token", () => {
 		expect(model.Card.Token.hasInfo(card)).toBeTruthy()
 		expect(model.Card.Token.is(card)).toBeTruthy()
 	})
+	it("is card token with verification (pares) indicator, no pares allowed in token", async () => {
+		const card: model.Card.Creatable = {
+			pan: "5105105105105100",
+			expires: [2, 22],
+			csc: "123",
+			verification: {
+				type: "pares"
+			}
+		}
+		expect(model.Card.Creatable.is(card)).toBeTruthy()
+	})
 	it("Verifying tokens signed in backend", async () => {
 		const originalMinimalToken: model.Card.Token = {
 			type: "single use",

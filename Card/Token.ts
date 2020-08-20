@@ -10,6 +10,7 @@ export interface Token {
 	iin?: string
 	last4?: string
 	expires?: Expires
+	verification?: { type: "pares" | "method" | "challenge", data?: string | { [property: string]: string }}
 }
 
 export namespace Token {
@@ -20,7 +21,20 @@ export namespace Token {
 			(value.scheme == undefined || Scheme.is(value.scheme)) &&
 			(value.iin == undefined || typeof value.iin == "string" && value.iin.length == 6) &&
 			(value.last4 == undefined || typeof value.last4 == "string" && value.last4.length == 4) &&
-			(value.expires == undefined || Expires.is(value.expires))
+			(value.expires == undefined || Expires.is(value.expires)) &&
+			(value.verification == undefined || typeof(value.verification) == "object" &&
+				(
+					value.verification.type == "pares" ||
+					value.verification.type == "method" ||
+					value.verification.type == "challenge"
+				)
+				&&
+				(
+					value.verification.data == undefined ||
+					typeof value.verification.data == "string" ||
+					typeof value.verification.data == "object" && Object.values(value.verification.data).every(item => typeof item == "string")
+				)
+			)
 	}
 	export function hasInfo(value: Token | any): value is Token & { scheme: Scheme, iin: string, last4: string, expires: Expires } {
 		return is(value) &&
