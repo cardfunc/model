@@ -74,4 +74,72 @@ describe("Card Token", () => {
 		const withInfoPayloaded = verifiedWithInfo && { ...originalTokenWithInfo, aud: verifiedWithInfo.aud, iss: verifiedWithInfo.iss, iat: verifiedWithInfo.iat }
 		expect(verifiedWithInfo).toEqual(withInfoPayloaded)
 	})
+	it("valid with pares verification (no verification data allowed)", async () => {
+		const card: model.Card.Token = {
+			type: "single use",
+			card: "12345678",
+			scheme: "visa",
+			iin: "411111",
+			last4: "1111",
+			expires: [12, 26],
+			verification: {
+				type: "pares",
+			}
+		}
+		expect(model.Card.Token.hasInfo(card)).toBeTruthy()
+		expect(model.Card.Token.is(card)).toBeTruthy()
+	})
+	it("non-valid with pares verification (because of no verification data allowed)", async () => {
+		const card: model.Card.Token = {
+			type: "single use",
+			card: "12345678",
+			scheme: "visa",
+			iin: "411111",
+			last4: "1111",
+			expires: [12, 26],
+			verification: {
+				type: "pares",
+				data: "not allowed for card token with verification type pares"
+			}
+		}
+		expect(model.Card.Token.is(card)).toBeFalsy()
+	})
+	it("valid with method verification (method verification don't store any sensitive data)", async () => {
+		const card: model.Card.Token = {
+			type: "single use",
+			card: "12345678",
+			scheme: "visa",
+			iin: "411111",
+			last4: "1111",
+			expires: [12, 26],
+			verification: {
+				type: "method",
+				data: {
+					someProperty: "example1",
+					anotherProperty: "example2"
+				}
+			}
+		}
+		expect(model.Card.Token.hasInfo(card)).toBeTruthy()
+		expect(model.Card.Token.is(card)).toBeTruthy()
+	})
+	it("valid with method verification (method verification don't store any sensitive data)", async () => {
+		const card: model.Card.Token = {
+			type: "single use",
+			card: "12345678",
+			scheme: "visa",
+			iin: "411111",
+			last4: "1111",
+			expires: [12, 26],
+			verification: {
+				type: "challenge",
+				data: {
+					oneProperty: "example3",
+					aProperty: "example4"
+				}
+			}
+		}
+		expect(model.Card.Token.hasInfo(card)).toBeTruthy()
+		expect(model.Card.Token.is(card)).toBeTruthy()
+	})
 })

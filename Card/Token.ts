@@ -24,7 +24,7 @@ export namespace Token {
 			(value.expires == undefined || Expires.is(value.expires)) &&
 			(value.verification == undefined || typeof(value.verification) == "object" &&
 				(
-					value.verification.type == "pares" ||
+					value.verification.type == "pares" && value.verification.data == undefined ||
 					value.verification.type == "method" ||
 					value.verification.type == "challenge"
 				)
