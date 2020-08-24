@@ -17,4 +17,47 @@ describe("Card.Creatable", () => {
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
+	it("is card with verification (pares)", async () => {
+		const card: model.Card.Creatable = {
+			pan: "5105105105105100",
+			expires: [2, 22],
+			csc: "123",
+			verification: {
+				type: "pares",
+				data: "examplepares"
+			}
+		}
+		expect(model.Card.Creatable.is(card)).toBeTruthy()
+	})
+	it("is card with verification (method)", async () => {
+		const card: model.Card.Creatable = {
+			pan: "4111111111111111",
+			expires: [2, 22],
+			csc: "123",
+			verification: {
+				type: "method",
+				data: {
+					someProperty: "example1",
+					anotherProperty: "example2"
+				}
+			}
+		}
+		expect(model.Card.Creatable.is(card)).toBeTruthy()
+	})
+	it("is card with verification (challenge)", async () => {
+		const card: model.Card.Creatable = {
+			pan: "4111111111111111",
+			expires: [2, 22],
+			csc: "123",
+			verification: {
+				type: "challenge",
+				data: {
+					something: "example3",
+					another: "example4",
+					nothing: "",
+				}
+			}
+		}
+		expect(model.Card.Creatable.is(card)).toBeTruthy()
+	})
 })
