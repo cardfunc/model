@@ -6,7 +6,7 @@ export interface Creatable {
 	timezone?: string
 	height?: string
 	width?: string
-	verificationUrl?: string
+	parent?: string
 }
 
 // tslint:disable-next-line: no-namespace
@@ -20,6 +20,6 @@ export namespace Creatable {
 		(value.timezone == undefined || typeof value.timezone == "string") &&
 		(value.height == undefined || typeof value.height == "string") &&
 		(value.width == undefined || typeof value.width == "string") &&
-		(value.verificationUrl == undefined || typeof value.verificationUrl == "string")
+		(value.parent == undefined || typeof value.parent == "string")
 	}
 }
