@@ -60,4 +60,25 @@ describe("Card.Creatable", () => {
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
+	it("is 2/22", async () => {
+		const card: model.Card.Creatable = {
+			pan: "4111111111111111",
+			expires: [2, 22],
+			csc: "123",
+			client: {
+				ip: "192.168.0.1",
+				browser: {
+					userAgent: "example",
+					acceptHeader: "application/json; charset=utf-8",
+					width: "900",
+					height: "700",
+					java: false,
+					javascript: false,
+					language: "sv",
+					timezone: "+1000",
+				}
+			}
+		}
+		expect(model.Card.Creatable.is(card)).toBeTruthy()
+	})
 })

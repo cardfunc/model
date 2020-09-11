@@ -2,6 +2,7 @@ import { Account } from "./Account"
 import { Acquirer } from "./Acquirer"
 import { Address } from "./Address"
 import { Authorization } from "./Authorization"
+import { Browser } from "./Browser"
 import { Capture } from "./Capture"
 import { Cancel } from "./Cancel"
 import { Card } from "./Card"
@@ -17,6 +18,7 @@ export {
 	Acquirer,
 	Address,
 	Authorization,
+	Browser,
 	Capture,
 	Cancel,
 	Card,
