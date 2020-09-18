@@ -7,7 +7,7 @@ export interface Creatable {
 	expires: Expires
 	csc?: string
 	pares?: string
-	verification?: { type: "pares" | "method" | "challenge", data?: string | { [property: string]: string }}
+	verification?: { type: "pares" | "method" | "challenge", data?: string | { [property: string]: any }}
 	client?: { ip?: string, browser?: Browser | Browser.Creatable }
 }
 
@@ -28,7 +28,7 @@ export namespace Creatable {
 				(
 					value.verification.data == undefined ||
 					typeof value.verification.data == "string" ||
-					typeof value.verification.data == "object" && Object.values(value.verification.data).every(item => typeof item == "string")
+					typeof value.verification.data == "object"
 				)
 			) &&
 			(value.client == undefined || typeof value.client == "object" &&

@@ -10,7 +10,7 @@ export interface Token {
 	iin?: string
 	last4?: string
 	expires?: Expires
-	verification?: { type: "pares" | "method" | "challenge", data?: string | { [property: string]: string }}
+	verification?: { type: "pares" | "method" | "challenge", data?: string | { [property: string]: any }}
 }
 
 export namespace Token {
@@ -32,7 +32,7 @@ export namespace Token {
 				(
 					value.verification.data == undefined ||
 					typeof value.verification.data == "string" ||
-					typeof value.verification.data == "object" && Object.values(value.verification.data).every(item => typeof item == "string")
+					typeof value.verification.data == "object"
 				)
 			)
 	}
