@@ -1,5 +1,3 @@
 import { Key } from "./Key"
 
-export {
-	Key,
-}
+export { Key }

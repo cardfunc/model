@@ -28,9 +28,28 @@ describe("Key", () => {
 	}
 	it("is", () => expect(model.Merchant.Key.is(key)).toBeTruthy())
 	it("is with ch3d1 & ch3d2", () => {
-		expect(model.Merchant.Key.is({ ...key, card: { ...key.card, emv3d: [key.card.emv3d, {	protocol: "ch3d2", url: "https://service.sandbox.3dsecure.io", key: "123456-1234-123456" }] } })).toBeTruthy()
+		expect(
+			model.Merchant.Key.is({
+				...key,
+				card: {
+					...key.card,
+					emv3d: [
+						key.card.emv3d,
+						{ protocol: "ch3d2", url: "https://service.sandbox.3dsecure.io", key: "123456-1234-123456" },
+					],
+				},
+			})
+		).toBeTruthy()
 	})
-	it("is missing id name", () => expect(model.Merchant.Key.is({ country: "GB", acquirer: { protocol: "clearhaus", url: "https://example.com/", key: "secret-api-key" }, mcc: "1234", bin: { visa: "1234", mastercard: "54321" } })).toBeFalsy())
+	it("is missing id name", () =>
+		expect(
+			model.Merchant.Key.is({
+				country: "GB",
+				acquirer: { protocol: "clearhaus", url: "https://example.com/", key: "secret-api-key" },
+				mcc: "1234",
+				bin: { visa: "1234", mastercard: "54321" },
+			})
+		).toBeFalsy())
 	it("flaw", () => {
 		expect(model.Merchant.Key.flaw(key)).toEqual({
 			flaws: [],
