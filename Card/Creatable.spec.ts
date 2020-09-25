@@ -24,8 +24,8 @@ describe("Card.Creatable", () => {
 			csc: "123",
 			verification: {
 				type: "pares",
-				data: "examplepares"
-			}
+				data: "examplepares",
+			},
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
@@ -38,9 +38,9 @@ describe("Card.Creatable", () => {
 				type: "method",
 				data: {
 					someProperty: "example1",
-					anotherProperty: "example2"
-				}
-			}
+					anotherProperty: "example2",
+				},
+			},
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
@@ -55,8 +55,8 @@ describe("Card.Creatable", () => {
 					something: "example3",
 					another: "example4",
 					nothing: "",
-				}
-			}
+				},
+			},
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
@@ -76,8 +76,8 @@ describe("Card.Creatable", () => {
 					javascript: false,
 					language: "sv",
 					timezone: "+1000",
-				}
-			}
+				},
+			},
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})

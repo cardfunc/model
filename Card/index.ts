@@ -20,19 +20,25 @@ export interface Card {
 
 export namespace Card {
 	export function is(value: Card | any): value is Card {
-		return typeof value == "object" &&
+		return (
+			typeof value == "object" &&
 			authly.Identifier.is(value.id) &&
 			(value.reference == undefined || typeof value.reference == "string") &&
 			(value.account == undefined || authly.Token.is(value.account)) &&
 			CardScheme.is(value.scheme) &&
-			typeof value.iin == "string" && value.iin.length == 6 &&
-			typeof value.last4 == "string" && value.last4.length == 4 &&
+			typeof value.iin == "string" &&
+			value.iin.length == 6 &&
+			typeof value.last4 == "string" &&
+			value.last4.length == 4 &&
 			CardExpires.is(value.expires) &&
 			(value.type == undefined || CardType.is(value.type))
+		)
 	}
 	export function from(value: CardCreatable): Omit<Card, "id" | "reference">
 	export function from(value: Change): Omit<Partial<Card>, "id" | "reference">
-	export function from(value: CardCreatable | Change): Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference"> {
+	export function from(
+		value: CardCreatable | Change
+	): Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference"> {
 		let result: Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference">
 		if (CardCreatable.is(value))
 			result = {
