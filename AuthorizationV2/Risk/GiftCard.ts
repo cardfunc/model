@@ -6,7 +6,6 @@ export interface GiftCard {
 	currency?: isoly.Currency
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace GiftCard {
 	export function is(value: GiftCard | any): value is GiftCard {
 		return typeof value == "object" &&

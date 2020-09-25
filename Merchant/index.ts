@@ -12,7 +12,6 @@ export interface Merchant {
 	card: MerchantConfiguration
 }
 
-// tslint:disable: no-shadowed-variable
 export namespace Merchant {
 	export function is(value: any | Merchant): value is Merchant {
 		return typeof value == "object" &&

@@ -37,7 +37,6 @@ export namespace Card {
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
-	// tslint:disable: no-shadowed-variable
 	export type KeyInfo = CardKeyInfo
 	export namespace KeyInfo {
 		export const is = CardKeyInfo.is

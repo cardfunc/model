@@ -11,7 +11,6 @@ export namespace Challenge {
 			(value.target == undefined || typeof value.target == "string") &&
 			CCreatable.is(value)
 	}
-	// tslint:disable: no-shadowed-variable
 	export type Required = CRequired
 	export namespace Required {
 		export const is = CRequired.is

@@ -3,7 +3,6 @@ export interface PhoneNumber {
 	number: string
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace PhoneNumber {
 	export function is(value: PhoneNumber | any): value is PhoneNumber {
 		return typeof value == "object" &&

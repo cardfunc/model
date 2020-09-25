@@ -9,7 +9,6 @@ export interface Creatable {
 	parent?: string
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return typeof value == "object" &&

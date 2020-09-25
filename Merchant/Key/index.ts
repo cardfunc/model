@@ -68,7 +68,6 @@ export namespace Key {
 				}
 			}
 	}
-	// tslint:disable: no-shadowed-variable
 	export type KeyInfo = KeyKeyInfo
 	export namespace KeyInfo {
 		export const is = KeyKeyInfo.is

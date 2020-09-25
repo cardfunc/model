@@ -21,7 +21,6 @@ export namespace Refund {
 
 	export type Creatable = RefundCreatable
 	export namespace Creatable {
-		// tslint:disable-next-line: no-shadowed-variable
 		export const is = RefundCreatable.is
 	}
 }

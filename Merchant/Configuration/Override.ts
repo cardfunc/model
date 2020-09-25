@@ -6,7 +6,6 @@ export interface Override {
 	id?: string
 }
 
-// tslint:disable: no-shadowed-variable
 export namespace Override {
 	export function is(value: any | Override): value is Override {
 		return typeof value == "object" &&

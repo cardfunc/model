@@ -9,7 +9,6 @@ export interface Acquirer {
 	bin?: AcquirerBin
 }
 
-// tslint:disable: no-shadowed-variable
 export namespace Acquirer {
 	export function is(value: Acquirer | any): value is Acquirer {
 		return typeof value == "object" &&

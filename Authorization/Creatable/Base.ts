@@ -13,7 +13,6 @@ export interface Base {
 }
 
 export namespace Base {
-	// tslint:disable-next-line: no-shadowed-variable
 	export function is(value: Base | any): value is Base {
 		return typeof value == "object" &&
 			(value.number == undefined || typeof value.number == "string") &&

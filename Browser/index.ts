@@ -6,7 +6,6 @@ export interface Browser extends CCreatable {
 	ip?: string
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace Browser {
 	export function is(value: Browser | any): value is Browser {
 		return typeof value == "object" &&
@@ -17,7 +16,6 @@ export namespace Browser {
 	}
 	export type Creatable = CCreatable
 	export namespace Creatable {
-		// tslint:disable-next-line: no-shadowed-variable
 		export const is = CCreatable.is
 	}
 }

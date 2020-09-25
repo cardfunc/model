@@ -9,7 +9,6 @@ export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return CSafe.is(value) || CUnsafe.is(value)
 	}
-	// tslint:disable: no-shadowed-variable
 	export type Base = CBase
 	export namespace Base {
 		export const is = CBase.is
