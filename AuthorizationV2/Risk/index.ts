@@ -14,12 +14,14 @@ export interface Risk {
 
 export namespace Risk {
 	export function is(value: Risk | any): value is Risk {
-		return typeof value == "object" &&
+		return (
+			typeof value == "object" &&
 			(value.delivery == undefined || CDelivery.is(value.delivery)) &&
 			(value.giftCard == undefined || CGiftCard.is(value.giftCard)) &&
 			(value.preOrder == undefined || Change02.is(value.preOrder)) &&
 			(value.reorder == undefined || Range02.is(value.reorder)) &&
 			(value.shipping == undefined || Range07.is(value.shipping))
+		)
 	}
 	export type Delivery = CDelivery
 	export namespace Delivery {

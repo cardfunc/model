@@ -7,9 +7,9 @@ export interface Challenge extends CCreatable {
 
 export namespace Challenge {
 	export function is(value: Challenge | any): value is Challenge {
-		return typeof value == "object" &&
-			(value.target == undefined || typeof value.target == "string") &&
-			CCreatable.is(value)
+		return (
+			typeof value == "object" && (value.target == undefined || typeof value.target == "string") && CCreatable.is(value)
+		)
 	}
 	export type Required = CRequired
 	export namespace Required {

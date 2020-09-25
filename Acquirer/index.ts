@@ -11,12 +11,14 @@ export interface Acquirer {
 
 export namespace Acquirer {
 	export function is(value: Acquirer | any): value is Acquirer {
-		return typeof value == "object" &&
+		return (
+			typeof value == "object" &&
 			(value.id == undefined || typeof value.id == "string") &&
 			AcquirerProtocol.is(value.protocol) &&
 			typeof value.url == "string" &&
 			typeof value.key == "string" &&
 			(value.bin == undefined || AcquirerBin.is(value.bin))
+		)
 	}
 	export type Bin = AcquirerBin
 	export namespace Bin {

@@ -1,7 +1,8 @@
 import * as model from "../index"
 
 describe("Address", () => {
-	it("is", () => expect(model.Address.is({ city: "Somecity", country: "USA", line1: "Someroad 1", postCode: "12345" })).toBeTruthy())
+	it("is", () =>
+		expect(model.Address.is({ city: "Somecity", country: "USA", line1: "Someroad 1", postCode: "12345" })).toBeTruthy())
 	it("is similar", () => {
 		const first = { city: " Somecity ", country: "Swe", line1: "Someroad 1  ", postCode: "12345" }
 		const second = { city: "SOMECITY", country: "SWE", line1: "  SOMEROAD 1 ", postCode: "  12345 " }

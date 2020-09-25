@@ -8,8 +8,6 @@ export interface Change04 {
 
 export namespace Change04 {
 	export function is(value: Change04 | any): value is Change04 {
-		return typeof value == "object" &&
-			isoly.DateTime.is(value.date) &&
-			Range04.is(value.indicator)
+		return typeof value == "object" && isoly.DateTime.is(value.date) && Range04.is(value.indicator)
 	}
 }

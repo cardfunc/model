@@ -7,7 +7,6 @@ export interface ThreeRi {
 
 export namespace ThreeRi {
 	export function is(value: ThreeRi | any): value is ThreeRi {
-		return typeof value == "object" &&
-			(Range05.is(value.type) || Range8099.is(value.type))
+		return typeof value == "object" && (Range05.is(value.type) || Range8099.is(value.type))
 	}
 }
