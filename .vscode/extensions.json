@@ -1,6 +1,5 @@
 {
-	"recommendations": [
-		"ms-vscode.vscode-typescript-tslint-plugin",
-		"orta.vscode-jest"
-	]
+  "recommendations": [
+    "dbaeumer.vscode-eslint"
+  ]
 }

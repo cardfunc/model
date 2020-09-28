@@ -10,4 +10,11 @@
 	"editor.tabSize": 2,
 	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
+	"files.insertFinalNewline": true,
+	"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true,
+			"eslint.autoFixOnSave": true,
+		},
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
 }
