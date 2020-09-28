@@ -18,7 +18,6 @@ export interface Card {
 	type?: CardType
 }
 
-// tslint:disable: no-shadowed-variable
 export namespace Card {
 	export function is(value: Card | any): value is Card {
 		return typeof value == "object" &&

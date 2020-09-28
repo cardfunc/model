@@ -3,7 +3,6 @@ import { Year as ExpiresYear } from "./Year"
 
 export type Expires = [ ExpiresMonth, ExpiresYear ]
 
-// tslint:disable: no-shadowed-variable
 export namespace Expires {
 	export function is(value: Expires | any): value is Expires {
 		return Array.isArray(value) &&

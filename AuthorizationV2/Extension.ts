@@ -5,7 +5,6 @@ export interface Extension {
 	name: string
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace Extension {
 	export function is(value: Extension | any): value is Extension {
 		return typeof value == "object" &&

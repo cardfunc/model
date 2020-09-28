@@ -8,13 +8,11 @@ export namespace Channel {
 	export function is(value: Channel | any): value is Channel {
 		return CBrowser.is(value) || CSdk.is(value) || CThreeRi.is(value)
 	}
-	// tslint:disable: no-shadowed-variable
 	export type Browser = CBrowser
 	export namespace Browser {
 		export const is = CBrowser.is
 		export type Creatable = CBrowser.Creatable
 		export namespace Creatable {
-			// tslint:disable-next-line: no-shadowed-variable
 			export const is = CBrowser.Creatable.is
 		}
 	}

@@ -15,7 +15,6 @@ export namespace Emv3d {
 			condition: "model.Merchant.Emv3d.Configuration | model.Merchant.Emv3d.Configuration[]"
 		}
 	}
-	// tslint:disable: no-shadowed-variable
 	export type Configuration = Emv3dConfiguration
 	export namespace Configuration {
 		export const is = Emv3dConfiguration.is

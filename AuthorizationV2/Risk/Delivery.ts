@@ -6,7 +6,6 @@ export interface Delivery {
 	timeframe?: Range04
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace Delivery {
 	export function is(value: Delivery | any): value is Delivery {
 		return typeof value == "object" &&

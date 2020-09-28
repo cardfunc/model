@@ -38,7 +38,6 @@ export namespace Key {
 				].filter(gracely.Flaw.is) as gracely.Flaw[],
 		}
 	}
-	// tslint:disable: no-shadowed-variable
 	export type KeyInfo = KeyKeyInfo
 	export namespace KeyInfo {
 		export const is = KeyKeyInfo.is

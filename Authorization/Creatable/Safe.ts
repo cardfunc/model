@@ -6,7 +6,6 @@ export interface Safe extends CBase {
 }
 
 export namespace Safe {
-	// tslint:disable-next-line: no-shadowed-variable
 	export function is(value: Safe | any): value is Safe {
 		return typeof value == "object" &&
 			(value.card == undefined || authly.Token.is(value.card)) &&

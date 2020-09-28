@@ -12,7 +12,6 @@ export interface Risk {
 	shipping?: Range07
 }
 
-// tslint:disable-next-line: no-namespace
 export namespace Risk {
 	export function is(value: Risk | any): value is Risk {
 		return typeof value == "object" &&
@@ -22,7 +21,6 @@ export namespace Risk {
 			(value.reorder == undefined || Range02.is(value.reorder)) &&
 			(value.shipping == undefined || Range07.is(value.shipping))
 	}
-	// tslint:disable: no-shadowed-variable
 	export type Delivery = CDelivery
 	export namespace Delivery {
 		export const is = CDelivery.is

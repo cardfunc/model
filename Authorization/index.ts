@@ -48,7 +48,6 @@ export namespace Authorization {
 	}
 	export type Creatable = AuthorizationCreatable
 	export namespace Creatable {
-		// tslint:disable: no-shadowed-variable
 		export const is = AuthorizationCreatable.is
 		export type Base = AuthorizationCreatable.Base
 		export namespace Base {

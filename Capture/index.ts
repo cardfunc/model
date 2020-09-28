@@ -22,7 +22,6 @@ export namespace Capture {
 	}
 	export type Creatable = CaptureCreatable
 	export namespace Creatable {
-		// tslint:disable-next-line: no-shadowed-variable
 		export const is = CaptureCreatable.is
 	}
 }
