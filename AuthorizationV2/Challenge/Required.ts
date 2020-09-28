@@ -6,8 +6,6 @@ export interface Required extends Creatable {
 
 export namespace Required {
 	export function is(value: Required | any): value is Required {
-		return typeof value == "object" &&
-			typeof value.target == "string" &&
-			Creatable.is(value)
+		return typeof value == "object" && typeof value.target == "string" && Creatable.is(value)
 	}
 }

@@ -8,8 +8,10 @@ export interface Delivery {
 
 export namespace Delivery {
 	export function is(value: Delivery | any): value is Delivery {
-		return typeof value == "object" &&
+		return (
+			typeof value == "object" &&
 			(value.email == undefined || Email.is(value.email)) &&
 			(value.timeframe == undefined || Range04.is(value.timeframe))
+		)
 	}
 }
