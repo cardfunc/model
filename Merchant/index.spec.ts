@@ -29,25 +29,23 @@ describe("Merchant", () => {
 	it("is missing id name", () => expect(model.Merchant.is({ ...merchant, name: undefined })).toBeFalsy())
 	it("flaw", () => {
 		expect(model.Merchant.flaw({ ...merchant, url: undefined })).toEqual({
-			flaws: [
-				{ property: "url", type: "string" },
-			],
+			flaws: [{ property: "url", type: "string" }],
 			type: "model.Merchant",
 		})
 	})
 	it("flaw of {} as a merchant", () => {
 		expect(model.Merchant.flaw({})).toEqual({
-			type: 'model.Merchant',
+			type: "model.Merchant",
 			flaws: [
-				{ property: 'id', type: 'authly.Identifier' },
-				{ property: 'name', type: 'string' },
-				{ property: 'url', type: 'string' },
+				{ property: "id", type: "authly.Identifier" },
+				{ property: "name", type: "string" },
+				{ property: "url", type: "string" },
 				{
-					property: 'card',
-					type: 'model.Merchant.Configuration',
-					flaws: undefined
-				}
-			]
+					property: "card",
+					type: "model.Merchant.Configuration",
+					flaws: undefined,
+				},
+			],
 		})
 	})
 })

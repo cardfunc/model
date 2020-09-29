@@ -14,17 +14,17 @@ describe("model.Merchant.Configuration", () => {
 			id: 123,
 		}
 		expect(model.Merchant.Configuration.flaw(configuration)).toEqual({
-			type: 'model.Merchant.Configuration',
+			type: "model.Merchant.Configuration",
 			flaws: [
-				{ property: 'descriptor', type: 'string' },
-				{ property: 'country', type: 'isoly.CountryCode' },
-				{ property: 'acquirer', type: 'model.Acquirer.Settings' },
-				{ property: 'mid', type: 'string' },
-				{ property: 'mcc', type: 'model.Merchant.CategoryCode' },
+				{ property: "descriptor", type: "string" },
+				{ property: "country", type: "isoly.CountryCode" },
+				{ property: "acquirer", type: "model.Acquirer.Settings" },
+				{ property: "mid", type: "string" },
+				{ property: "mcc", type: "model.Merchant.CategoryCode" },
 				{ property: "emv3d", ...Emv3d.flaw(configuration.emv3d ?? "") },
-				{ property: 'url', type: 'string' },
-				{ property: 'id', type: 'string | undefined' },
-			]
+				{ property: "url", type: "string" },
+				{ property: "id", type: "string | undefined" },
+			],
 		})
 	})
 })

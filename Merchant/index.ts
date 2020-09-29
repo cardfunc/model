@@ -14,24 +14,30 @@ export interface Merchant {
 
 export namespace Merchant {
 	export function is(value: any | Merchant): value is Merchant {
-		return typeof value == "object" &&
+		return (
+			typeof value == "object" &&
 			authly.Identifier.is((value as any).id) &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
 			MerchantConfiguration.is(value.card) &&
 			typeof value.card.url == "string" &&
 			(value.card.id == undefined || authly.Identifier.is(value.card.id))
+		)
 	}
 	export function flaw(value: any | Merchant): gracely.Flaw {
 		return {
 			type: "model.Merchant",
-			flaws: typeof value != "object" ? undefined :
-				[
-					authly.Identifier.is((value as any).id) || { property: "id", type: "authly.Identifier" },
-					typeof value.name == "string" || { property: "name", type: "string" },
-					typeof value.url == "string" || { property: "url", type: "string" },
-					...(MerchantConfiguration.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Configuration", flaws: undefined }]),
-				].filter(gracely.Flaw.is) as gracely.Flaw[],
+			flaws:
+				typeof value != "object"
+					? undefined
+					: ([
+							authly.Identifier.is((value as any).id) || { property: "id", type: "authly.Identifier" },
+							typeof value.name == "string" || { property: "name", type: "string" },
+							typeof value.url == "string" || { property: "url", type: "string" },
+							...(MerchantConfiguration.flaw(value.card).flaws ?? [
+								{ property: "card", type: "model.Merchant.Configuration", flaws: undefined },
+							]),
+					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),
 		}
 	}
 	export type Configuration = MerchantConfiguration
