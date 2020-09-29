@@ -19,8 +19,8 @@ describe("Card.Change", () => {
 			csc: "123",
 			verification: {
 				type: "pares",
-				data: "examplepares"
-			}
+				data: "examplepares",
+			},
 		}
 		expect(model.Card.Change.is(card)).toBeTruthy()
 	})
@@ -31,9 +31,9 @@ describe("Card.Change", () => {
 				type: "method",
 				data: {
 					someProperty: "example1",
-					anotherProperty: "example2"
-				}
-			}
+					anotherProperty: "example2",
+				},
+			},
 		}
 		expect(model.Card.Change.is(card)).toBeTruthy()
 	})
@@ -46,8 +46,8 @@ describe("Card.Change", () => {
 					something: "example3",
 					another: "example4",
 					nothing: "",
-				}
-			}
+				},
+			},
 		}
 		expect(model.Card.Change.is(card)).toBeTruthy()
 	})

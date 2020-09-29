@@ -5,8 +5,10 @@ export interface Creatable {
 
 export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
-		return typeof(value) == "object" &&
-			(value.descriptor == undefined || typeof(value.descriptor) == "string") &&
-			(value.amount == undefined || typeof(value.amount) == "number")
+		return (
+			typeof value == "object" &&
+			(value.descriptor == undefined || typeof value.descriptor == "string") &&
+			(value.amount == undefined || typeof value.amount == "number")
+		)
 	}
 }
