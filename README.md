@@ -1,2 +1,2 @@
-# CardFunc API Model
-Data model for CardFunc API.
+# PayFunc Card Tokenizing API Model
+Data model for PayFunc Card Tokenizing API.
