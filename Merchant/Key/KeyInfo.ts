@@ -88,13 +88,13 @@ export namespace KeyInfo {
 	}
 	export async function unpack(
 		key: authly.Token | undefined,
-		audience: "private" | "public"
+		...audience: ("private" | "public" | "account")[]
 	): Promise<KeyInfo | undefined> {
 		let result
 		if (key) {
-			result = await authly.Verifier.create(audience).verify(key)
+			result = await authly.Verifier.create().verify(key, ...audience)
 			if (result && (result as any).option?.card) {
-				const cardKey = await authly.Verifier.create(audience).verify((result as any).option.card)
+				const cardKey = await authly.Verifier.create().verify((result as any).option.card, ...audience)
 				result = cardKey && model.Merchant.V1.Key.KeyInfo.is(cardKey) ? upgrade(cardKey) : undefined
 			} else {
 				if (model.Merchant.V1.Key.KeyInfo.is(result))
