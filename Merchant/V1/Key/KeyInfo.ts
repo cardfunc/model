@@ -15,10 +15,10 @@ export namespace KeyInfo {
 	export function is(value: KeyInfo | any): value is KeyInfo {
 		return (
 			typeof value == "object" &&
-			authly.Identifier.is((value as any).sub) &&
-			typeof (value as any).iss == "string" &&
-			typeof (value as any).iat == "number" &&
-			((value as any).aud == "public" || (value as any).aud == "private") &&
+			authly.Identifier.is(value.sub) &&
+			typeof value.iss == "string" &&
+			typeof value.iat == "number" &&
+			(value.aud == "public" || value.aud == "private") &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
 			CardConfigurationKeyInfo.is(value)

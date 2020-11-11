@@ -85,6 +85,10 @@ export namespace Merchant {
 		export const is = MerchantKey.is
 		export const flaw = MerchantKey.flaw
 		export const upgrade = MerchantKey.upgrade
+		export type Audience = MerchantKey.Audience
+		export namespace Audience {
+			export const is = MerchantKey.Audience.is
+		}
 		export type KeyInfo = MerchantKey.KeyInfo
 		export namespace KeyInfo {
 			export const is = MerchantKey.KeyInfo.is

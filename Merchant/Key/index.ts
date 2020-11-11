@@ -1,13 +1,14 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
 import { Configuration } from "../Configuration"
+import { Audience as KeyAudience } from "./Audience"
 import { KeyInfo as KeyKeyInfo } from "./KeyInfo"
 import * as V1 from "../V1"
 
 export interface Key {
 	sub: string
 	iss: string
-	aud: "public" | "private"
+	aud: KeyAudience | KeyAudience[]
 	iat: number
 	name: string
 	url: string
@@ -21,7 +22,7 @@ export namespace Key {
 			typeof value == "object" &&
 			authly.Identifier.is(value.sub) &&
 			typeof value.iss == "string" &&
-			(value.aud == "public" || value.aud == "private") &&
+			(KeyAudience.is(value.aud) || (Array.isArray(value.aud) && value.aud.every(KeyAudience.is))) &&
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
@@ -42,11 +43,12 @@ export namespace Key {
 								condition: "Merchant identifier.",
 							},
 							typeof value.iss == "string" || { property: "iss", type: "string", condition: "Key issuer." },
-							typeof value.aud == "string" || {
-								property: "aud",
-								type: `"public" | "private"`,
-								condition: "Key audience.",
-							},
+							Audience.is(value.aud) ||
+								(Array.isArray(value.aud) && value.aud.every(Audience.is)) || {
+									property: "aud",
+									type: `"agent" | "account" | "public" | "private"`,
+									condition: "Key audience.",
+								},
 							typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 							typeof value.name == "string" || { property: "name", type: "string" },
 							typeof value.url == "string" || { property: "url", type: "string" },
@@ -86,6 +88,10 @@ export namespace Key {
 						emv3d: key.emv3d,
 					},
 			  }
+	}
+	export type Audience = KeyAudience
+	export namespace Audience {
+		export const is = KeyAudience.is
 	}
 	export type KeyInfo = KeyKeyInfo
 	export namespace KeyInfo {

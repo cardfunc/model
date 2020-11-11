@@ -5,7 +5,7 @@ import { CategoryCode } from "../../CategoryCode"
 export interface KeyInfo {
 	descriptor?: string
 	country: isoly.CountryCode.Alpha2
-	acquirer: string
+	acquirer?: string
 	mid?: string
 	mcc?: CategoryCode
 	emv3d?: string
@@ -16,7 +16,7 @@ export namespace KeyInfo {
 			typeof value == "object" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			isoly.CountryCode.Alpha2.is(value.country) &&
-			typeof value.acquirer == "string" &&
+			(value.acquirer == undefined || typeof value.acquirer == "string") &&
 			(value.mid == undefined || typeof value.mid == "string") &&
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || typeof value.emv3d == "string")
@@ -32,10 +32,11 @@ export namespace KeyInfo {
 							value.descriptor == undefined ||
 								typeof value.descriptor == "string" || { property: "descriptor", type: "string" },
 							isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
-							typeof value.acquirer == "string" || {
-								property: "acquirer",
-								type: "encrypted model.Acquirer.Settings as string",
-							},
+							value.acquirer == undefined ||
+								typeof value.acquirer == "string" || {
+									property: "acquirer",
+									type: "encrypted model.Acquirer.Settings as string",
+								},
 							value.mid == undefined || typeof value.mid == "string" || { property: "mid", type: "string" },
 							value.mcc == undefined ||
 								CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },

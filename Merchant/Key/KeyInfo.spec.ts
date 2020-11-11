@@ -80,19 +80,4 @@ describe("Key", () => {
 			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.cardfunc.V1.public, "public"))
 		).toBeTruthy()
 	})
-	it("is missing id name", () =>
-		expect(
-			model.Merchant.Key.KeyInfo.is({
-				country: "GB",
-				acquirer: { protocol: "clearhaus", url: "https://example.com/", key: "secret-api-key" },
-				mcc: "1234",
-				bin: { visa: "1234", mastercard: "54321" },
-			})
-		).toBeFalsy())
-	it("flaw", () => {
-		expect(model.Merchant.Key.KeyInfo.flaw(key)).toEqual({
-			flaws: [],
-			type: "model.Merchant.Key.KeyInfo",
-		})
-	})
 })
