@@ -2,14 +2,12 @@ import * as authly from "authly"
 import * as model from "../../index"
 
 describe("Key", () => {
-	const key: model.Merchant.Key.KeyInfo = {
+	const key: model.Merchant.Key = {
 		aud: "public",
 		card: {
 			url: "http://localhost:7082",
 			id: "test",
-			acquirer: "isEncryptedXYZ",
 			country: "SE",
-			emv3d: "isEncryptedXYZ",
 			mcc: "1234",
 			mid: "1234",
 		},
@@ -19,7 +17,7 @@ describe("Key", () => {
 		sub: "test",
 		url: "http://example.com",
 	}
-	it("is", () => expect(model.Merchant.Key.KeyInfo.is(key)).toBeTruthy())
+	it("is", () => expect(model.Merchant.Key.is(key)).toBeTruthy())
 	it("is 2", async () => {
 		const testKeys = {
 			payfunc: {
@@ -43,41 +41,17 @@ describe("Key", () => {
 				},
 			},
 		}
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.V1.private, "private"))
-		).toBeTruthy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.V1.private, "public"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.V1.public, "private"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.V1.public, "public"))
-		).toBeTruthy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.private, "private"))
-		).toBeTruthy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.private, "public"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.public, "private"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.payfunc.public, "public"))
-		).toBeTruthy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.cardfunc.V1.private, "private"))
-		).toBeTruthy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.cardfunc.V1.private, "public"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.cardfunc.V1.public, "private"))
-		).toBeFalsy()
-		expect(
-			model.Merchant.Key.KeyInfo.is(await model.Merchant.Key.KeyInfo.unpack(testKeys.cardfunc.V1.public, "public"))
-		).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.V1.private, "private"))).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.V1.private, "public"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.V1.public, "private"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.V1.public, "public"))).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.private, "private"))).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.private, "public"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.public, "private"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.payfunc.public, "public"))).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.cardfunc.V1.private, "private"))).toBeTruthy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.cardfunc.V1.private, "public"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.cardfunc.V1.public, "private"))).toBeFalsy()
+		expect(model.Merchant.Key.is(await model.Merchant.Key.unpack(testKeys.cardfunc.V1.public, "public"))).toBeTruthy()
 	})
 })

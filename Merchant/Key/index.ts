@@ -1,8 +1,7 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Configuration } from "../Configuration"
+import { Card } from "../Card"
 import { Audience as KeyAudience } from "./Audience"
-import { KeyInfo as KeyKeyInfo } from "./KeyInfo"
 import * as V1 from "../V1"
 
 export interface Key {
@@ -12,8 +11,7 @@ export interface Key {
 	iat: number
 	name: string
 	url: string
-	card: Configuration
-	mixed?: authly.Token
+	card: Card
 }
 
 export namespace Key {
@@ -26,8 +24,7 @@ export namespace Key {
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
-			(value.mixed == undefined || authly.Token.is(value.mixed)) &&
-			Configuration.is(value.card)
+			Card.is(value.card)
 		)
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
@@ -52,15 +49,7 @@ export namespace Key {
 							typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 							typeof value.name == "string" || { property: "name", type: "string" },
 							typeof value.url == "string" || { property: "url", type: "string" },
-							value.mixed == undefined ||
-								typeof value.mixed == "string" || {
-									property: "mixed",
-									type: "authly.Token",
-									condition: "Alternate key.",
-								},
-							...(Configuration.flaw(value.card).flaws ?? [
-								{ property: "card", type: "model.Merchant.Configuration", flaws: undefined },
-							]),
+							...(Card.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Card", flaws: undefined }]),
 					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),
 		}
 	}
@@ -89,15 +78,31 @@ export namespace Key {
 					},
 			  }
 	}
+	export async function unpack(
+		key: authly.Token | undefined,
+		...audience: ("private" | "public" | "account")[]
+	): Promise<Key | undefined> {
+		let result
+		if (key) {
+			result = await authly.Verifier.create()
+				.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
+				.verify(key, ...audience)
+			if (result && (result as any).option?.card) {
+				const cardKey = await authly.Verifier.create()
+					.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
+					.verify((result as any).option.card, ...audience)
+				result = cardKey && V1.Key.is(cardKey) ? upgrade(cardKey) : undefined
+			} else {
+				if (V1.Key.is(result))
+					result = upgrade(result)
+				if (!is(result))
+					result = undefined
+			}
+		}
+		return result
+	}
 	export type Audience = KeyAudience
 	export namespace Audience {
 		export const is = KeyAudience.is
-	}
-	export type KeyInfo = KeyKeyInfo
-	export namespace KeyInfo {
-		export const is = KeyKeyInfo.is
-		export const flaw = KeyKeyInfo.flaw
-		export const unpack = KeyKeyInfo.unpack
-		export const upgrade = KeyKeyInfo.upgrade
 	}
 }

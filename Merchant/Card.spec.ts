@@ -1,5 +1,5 @@
-import * as model from "../../index"
-import { Emv3d } from "../Emv3d"
+import * as model from "../index"
+import { Emv3d } from "./Emv3d"
 
 describe("model.Merchant.Configuration", () => {
 	it("flaws of very faulty configuration", () => {
@@ -13,17 +13,17 @@ describe("model.Merchant.Configuration", () => {
 			url: 123,
 			id: 123,
 		}
-		expect(model.Merchant.Configuration.flaw(configuration)).toEqual({
-			type: "model.Merchant.Configuration",
+		expect(model.Merchant.Card.flaw(configuration)).toEqual({
+			type: "model.Merchant.Card",
 			flaws: [
 				{ property: "descriptor", type: "string" },
 				{ property: "country", type: "isoly.CountryCode" },
-				{ property: "acquirer", type: "model.Acquirer.Settings" },
+				{ property: "acquirer", type: "model.Acquirer" },
 				{ property: "mid", type: "string" },
 				{ property: "mcc", type: "model.Merchant.CategoryCode" },
 				{ property: "emv3d", ...Emv3d.flaw(configuration.emv3d ?? "") },
-				{ property: "url", type: "string" },
-				{ property: "id", type: "string | undefined" },
+				{ property: "url", type: "string | undefined" },
+				{ property: "id", type: "authly.Identifier | undefined" },
 			],
 		})
 	})
