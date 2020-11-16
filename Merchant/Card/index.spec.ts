@@ -1,5 +1,5 @@
-import * as model from "../index"
-import { Emv3d } from "./Emv3d"
+import * as model from "../../index"
+import { Emv3d } from "../Emv3d"
 
 describe("model.Merchant.Configuration", () => {
 	it("flaws of very faulty configuration", () => {

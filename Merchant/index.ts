@@ -4,6 +4,7 @@ import { Key as MerchantKey } from "./Key"
 import * as MerchantV1 from "./V1"
 import { Card as MerchantConfiguration } from "./Card"
 import { Emv3d as MerchantEmv3d } from "./Emv3d"
+import { UiKey as MerchantUiKey } from "./UiKey"
 
 export interface Merchant {
 	id: authly.Identifier
@@ -65,7 +66,6 @@ export namespace Merchant {
 		export const is = MerchantKey.is
 		export const flaw = MerchantKey.flaw
 		export const upgrade = MerchantKey.upgrade
-		export const unpack = MerchantKey.unpack
 		export type Audience = MerchantKey.Audience
 		export namespace Audience {
 			export const is = MerchantKey.Audience.is
@@ -77,5 +77,10 @@ export namespace Merchant {
 			export const is = MerchantV1.Key.is
 			export const flaw = MerchantV1.Key.flaw
 		}
+	}
+	export type UiKey = MerchantUiKey
+	export namespace UiKey {
+		export const is = MerchantUiKey.is
+		export const unpack = MerchantUiKey.unpack
 	}
 }

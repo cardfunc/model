@@ -1,6 +1,7 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
 import { Card } from "../Card"
+import { Creatable as CardCreatable } from "../Card/Creatable"
 import { Audience as KeyAudience } from "./Audience"
 import * as V1 from "../V1"
 
@@ -49,7 +50,9 @@ export namespace Key {
 							typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 							typeof value.name == "string" || { property: "name", type: "string" },
 							typeof value.url == "string" || { property: "url", type: "string" },
-							...(Card.flaw(value.card).flaws ?? [{ property: "card", type: "model.Merchant.Card", flaws: undefined }]),
+							...(CardCreatable.flaw(value.card).flaws ?? [
+								{ property: "card", type: "model.Merchant.Card.Creatable", flaws: undefined },
+							]),
 					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),
 		}
 	}
@@ -77,29 +80,6 @@ export namespace Key {
 						emv3d: key.emv3d,
 					},
 			  }
-	}
-	export async function unpack(
-		key: authly.Token | undefined,
-		...audience: ("private" | "public" | "account")[]
-	): Promise<Key | undefined> {
-		let result
-		if (key) {
-			result = await authly.Verifier.create()
-				.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
-				.verify(key, ...audience)
-			if (result && (result as any).option?.card) {
-				const cardKey = await authly.Verifier.create()
-					.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
-					.verify((result as any).option.card, ...audience)
-				result = cardKey && V1.Key.is(cardKey) ? upgrade(cardKey) : undefined
-			} else {
-				if (V1.Key.is(result))
-					result = upgrade(result)
-				if (!is(result))
-					result = undefined
-			}
-		}
-		return result
 	}
 	export type Audience = KeyAudience
 	export namespace Audience {
