@@ -1,56 +1,47 @@
 import * as isoly from "isoly"
 import * as gracely from "gracely"
-import { Acquirer } from "../../../Acquirer"
+import { Creatable as CreatableAcquirer } from "../../../Acquirer/Creatable"
 import { CategoryCode } from "../../CategoryCode"
 import { Emv3d } from "../../Emv3d"
-import { KeyInfo as CardKeyInfo } from "./KeyInfo"
-import { Creatable as CardCreatable } from "./Creatable"
 
-export interface Card {
+export interface Creatable {
 	descriptor?: string
-	country: isoly.CountryCode.Alpha2
-	acquirer: Acquirer
+	country?: isoly.CountryCode.Alpha2
+	acquirer?: CreatableAcquirer
 	mid?: string
 	mcc?: CategoryCode
 	emv3d?: Emv3d
 }
-export namespace Card {
-	export function is(value: Card | any): value is Card {
+export namespace Creatable {
+	export function is(value: Creatable | any): value is Creatable {
 		return (
 			typeof value == "object" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
-			isoly.CountryCode.Alpha2.is(value.country) &&
-			Acquirer.is(value.acquirer) &&
+			(value.country == undefined || isoly.CountryCode.Alpha2.is(value.country)) &&
+			(value.acquirer == undefined || CreatableAcquirer.is(value.acquirer)) &&
 			(value.mid == undefined || typeof value.mid == "string") &&
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || Emv3d.is(value.emv3d))
 		)
 	}
-	export function flaw(value: any | Card): gracely.Flaw {
+	export function flaw(value: any | Creatable): gracely.Flaw {
 		return {
-			type: "model.Merchant.Configuration.Card",
+			type: "model.Merchant.Configuration.Creatable",
 			flaws:
 				typeof value != "object"
 					? undefined
 					: ([
 							value.descriptor == undefined ||
 								typeof value.descriptor == "string" || { property: "descriptor", type: "string" },
-							isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
-							Acquirer.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Settings" },
+							value.country == undefined ||
+								isoly.CountryCode.Alpha2.is(value.country) || { property: "country", type: "isoly.CountryCode" },
+							value.acquirer == undefined ||
+								CreatableAcquirer.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer.Creatable" },
 							value.mid == undefined || typeof value.mid == "string" || { property: "mid", type: "string" },
 							value.mcc == undefined ||
 								CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode" },
 							value.emv3d == undefined || Emv3d.is(value.emv3d) || { property: "emv3d", ...Emv3d.flaw(value.emv3d) },
 					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),
 		}
-	}
-	export type Creatable = CardCreatable
-	export namespace Creatable {
-		export const is = CardCreatable.is
-	}
-	export type KeyInfo = CardKeyInfo
-	export namespace KeyInfo {
-		export const is = CardKeyInfo.is
-		export const flaw = CardKeyInfo.flaw
 	}
 }

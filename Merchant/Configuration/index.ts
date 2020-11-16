@@ -25,6 +25,10 @@ export namespace Configuration {
 	export namespace Card {
 		export const is = ConfigurationCard.is
 		export const flaw = ConfigurationCard.flaw
+		export type Creatable = ConfigurationCard.Creatable
+		export namespace Creatable {
+			export const is = ConfigurationCard.Creatable.is
+		}
 		export type KeyInfo = ConfigurationCard.KeyInfo
 		export namespace KeyInfo {
 			export const is = ConfigurationCard.KeyInfo.is

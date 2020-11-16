@@ -48,6 +48,10 @@ export namespace Merchant {
 		export namespace Card {
 			export const is = MerchantConfiguration.Card.is
 			export const flaw = MerchantConfiguration.Card.flaw
+			export type Creatable = MerchantConfiguration.Card.Creatable
+			export namespace Creatable {
+				export const is = MerchantConfiguration.Card.Creatable.is
+			}
 			export type KeyInfo = MerchantConfiguration.Card.KeyInfo
 			export namespace KeyInfo {
 				export const is = MerchantConfiguration.Card.KeyInfo.is
