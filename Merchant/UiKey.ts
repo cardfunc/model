@@ -24,7 +24,7 @@ export namespace UiKey {
 	): Promise<UiKey | undefined> {
 		let result
 		if (key) {
-			result = await authly.Verifier.create()
+			result = await authly.Verifier.create<V1.Key | Key | UiKey>()
 				.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
 				.verify(key, ...audience)
 			if (result && (result as any).option?.card) {
@@ -32,7 +32,8 @@ export namespace UiKey {
 					.add(authly.Property.Remover.create(["card.acquirer", "card.emv3d", "acquirer", "emv3d"]))
 					.verify((result as any).option.card, ...audience)
 				result = cardKey ? Key.upgrade(cardKey) : undefined
-			}
+			} else
+				result = upgrade(result)
 			if (!UiKey.is(result))
 				result = undefined
 		}
