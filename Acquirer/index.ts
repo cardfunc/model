@@ -3,9 +3,9 @@ import { Protocol as AcquirerProtocol } from "./Protocol"
 
 export interface Acquirer {
 	id?: string
-	protocol?: AcquirerProtocol
-	url?: string
-	key?: string
+	protocol: AcquirerProtocol
+	url: string
+	key: string
 	bin?: AcquirerBin
 }
 
@@ -14,9 +14,9 @@ export namespace Acquirer {
 		return (
 			typeof value == "object" &&
 			(value.id == undefined || typeof value.id == "string") &&
-			(value.protocol == undefined || AcquirerProtocol.is(value.protocol)) &&
-			(value.url == undefined || typeof value.url == "string") &&
-			(value.key == undefined || typeof value.key == "string") &&
+			AcquirerProtocol.is(value.protocol) &&
+			typeof value.url == "string" &&
+			typeof value.key == "string" &&
 			(value.bin == undefined || AcquirerBin.is(value.bin))
 		)
 	}
