@@ -1,10 +1,11 @@
 import * as authly from "authly"
 import { Creatable as CardCreatable } from "./Card/Creatable"
+import { Card } from "./Card"
 import { Audience as KeyAudience } from "./Key/Audience"
 import { Key } from "./Key/index"
 import * as V1 from "./V1"
 
-export type UiKey = Omit<Key, "card"> & { card: CardCreatable }
+export type UiKey = Omit<Key, "card"> & { card: Omit<Card, "acquirer" | "emv3d"> }
 export namespace UiKey {
 	export function is(value: any | Key): value is UiKey {
 		return (
@@ -15,7 +16,8 @@ export namespace UiKey {
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			typeof value.url == "string" &&
-			CardCreatable.is(value.card)
+			CardCreatable.is(value.card) &&
+			typeof value.card.url == "string"
 		)
 	}
 	export async function unpack(
