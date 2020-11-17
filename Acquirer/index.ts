@@ -1,4 +1,5 @@
 import { Bin as AcquirerBin } from "./Bin"
+import { Creatable as AcquirerCreatable } from "./Creatable"
 import { Protocol as AcquirerProtocol } from "./Protocol"
 
 export interface Acquirer {
@@ -24,5 +25,9 @@ export namespace Acquirer {
 	export namespace Bin {
 		export const is = AcquirerBin.is
 		export const flaw = AcquirerBin.flaw
+	}
+	export type Creatable = AcquirerCreatable
+	export namespace Creatable {
+		export const is = AcquirerCreatable.is
 	}
 }

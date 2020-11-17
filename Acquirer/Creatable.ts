@@ -1,7 +1,7 @@
 import { Bin as AcquirerBin } from "./Bin"
 import { Protocol as AcquirerProtocol } from "./Protocol"
 
-export interface Acquirer {
+export interface Creatable {
 	id?: string
 	protocol?: AcquirerProtocol
 	url?: string
@@ -9,8 +9,8 @@ export interface Acquirer {
 	bin?: AcquirerBin
 }
 
-export namespace Acquirer {
-	export function is(value: Acquirer | any): value is Acquirer {
+export namespace Creatable {
+	export function is(value: Creatable | any): value is Creatable {
 		return (
 			typeof value == "object" &&
 			(value.id == undefined || typeof value.id == "string") &&
@@ -19,10 +19,5 @@ export namespace Acquirer {
 			(value.key == undefined || typeof value.key == "string") &&
 			(value.bin == undefined || AcquirerBin.is(value.bin))
 		)
-	}
-	export type Bin = AcquirerBin
-	export namespace Bin {
-		export const is = AcquirerBin.is
-		export const flaw = AcquirerBin.flaw
 	}
 }

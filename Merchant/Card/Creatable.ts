@@ -1,14 +1,14 @@
 import * as authly from "authly"
 import * as gracely from "gracely"
 import * as isoly from "isoly"
-import { Acquirer } from "../../Acquirer"
+import { Creatable as AcquirerCreatable } from "../../Acquirer/Creatable"
 import { CategoryCode } from "./../CategoryCode"
 import { Emv3d } from "./../Emv3d"
 
 export interface Creatable {
 	descriptor?: string
 	country?: isoly.CountryCode.Alpha2
-	acquirer?: Acquirer
+	acquirer?: AcquirerCreatable
 	mid?: string
 	mcc?: CategoryCode
 	emv3d?: Emv3d
@@ -21,7 +21,7 @@ export namespace Creatable {
 			typeof value == "object" &&
 			(value.descriptor == undefined || typeof value.descriptor == "string") &&
 			(value.country == undefined || isoly.CountryCode.Alpha2.is(value.country)) &&
-			(value.acquirer == undefined || Acquirer.is(value.acquirer)) &&
+			(value.acquirer == undefined || AcquirerCreatable.is(value.acquirer)) &&
 			(value.mid == undefined || typeof value.mid == "string") &&
 			(value.mcc == undefined || CategoryCode.is(value.mcc)) &&
 			(value.emv3d == undefined || Emv3d.is(value.emv3d)) &&
@@ -44,7 +44,10 @@ export namespace Creatable {
 									type: "isoly.CountryCode | undefined",
 								},
 							value.acquirer == undefined ||
-								Acquirer.is(value.acquirer) || { property: "acquirer", type: "model.Acquirer | undefined" },
+								AcquirerCreatable.is(value.acquirer) || {
+									property: "acquirer",
+									type: "model.Acquirer.Creatable | undefined",
+								},
 							value.mid == undefined || typeof value.mid == "string" || { property: "mid", type: "string | undefined" },
 							value.mcc == undefined ||
 								CategoryCode.is(value.mcc) || { property: "mcc", type: "model.Merchant.CategoryCode | undefined" },
