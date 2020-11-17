@@ -16,11 +16,11 @@ describe("model.Merchant.Configuration", () => {
 		expect(model.Merchant.Card.flaw(configuration)).toEqual({
 			type: "model.Merchant.Card",
 			flaws: [
-				{ property: "descriptor", type: "string" },
+				{ property: "descriptor", type: "string | undefined" },
 				{ property: "country", type: "isoly.CountryCode" },
 				{ property: "acquirer", type: "model.Acquirer" },
-				{ property: "mid", type: "string" },
-				{ property: "mcc", type: "model.Merchant.CategoryCode" },
+				{ property: "mid", type: "string | undefined" },
+				{ property: "mcc", type: "model.Merchant.CategoryCode | undefined" },
 				{ property: "emv3d", ...Emv3d.flaw(configuration.emv3d ?? "") },
 				{ property: "url", type: "string | undefined" },
 				{ property: "id", type: "authly.Identifier | undefined" },

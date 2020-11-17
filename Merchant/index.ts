@@ -3,9 +3,9 @@ import * as authly from "authly"
 import { Key as MerchantKey } from "./Key"
 import * as MerchantV1 from "./V1"
 import { Card as MerchantConfiguration } from "./Card"
+import { Creatable as CardCreatable } from "./Card/Creatable"
 import { Emv3d as MerchantEmv3d } from "./Emv3d"
 import { UiKey as MerchantUiKey } from "./UiKey"
-import { Creatable } from "authly/dist/Property"
 
 export interface Merchant {
 	id: authly.Identifier
@@ -46,10 +46,10 @@ export namespace Merchant {
 	export namespace Card {
 		export const is = MerchantConfiguration.is
 		export const flaw = MerchantConfiguration.flaw
-		export type Creatable = MerchantConfiguration.Creatable
+		export type Creatable = CardCreatable
 		export namespace Creatable {
-			export const is = MerchantConfiguration.Creatable.is
-			export const flaw = MerchantConfiguration.Creatable.flaw
+			export const is = CardCreatable.is
+			export const flaw = CardCreatable.flaw
 		}
 	}
 	export type Emv3d = MerchantEmv3d
