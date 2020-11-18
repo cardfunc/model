@@ -81,6 +81,25 @@ export namespace Key {
 					},
 			  }
 	}
+	export async function extractCardUrl(
+		key: authly.Token | undefined,
+		...audience: ("private" | "public" | "account")[]
+	): Promise<string | undefined> {
+		let result: string | undefined
+		let unpacked
+		if (key) {
+			unpacked = await authly.Verifier.create<V1.Key | Key>().verify(key, ...audience)
+			if (unpacked && (unpacked as any).option?.card) {
+				unpacked = await authly.Verifier.create<V1.Key>().verify((unpacked as any).option.card, ...audience)
+				result = unpacked?.iss
+			} else if (unpacked)
+				result =
+					typeof unpacked.card == "object" && !Array.isArray(unpacked.card) && typeof unpacked.card.url == "string"
+						? unpacked.card.url
+						: unpacked.iss
+		}
+		return result
+	}
 	export type Audience = KeyAudience
 	export namespace Audience {
 		export const is = KeyAudience.is
