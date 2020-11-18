@@ -84,38 +84,44 @@ describe("Key", () => {
 	})
 	it("extractCardUrl payfunc V1 Keys", async () => {
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "private")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "public")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "public")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "private")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "private")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "public")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "public")) == "http://localhost:7082"
 		).toBeTruthy()
 	})
 	it("extractCardUrl payfunc Keys", async () => {
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "private")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
-		expect(typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "public")) == "string").toBeFalsy()
-		expect(typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "private")) == "string").toBeFalsy()
-		expect(typeof (await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "public")) == "string").toBeTruthy()
+		expect(
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "public")) == "http://localhost:7082"
+		).toBeFalsy()
+		expect(
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "private")) == "http://localhost:7082"
+		).toBeFalsy()
+		expect(
+			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "public")) == "http://localhost:7082"
+		).toBeTruthy()
 	})
 	it("extractCardUrl cardfunc V1 Keys", async () => {
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "private")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "public")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "public")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "private")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "private")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			typeof (await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "public")) == "string"
+			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "public")) == "http://localhost:7082"
 		).toBeTruthy()
 	})
 })
