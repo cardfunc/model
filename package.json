@@ -54,7 +54,7 @@
  "dependencies": {
   "authly": "0.1.5",
   "gracely": "0.0.33",
-  "isoly": "0.0.14"
+  "isoly": "0.0.24"
  },
  "devDependencies": {
   "@babel/core": "^7.11.0",
