@@ -81,13 +81,4 @@ describe("Card.Creatable", () => {
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
 	})
-	it("card.pares no longer valid", async () => {
-		const card = {
-			pan: "4111111111111111",
-			expires: [2, 22],
-			csc: "123",
-			pares: "abc.def.ghi",
-		}
-		expect(model.Card.Change.is(card)).toBeFalsy()
-	})
 })

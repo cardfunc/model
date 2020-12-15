@@ -12,7 +12,6 @@ export namespace Change {
 			(value.pan == undefined || typeof value.pan == "string") &&
 			(value.expires == undefined || Expires.is(value.expires)) &&
 			(value.csc == undefined || typeof value.csc == "string") &&
-			value.pares == undefined &&
 			(value.verification == undefined ||
 				(typeof value.verification == "object" &&
 					(value.verification.type == "pares" ||
@@ -41,11 +40,6 @@ export namespace Change {
 							value.expires == undefined ||
 								Expires.is(value.expires) || { property: "expires", type: "string | undefined" },
 							value.csc == undefined || typeof value.csc == "string" || { property: "csc", type: "string | undefined" },
-							value.pares == undefined || {
-								property: "pares",
-								type: "undefined",
-								condition: "Not allowed anymore, use verification instead.",
-							},
 							value.verification == undefined ||
 								(typeof value.verification == "object" &&
 									(value.verification.type == "pares" ||

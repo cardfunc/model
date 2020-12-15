@@ -17,7 +17,6 @@ export namespace Creatable {
 			typeof value.pan == "string" &&
 			Expires.is(value.expires) &&
 			(value.csc == undefined || typeof value.csc == "string") &&
-			value.pares == undefined &&
 			(value.verification == undefined ||
 				(typeof value.verification == "object" &&
 					(value.verification.type == "pares" ||
