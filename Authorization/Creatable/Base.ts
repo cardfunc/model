@@ -8,7 +8,6 @@ export interface Base {
 	amount?: number
 	currency?: isoly.Currency
 	account?: "create" | authly.Token
-	pares?: string
 	callback?: string
 }
 
@@ -22,7 +21,6 @@ export namespace Base {
 			((value.amount == undefined && value.currency == undefined) ||
 				(typeof value.amount == "number" && isoly.Currency.is(value.currency))) &&
 			(value.account == "create" || value.account == undefined || authly.Token.is(value.account)) &&
-			(value.pares == undefined || typeof value.pares == "string") &&
 			(value.callback == undefined || typeof value.callback == "string")
 		)
 	}
