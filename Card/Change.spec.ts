@@ -58,4 +58,11 @@ describe("Card.Change", () => {
 		}
 		expect(model.Card.Change.is(card)).toBeFalsy()
 	})
+	it("card.pares no longer valid", async () => {
+		const card = {
+			csc: "123",
+			pares: "abc.def.ghi",
+		}
+		expect(model.Card.Change.is(card)).toBeFalsy()
+	})
 })
