@@ -1,6 +1,6 @@
-import * as authly from "authly"
 import * as gracely from "gracely"
 import * as isoly from "isoly"
+import * as authly from "authly"
 import { Acquirer } from "../../Acquirer"
 import { CategoryCode } from "./../CategoryCode"
 import { Emv3d } from "./../Emv3d"

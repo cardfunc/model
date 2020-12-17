@@ -1,10 +1,10 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Key as MerchantKey } from "./Key"
-import * as MerchantV1 from "./V1"
 import { Card as MerchantConfiguration } from "./Card"
 import { Creatable as CardCreatable } from "./Card/Creatable"
 import { Emv3d as MerchantEmv3d } from "./Emv3d"
+import { Key as MerchantKey } from "./Key"
+import * as MerchantV1 from "./V1"
 
 export interface Merchant {
 	id: authly.Identifier
