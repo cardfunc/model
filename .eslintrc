@@ -40,30 +40,30 @@
 			{
 				"groups": [
 					[
-            "@stencil/core",
+						"@stencil/core",
 						"cryptly",
 						"flagly", 
-            "gracely",
+						"gracely",
 						"isoly", 
-            "paramly", 
-            "selectively", 
-            "langly", 
-            "tidily",
-            "uply",
+						"paramly", 
+						"selectively", 
+						"langly", 
+						"tidily",
+						"uply",
 						"authly",
 						"persistly", 
 						"servly", 
 						"servly-azure", 
 						"smoothly", 
 						"@payfunc/model-card", 
-            "@payfunc/model", 
-            "@payfunc/cli-card", 
-            "@payfunc/component", 
+						"@payfunc/model", 
+						"@payfunc/cli-card", 
+						"@payfunc/component", 
 						"@payfunc/service", 
 						"^\\u0000",
 						"^@?\\w",
 						"^",
-            "^\\."
+						"^\\."
 					]
 				]
 			}
