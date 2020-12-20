@@ -1,7 +1,7 @@
 import * as authly from "authly"
 import { verify as verifyToken } from "../verify"
-import { Scheme } from "./Scheme"
 import { Expires } from "./Expires"
+import { Scheme } from "./Scheme"
 
 export interface Token {
 	type: "single use" | "recurring"

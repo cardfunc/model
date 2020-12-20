@@ -2,8 +2,8 @@ import * as gracely from "gracely"
 import * as authly from "authly"
 import { Card } from "../Card"
 import { Creatable as CardCreatable } from "../Card/Creatable"
-import { Audience as KeyAudience } from "./Audience"
 import * as V1 from "../V1"
+import { Audience as KeyAudience } from "./Audience"
 
 export interface Key {
 	sub: string

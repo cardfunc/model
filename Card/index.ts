@@ -1,11 +1,11 @@
 import * as authly from "authly"
 import { Change as CardChange } from "./Change"
 import { Creatable as CardCreatable } from "./Creatable"
+import { Expires as CardExpires } from "./Expires"
 import { Pan as CardPan } from "./Pan"
 import { Scheme as CardScheme } from "./Scheme"
-import { Expires as CardExpires } from "./Expires"
-import { Type as CardType } from "./Type"
 import { Token as CardToken } from "./Token"
+import { Type as CardType } from "./Type"
 
 export interface Card {
 	id: authly.Identifier

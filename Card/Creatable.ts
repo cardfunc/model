@@ -1,6 +1,6 @@
-import { Pan } from "./Pan"
-import { Expires } from "./Expires"
 import { Browser } from "../Browser"
+import { Expires } from "./Expires"
+import { Pan } from "./Pan"
 
 export interface Creatable {
 	pan: Pan

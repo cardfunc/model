@@ -3,9 +3,9 @@ import * as authly from "authly"
 import { Cancel } from "../Cancel"
 import { Capture } from "../Capture"
 import { Card } from "../Card"
-import { Creatable as AuthorizationCreatable } from "./Creatable"
 import { Refund } from "../Refund"
 import { verify as verifyToken } from "../verify"
+import { Creatable as AuthorizationCreatable } from "./Creatable"
 
 export interface Authorization {
 	id: authly.Identifier
