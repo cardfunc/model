@@ -68,6 +68,7 @@ export namespace Card {
 	export type Change = CardChange
 	export namespace Change {
 		export const is = CardChange.is
+		export const flaw = CardChange.flaw
 	}
 	export type Creatable = CardCreatable
 	export namespace Creatable {
