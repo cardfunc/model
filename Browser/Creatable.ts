@@ -1,5 +1,5 @@
 export interface Creatable {
-	colorDepth?: "1" | "4" | "8" | "12" | "15" | "16" | "18" | "24" | "30" | "32" | "36" | "48"
+	colorDepth?: number | "1" | "4" | "8" | "12" | "15" | "16" | "18" | "24" | "30" | "32" | "36" | "48"
 	java?: boolean
 	javascript?: boolean
 	language?: string
@@ -14,6 +14,7 @@ export namespace Creatable {
 		return (
 			typeof value == "object" &&
 			(value.colorDepth == undefined ||
+				(typeof value.colorDepth == "number" && !isNaN(value.colorDepth) && value.colorDepth >= 1) ||
 				(typeof value.colorDepth == "string" &&
 					["1", "4", "8", "12", "15", "16", "18", "24", "30", "32", "36", "48"].includes(value.colorDepth))) &&
 			(value.java == undefined || typeof value.java == "boolean") &&
