@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
 		"target": "es2019",
-		"module": "commonjs",
+		"module": "es6",
+		"allowJs": true,
+		"esModuleInterop": true,
 		"noImplicitAny": true,
 		"removeComments": true,
 		"preserveConstEnums": true,
