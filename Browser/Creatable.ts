@@ -1,5 +1,5 @@
 export interface Creatable {
-	colorDepth?: number | "1" | "4" | "8" | "12" | "15" | "16" | "18" | "24" | "30" | "32" | "36" | "48"
+	colorDepth?: number | string
 	java?: boolean
 	javascript?: boolean
 	language?: string
@@ -13,10 +13,7 @@ export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return (
 			typeof value == "object" &&
-			(value.colorDepth == undefined ||
-				(typeof value.colorDepth == "number" && !isNaN(value.colorDepth) && value.colorDepth >= 1) ||
-				(typeof value.colorDepth == "string" &&
-					["1", "4", "8", "12", "15", "16", "18", "24", "30", "32", "36", "48"].includes(value.colorDepth))) &&
+			(value.colorDepth == undefined || typeof value.colorDepth == "number" || typeof value.colorDepth == "string") &&
 			(value.java == undefined || typeof value.java == "boolean") &&
 			(value.javascript == undefined || typeof value.javascript == "boolean") &&
 			(value.language == undefined || typeof value.language == "string") &&
