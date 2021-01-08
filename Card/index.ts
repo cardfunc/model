@@ -1,4 +1,3 @@
-import * as authly from "authly"
 import { Change as CardChange } from "./Change"
 import { Creatable as CardCreatable } from "./Creatable"
 import { Expires as CardExpires } from "./Expires"
@@ -6,11 +5,9 @@ import { Pan as CardPan } from "./Pan"
 import { Scheme as CardScheme } from "./Scheme"
 import { Token as CardToken } from "./Token"
 import { Type as CardType } from "./Type"
+import { Card as CardV1 } from "./V1"
 
 export interface Card {
-	id: authly.Identifier
-	reference?: string
-	account?: authly.Token
 	scheme: CardScheme
 	iin: string
 	last4: string
@@ -22,9 +19,6 @@ export namespace Card {
 	export function is(value: Card | any): value is Card {
 		return (
 			typeof value == "object" &&
-			authly.Identifier.is(value.id) &&
-			(value.reference == undefined || typeof value.reference == "string") &&
-			(value.account == undefined || authly.Token.is(value.account)) &&
 			CardScheme.is(value.scheme) &&
 			typeof value.iin == "string" &&
 			value.iin.length == 6 &&
@@ -34,12 +28,10 @@ export namespace Card {
 			(value.type == undefined || CardType.is(value.type))
 		)
 	}
-	export function from(value: CardCreatable): Omit<Card, "id" | "reference">
-	export function from(value: Change): Omit<Partial<Card>, "id" | "reference">
-	export function from(
-		value: CardCreatable | Change
-	): Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference"> {
-		let result: Omit<Card, "id" | "reference"> | Omit<Partial<Card>, "id" | "reference">
+	export function from(value: CardCreatable): Card
+	export function from(value: Change): Partial<Card>
+	export function from(value: CardCreatable | Change): Card | Partial<Card> {
+		let result: Card | Partial<Card>
 		if (CardCreatable.is(value))
 			result = {
 				scheme: CardPan.scheme(value.pan),
@@ -61,9 +53,6 @@ export namespace Card {
 				result = { ...result, expires: value.expires }
 		}
 		return result
-	}
-	export function generateId(): authly.Identifier {
-		return authly.Identifier.generate(8)
 	}
 	export type Change = CardChange
 	export namespace Change {
@@ -102,10 +91,22 @@ export namespace Card {
 			export const is = CardType.is
 		}
 	}
+
 	export type Token = CardToken
 	export namespace Token {
 		export const is = CardToken.is
-		export const hasInfo = CardToken.hasInfo
 		export const verify = CardToken.verify
+	}
+	export type V1 = CardV1
+	export namespace V1 {
+		export const is = CardV1.is
+		export const from = CardV1.from
+		export const generateId = CardV1.generateId
+		export type Token = CardV1.Token
+		export namespace Token {
+			export const is = CardV1.Token.is
+			export const verify = CardV1.Token.verify
+			export const hasInfo = CardV1.Token.hasInfo
+		}
 	}
 }
