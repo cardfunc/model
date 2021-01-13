@@ -1,8 +1,12 @@
+import * as isoly from "isoly"
 import * as model from "../index"
 
 describe("Card Token", () => {
 	it("is minimal", async () => {
 		const card: model.Card.Token = {
+			audience: "development",
+			created: isoly.DateTime.now(),
+			issuer: "card",
 			encrypted: "123.123.123",
 			expires: [12, 26],
 		}

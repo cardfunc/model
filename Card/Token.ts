@@ -1,8 +1,12 @@
+import * as isoly from "isoly"
 import * as authly from "authly"
 import { Verifier } from "../Verifier"
 import { Expires } from "./Expires"
 
 export interface Token {
+	audience: "production" | "development"
+	created: isoly.DateTime
+	issuer: "card"
 	encrypted: string
 	expires: Expires
 	verification?: { type: "pares" | "method" | "challenge"; data?: string | { [property: string]: any } }
@@ -12,6 +16,9 @@ export namespace Token {
 	export function is(value: Token | any): value is Token {
 		return (
 			typeof value == "object" &&
+			["production", "development"].some(a => a == value.audience) &&
+			isoly.DateTime.is(value.created) &&
+			value.issuer == "card" &&
 			typeof value.encrypted == "string" &&
 			Expires.is(value.expires) &&
 			(value.verification == undefined ||
@@ -35,7 +42,20 @@ export namespace Token {
 		)
 	}
 	const transformers = [
-		new authly.Property.Renamer({ encrypted: "enc", verification: "ver", expires: "xpr", audience: "aud" }),
+		new authly.Property.Renamer({
+			encrypted: "enc",
+			verification: "ver",
+			expires: "xpr",
+			audience: "aud",
+			issuer: "iss",
+			created: "iat",
+		}),
+		new authly.Property.Converter({
+			issuer: {
+				forward: value => (isoly.DateTime.is(value) ? isoly.DateTime.parse(value).getTime() : value),
+				backward: value => (typeof value == "number" ? isoly.DateTime.create(new Date(value)) : value),
+			},
+		}),
 		new authly.Property.Typeguard(is),
 	]
 	const verifier = Verifier.create<Token>().add(...transformers)
