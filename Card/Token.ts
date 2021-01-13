@@ -1,15 +1,14 @@
+import * as isoly from "isoly"
 import * as authly from "authly"
-import { verify as verifyToken } from "../verify"
+import { Verifier } from "../Verifier"
 import { Expires } from "./Expires"
-import { Scheme } from "./Scheme"
 
 export interface Token {
-	type: "single use" | "recurring"
-	card: authly.Identifier
-	scheme?: Scheme
-	iin?: string
-	last4?: string
-	expires?: Expires
+	audience: "production" | "development"
+	created: isoly.DateTime
+	issuer: "card"
+	encrypted: string
+	expires: Expires
 	verification?: { type: "pares" | "method" | "challenge"; data?: string | { [property: string]: any } }
 }
 
@@ -17,12 +16,11 @@ export namespace Token {
 	export function is(value: Token | any): value is Token {
 		return (
 			typeof value == "object" &&
-			(value.type == "single use" || value.type == "recurring") &&
-			authly.Identifier.is(value.card) &&
-			(value.scheme == undefined || Scheme.is(value.scheme)) &&
-			(value.iin == undefined || (typeof value.iin == "string" && value.iin.length == 6)) &&
-			(value.last4 == undefined || (typeof value.last4 == "string" && value.last4.length == 4)) &&
-			(value.expires == undefined || Expires.is(value.expires)) &&
+			["production", "development"].some(a => a == value.audience) &&
+			isoly.DateTime.is(value.created) &&
+			value.issuer == "card" &&
+			typeof value.encrypted == "string" &&
+			Expires.is(value.expires) &&
 			(value.verification == undefined ||
 				(typeof value.verification == "object" &&
 					((value.verification.type == "pares" && value.verification.data == undefined) ||
@@ -33,21 +31,35 @@ export namespace Token {
 						typeof value.verification.data == "object")))
 		)
 	}
-	export function hasInfo(
-		value: Token | any
-	): value is Token & { scheme: Scheme; iin: string; last4: string; expires: Expires } {
+	export function getVerificationTarget(token: Token, baseUrl: string): string {
 		return (
-			is(value) &&
-			Scheme.is(value.scheme) &&
-			typeof value.iin == "string" &&
-			value.iin.length == 6 &&
-			typeof value.last4 == "string" &&
-			value.last4.length == 4 &&
-			Expires.is(value.expires)
+			baseUrl +
+			"/card/" +
+			token.encrypted +
+			token.expires[0].toString().padStart(2, "0") +
+			token.expires[1].toString().padStart(2, "0") +
+			"/verification"
 		)
 	}
+	const transformers = [
+		new authly.Property.Renamer({
+			encrypted: "enc",
+			verification: "ver",
+			expires: "xpr",
+			audience: "aud",
+			issuer: "iss",
+			created: "iat",
+		}),
+		new authly.Property.Converter({
+			issuer: {
+				forward: value => (isoly.DateTime.is(value) ? isoly.DateTime.parse(value).getTime() : value),
+				backward: value => (typeof value == "number" ? isoly.DateTime.create(new Date(value)) : value),
+			},
+		}),
+		new authly.Property.Typeguard(is),
+	]
+	const verifier = Verifier.create<Token>().add(...transformers)
 	export async function verify(token: authly.Token): Promise<(Token & authly.Payload) | undefined> {
-		const result = await verifyToken(token)
-		return is(result) ? result : undefined
+		return await verifier.verify(token)
 	}
 }

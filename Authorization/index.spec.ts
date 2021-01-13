@@ -10,8 +10,6 @@ describe("Authorization", () => {
 			currency: "SEK",
 			amount: 100,
 			card: {
-				id: "1234abcd",
-				reference: "abc-0123-def",
 				scheme: "visa",
 				iin: "123456",
 				last4: "9000",
@@ -33,9 +31,6 @@ describe("Authorization", () => {
 			amount: 1337.42,
 			currency: "SEK",
 			card: {
-				id: "1234abcd",
-				account:
-					"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDYXJkRnVuYyIsImlhdCI6MTU4MDk5MjA0MjU2OSwiYXVkIjoiZGV2ZWxvcG1lbnQiLCJpZCI6Ik90M2ptTWphIn0.m0bZn4xid8qRhiqHVsp9-i6S3LCfrBPvH8MAeHwGjObPHfdCn2F8qbPivGaNrAlSHnORSdWpeNHdYt2Z3i52sXReWP97mZPhR8Qlj6ZcS_eYiZNLUftJARhSVBfURGJekhKfBmN4lisvzCpAborPjGceT776cApBIIrpQbjxT9OS7VzYLokh4rnbbs_XYUT4dnKQAOZV0XpBqsGNgzJgz3hzpRc6A88SM5lKiZDMTmZQWBTiwZboJmW2yEgnkv5hCcMQq9Go5FvQiu8o-32OstkDRhE-gP3OCZHLRRhFuu6r0vnSvb2pdiFarpQ_W-pJ7OaZb6-EMVkVz9KS8sXRCQ",
 				scheme: "visa",
 				iin: "410000",
 				last4: "0000",

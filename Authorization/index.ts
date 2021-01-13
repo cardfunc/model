@@ -4,7 +4,7 @@ import { Cancel } from "../Cancel"
 import { Capture } from "../Capture"
 import { Card } from "../Card"
 import { Refund } from "../Refund"
-import { verify as verifyToken } from "../verify"
+import { Verifier } from "../Verifier"
 import { Creatable as AuthorizationCreatable } from "./Creatable"
 
 export interface Authorization {
@@ -44,9 +44,12 @@ export namespace Authorization {
 			(value.callback == undefined || typeof value.callback == "string")
 		)
 	}
+
+	const transformers = [new authly.Property.Typeguard(is)]
+	const verifier = Verifier.create<Authorization>().add(...transformers)
+
 	export async function verify(token: authly.Token): Promise<Authorization | undefined> {
-		const result = await verifyToken(token)
-		return is(result) ? result : undefined
+		return verifier.verify(token)
 	}
 	export type Creatable = AuthorizationCreatable
 	export namespace Creatable {
