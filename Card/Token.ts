@@ -25,7 +25,14 @@ export namespace Token {
 		)
 	}
 	export function getVerificationTarget(token: Token, baseUrl: string): string {
-		return baseUrl + "/card/" + token.encrypted + "." + token.expires[0] + "." + token.expires[1] + "/verification"
+		return (
+			baseUrl +
+			"/card/" +
+			token.encrypted +
+			token.expires[0].toString().padStart(2, "0") +
+			token.expires[1].toString().padStart(2, "0") +
+			"/verification"
+		)
 	}
 	export async function verify(token: authly.Token): Promise<(Token & authly.Payload) | undefined> {
 		const result = await verifyToken(token)
