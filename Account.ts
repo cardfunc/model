@@ -1,5 +1,5 @@
 import * as authly from "authly"
-import { verify as verifyToken } from "./verify"
+import { Verifier } from "./Verifier"
 
 export interface Account {
 	id: authly.Identifier
@@ -14,8 +14,9 @@ export namespace Account {
 			(value.reference == undefined || typeof value.reference == "string")
 		)
 	}
+	const transformers = [new authly.Property.Typeguard(is)]
+	const verifier = Verifier.create<Account>().add(...transformers)
 	export async function verify(token: authly.Token): Promise<(Account & authly.Payload) | undefined> {
-		const result = await verifyToken(token)
-		return is(result) ? result : undefined
+		return verifier.verify(token)
 	}
 }

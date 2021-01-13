@@ -21,26 +21,6 @@ describe("Card Token", () => {
 		expect(model.Card.V1.Token.hasInfo(card)).toBeTruthy()
 		expect(model.Card.V1.Token.is(card)).toBeTruthy()
 	})
-	it("is minimal", async () => {
-		const card: model.Card.V1.Token = {
-			type: "single use",
-			card: "12345678",
-		}
-		expect(model.Card.V1.Token.hasInfo(card)).toBeFalsy()
-		expect(model.Card.V1.Token.is(card)).toBeTruthy()
-	})
-	it("has info", async () => {
-		const card: model.Card.V1.Token = {
-			type: "single use",
-			card: "12345678",
-			scheme: "visa",
-			iin: "411111",
-			last4: "1111",
-			expires: [12, 26],
-		}
-		expect(model.Card.V1.Token.hasInfo(card)).toBeTruthy()
-		expect(model.Card.V1.Token.is(card)).toBeTruthy()
-	})
 	it("is card token with verification (pares) indicator, no pares allowed in token", async () => {
 		const card: model.Card.Creatable = {
 			pan: "5105105105105100",

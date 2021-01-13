@@ -1,5 +1,5 @@
 import * as authly from "authly"
-import { verify as verifyToken } from "../../verify"
+import { Verifier } from "../../Verifier"
 import { Expires } from "../Expires"
 import { Scheme } from "../Scheme"
 
@@ -46,8 +46,11 @@ export namespace Token {
 			Expires.is(value.expires)
 		)
 	}
+
+	const transformers = [new authly.Property.Typeguard(is)]
+	const verifier = Verifier.create<Token>().add(...transformers)
+
 	export async function verify(token: authly.Token): Promise<(Token & authly.Payload) | undefined> {
-		const result = await verifyToken(token)
-		return is(result) ? result : undefined
+		return await verifier.verify(token)
 	}
 }
