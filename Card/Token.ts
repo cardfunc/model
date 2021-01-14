@@ -54,7 +54,7 @@ export namespace Token {
 		new authly.Property.Converter({
 			iat: {
 				forward: value => (isoly.DateTime.is(value) ? isoly.DateTime.parse(value).getTime() : value),
-				backward: value => (typeof value == "number" ? isoly.DateTime.create(new Date(value)) : value),
+				backward: value => (typeof value == "number" ? isoly.DateTime.create(new Date(value * 1000)) : value),
 			},
 		}),
 	]
