@@ -1,6 +1,6 @@
 {
  "name": "@payfunc/model-card",
- "version": "0.1.12",
+ "version": "0.2.0",
  "description": "Javascript library containing the model for the PayFunc Card Tokenizing REST API.",
  "author": "PayFunc",
  "license": "MIT",
@@ -27,6 +27,12 @@
     "tsConfig": "tsconfig.test.json"
    }
   },
+  "transform": {
+   "^.+\\.(j|t)sx?$": "ts-jest"
+  },
+  "transformIgnorePatterns": [
+   "<rootDir>/node_modules/(?!(cryptly|authly|isoly|gracely)/.*)"
+  ],
   "testEnvironment": "node",
   "testRegex": "((\\.|/)(test|spec))(\\.|\\/.+)(jsx?|tsx?)$",
   "testPathIgnorePatterns": [
@@ -52,9 +58,9 @@
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "authly": "0.1.5",
-  "gracely": "0.0.33",
-  "isoly": "0.0.24"
+  "authly": "0.2.2",
+  "gracely": "0.0.39",
+  "isoly": "0.0.26"
  },
  "devDependencies": {
   "@babel/core": "^7.11.0",
