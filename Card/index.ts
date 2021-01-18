@@ -96,6 +96,7 @@ export namespace Card {
 	export namespace Token {
 		export const is = CardToken.is
 		export const verify = CardToken.verify
+		export const getVerificationTarget = CardToken.getVerificationTarget
 	}
 	export type V1 = CardV1
 	export namespace V1 {
