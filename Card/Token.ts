@@ -31,14 +31,15 @@ export namespace Token {
 						typeof value.verification.data == "object")))
 		)
 	}
-	export function getVerificationTarget(token: Token, baseUrl: string): string {
+	export function getVerificationTarget(token: Token, baseUrl: string, parent: string): string {
 		return (
 			baseUrl +
 			"/card/" +
 			token.encrypted +
 			token.expires[0].toString().padStart(2, "0") +
 			token.expires[1].toString().padStart(2, "0") +
-			"/verification"
+			"/verification?mode=iframe&parent=" +
+			parent
 		)
 	}
 	const transformers = [
