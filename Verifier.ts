@@ -12,7 +12,7 @@ const algorithms = {
 export class Verifier<T extends authly.Payload> {
 	private constructor(private backends: [string, authly.Verifier<T> | undefined][]) {}
 	async verify(token: string | authly.Token | undefined): Promise<T | undefined> {
-		return this.backends.map(async ([a, v]) => await v?.verify(token, a)).find(p => p)
+		return (await Promise.all(this.backends.map(async ([a, v]) => await v?.verify(token, a)))).find(p => p)
 	}
 	add(...argument: (authly.Property.Transformer | undefined)[]): Verifier<T> {
 		this.backends.forEach(([_, b]) => b?.add(...argument))
