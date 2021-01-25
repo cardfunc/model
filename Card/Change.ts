@@ -1,5 +1,4 @@
 import * as gracely from "gracely"
-import { Browser } from "../Browser"
 import { Creatable } from "./Creatable"
 import { Expires } from "./Expires"
 
@@ -22,11 +21,7 @@ export namespace Change {
 						(typeof value.verification.data == "object" &&
 							Object.values(value.verification.data).every(item => typeof item == "string"))))) &&
 			(value.client == undefined ||
-				(typeof value.client == "object" &&
-					(value.client.ip == undefined || typeof value.client.ip == "string") &&
-					(value.client.browser == undefined ||
-						Browser.is(value.client.browser) ||
-						Browser.Creatable.is(value.client.browser))))
+				(typeof value.client == "object" && (value.client.ip == undefined || typeof value.client.ip == "string")))
 		)
 	}
 	export function flaw(value: Change | any): gracely.Flaw {
@@ -55,12 +50,9 @@ export namespace Change {
 								},
 							value.client == undefined ||
 								(typeof value.client == "object" &&
-									(value.client.ip == undefined || typeof value.client.ip == "string") &&
-									(value.client.browser == undefined ||
-										Browser.is(value.client.browser) ||
-										Browser.Creatable.is(value.client.browser))) || {
+									(value.client.ip == undefined || typeof value.client.ip == "string")) || {
 									property: "client",
-									type: "{ ip: string | undefined, browser: Browser | Browser.Creatable | undefined",
+									type: "{ ip: string | undefined }",
 								},
 					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),
 		}

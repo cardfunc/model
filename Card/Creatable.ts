@@ -1,4 +1,3 @@
-import { Browser } from "../Browser"
 import { Expires } from "./Expires"
 import { Pan } from "./Pan"
 
@@ -7,7 +6,7 @@ export interface Creatable {
 	expires: Expires
 	csc?: string
 	verification?: { type: "pares" | "method" | "challenge"; data?: string | { [property: string]: any } }
-	client?: { ip?: string; browser?: Browser | Browser.Creatable }
+	client?: { ip?: string }
 }
 
 export namespace Creatable {
@@ -26,11 +25,7 @@ export namespace Creatable {
 						typeof value.verification.data == "string" ||
 						typeof value.verification.data == "object"))) &&
 			(value.client == undefined ||
-				(typeof value.client == "object" &&
-					(value.client.ip == undefined || typeof value.client.ip == "string") &&
-					(value.client.browser == undefined ||
-						Browser.is(value.client.browser) ||
-						Browser.Creatable.is(value.client.browser))))
+				(typeof value.client == "object" && (value.client.ip == undefined || typeof value.client.ip == "string")))
 		)
 	}
 }
