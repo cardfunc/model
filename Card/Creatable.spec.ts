@@ -67,16 +67,6 @@ describe("Card.Creatable", () => {
 			csc: "123",
 			client: {
 				ip: "192.168.0.1",
-				browser: {
-					userAgent: "example",
-					acceptHeader: "application/json; charset=utf-8",
-					width: "900",
-					height: "700",
-					java: false,
-					javascript: false,
-					language: "sv",
-					timezone: "+1000",
-				},
 			},
 		}
 		expect(model.Card.Creatable.is(card)).toBeTruthy()
