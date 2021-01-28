@@ -6,7 +6,7 @@ export interface Acquirer {
 	id?: string
 	protocol: AcquirerProtocol
 	url: string
-	key: string
+	key?: string
 	bin?: AcquirerBin
 }
 
@@ -17,7 +17,7 @@ export namespace Acquirer {
 			(value.id == undefined || typeof value.id == "string") &&
 			AcquirerProtocol.is(value.protocol) &&
 			typeof value.url == "string" &&
-			typeof value.key == "string" &&
+			(typeof value.key == "string" || (typeof value.key == undefined && value.protocol == "intergiro")) &&
 			(value.bin == undefined || AcquirerBin.is(value.bin))
 		)
 	}
