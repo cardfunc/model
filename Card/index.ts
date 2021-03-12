@@ -82,6 +82,7 @@ export namespace Card {
 	}
 	export type Scheme = CardScheme
 	export namespace Scheme {
+		export const types = CardScheme.types
 		export const is = CardScheme.is
 	}
 	export type Expires = CardExpires
