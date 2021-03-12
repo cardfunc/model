@@ -13,7 +13,7 @@ export type Scheme =
 	| "visa"
 
 export namespace Scheme {
-	export const types = [
+	export const types: Scheme[] = [
 		"unknown",
 		"amex",
 		"dankort",
