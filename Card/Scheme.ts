@@ -13,6 +13,20 @@ export type Scheme =
 	| "visa"
 
 export namespace Scheme {
+	export const types: Scheme[] = [
+		"unknown",
+		"amex",
+		"dankort",
+		"diners",
+		"discover",
+		"electron",
+		"interpayment",
+		"jcb",
+		"maestro",
+		"mastercard",
+		"unionpay",
+		"visa",
+	]
 	export function is(value: Scheme | any): value is Scheme {
 		return (
 			typeof value == "string" &&
