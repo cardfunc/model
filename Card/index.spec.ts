@@ -23,6 +23,7 @@ describe("Card", () => {
 			iin: "510510",
 			last4: "5100",
 			expires: [2, 22],
+			csc: "present",
 		})
 		const partialCard: model.Card.Change = {
 			pan: "5105105105105100",
@@ -43,5 +44,22 @@ describe("Card", () => {
 		const emptyCard: model.Card.Change = {}
 		const emptyCardOutput: Partial<model.Card> = model.Card.from(emptyCard)
 		expect(emptyCardOutput).toEqual({})
+	})
+	it("csc matched information tests", () => {
+		const creatable: model.Card.Creatable = {
+			pan: "4111111111111111",
+			expires: [2, 28],
+			csc: "987",
+		}
+		const card = model.Card.from(creatable)
+		const matched = model.Card.from(creatable, "matched")
+		const mismatched = model.Card.from(creatable, "mismatched")
+		const present = model.Card.from(creatable, "present")
+		expect({ ...card, csc: "matched" }).toEqual(matched)
+		expect(model.Card.is(matched)).toBeTruthy()
+		expect({ ...card, csc: "mismatched" }).toEqual(mismatched)
+		expect(model.Card.is(mismatched)).toBeTruthy()
+		expect(card).toEqual(present)
+		expect(model.Card.is(present)).toBeTruthy()
 	})
 })
