@@ -95,12 +95,11 @@ export namespace Card {
 		export namespace Year {
 			export const is = CardExpires.Year.is
 		}
-		export type Type = CardType
-		export namespace Type {
-			export const is = CardType.is
-		}
 	}
-
+	export type Type = CardType
+	export namespace Type {
+		export const is = CardType.is
+	}
 	export type Token = CardToken
 	export namespace Token {
 		export const is = CardToken.is
