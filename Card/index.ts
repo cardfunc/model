@@ -13,6 +13,7 @@ export interface Card {
 	last4: string
 	expires: CardExpires
 	type?: CardType
+	csc?: "matched" | "mismatched" | "present"
 }
 
 export namespace Card {
@@ -25,21 +26,27 @@ export namespace Card {
 			typeof value.last4 == "string" &&
 			value.last4.length == 4 &&
 			CardExpires.is(value.expires) &&
-			(value.type == undefined || CardType.is(value.type))
+			(value.type == undefined || CardType.is(value.type)) &&
+			(value.csc == undefined || ["matched", "mismatched", "present"].includes(value.csc))
 		)
 	}
-	export function from(value: CardCreatable): Card
-	export function from(value: Change): Partial<Card>
-	export function from(value: CardCreatable | Change): Card | Partial<Card> {
+	export function from(value: CardCreatable, csc?: "matched" | "mismatched" | "present"): Card
+	export function from(value: Change, csc?: "matched" | "mismatched" | "present"): Partial<Card>
+	export function from(
+		value: CardCreatable | Change,
+		csc?: "matched" | "mismatched" | "present"
+	): Card | Partial<Card> {
 		let result: Card | Partial<Card>
-		if (CardCreatable.is(value))
+		if (CardCreatable.is(value)) {
 			result = {
 				scheme: CardPan.scheme(value.pan),
 				iin: CardPan.iin(value.pan),
 				last4: CardPan.last4(value.pan),
 				expires: value.expires,
 			}
-		else {
+			if (value.csc || csc)
+				result.csc = csc ? csc : "present"
+		} else {
 			result = {}
 			if (value.pan) {
 				result = {
@@ -50,7 +57,9 @@ export namespace Card {
 				}
 			}
 			if (value.expires)
-				result = { ...result, expires: value.expires }
+				result.expires = value.expires
+			if (value.csc || csc)
+				result.csc = csc ? csc : "present"
 		}
 		return result
 	}
@@ -86,12 +95,11 @@ export namespace Card {
 		export namespace Year {
 			export const is = CardExpires.Year.is
 		}
-		export type Type = CardType
-		export namespace Type {
-			export const is = CardType.is
-		}
 	}
-
+	export type Type = CardType
+	export namespace Type {
+		export const is = CardType.is
+	}
 	export type Token = CardToken
 	export namespace Token {
 		export const is = CardToken.is
