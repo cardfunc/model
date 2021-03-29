@@ -1,6 +1,6 @@
 {
  "name": "@payfunc/model-card",
- "version": "0.2.10",
+ "version": "0.2.11",
  "description": "Javascript library containing the model for the PayFunc Card Tokenizing REST API.",
  "author": "PayFunc",
  "license": "MIT",
