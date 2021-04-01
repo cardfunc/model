@@ -1,6 +1,6 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Card as CardConfiguration } from "../Card"
+import { Card as CardConfiguration } from "../../Merchant/Card"
 
 export interface Key extends authly.Payload, CardConfiguration {
 	sub: string
