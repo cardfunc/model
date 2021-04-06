@@ -1,9 +1,10 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Card } from "../Card"
-import { Creatable as CardCreatable } from "../Card/Creatable"
-import * as V1 from "../V1"
+import { Card } from "../Merchant/Card"
+import { Creatable as CardCreatable } from "../Merchant/Card/Creatable"
+import { Agent as KeyAgent } from "./Agent"
 import { Audience as KeyAudience } from "./Audience"
+import * as V1 from "./V1"
 
 export interface Key {
 	sub: string
@@ -103,5 +104,10 @@ export namespace Key {
 	export type Audience = KeyAudience
 	export namespace Audience {
 		export const is = KeyAudience.is
+	}
+	export type Agent = KeyAgent
+	export namespace Agent {
+		export const is = KeyAgent.is
+		export const flaw = KeyAgent.flaw
 	}
 }
