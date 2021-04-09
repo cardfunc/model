@@ -9,6 +9,7 @@ export interface Token {
 	audience: "production" | "development"
 	encrypted: string
 	expires: Expires
+	reference?: string
 	verification?: { type: "pares" | "method" | "challenge"; data?: string | { [property: string]: any } }
 }
 
@@ -21,6 +22,7 @@ export namespace Token {
 			value.issuer == "card" &&
 			typeof value.encrypted == "string" &&
 			Expires.is(value.expires) &&
+			(value.reference == undefined || typeof value.reference == "string") &&
 			(value.verification == undefined ||
 				(typeof value.verification == "object" &&
 					(value.verification.type == "pares" ||
@@ -51,6 +53,7 @@ export namespace Token {
 			audience: "aud",
 			issuer: "iss",
 			created: "iat",
+			reference: "ref",
 		}),
 		new authly.Property.Converter({
 			iat: {
