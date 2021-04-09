@@ -7,6 +7,7 @@ export interface Creatable {
 	csc?: string
 	verification?: { type: "pares" | "method" | "challenge"; data?: string | { [property: string]: any } }
 	client?: { ip?: string }
+	reference?: string
 }
 
 export namespace Creatable {
@@ -25,7 +26,8 @@ export namespace Creatable {
 						typeof value.verification.data == "string" ||
 						typeof value.verification.data == "object"))) &&
 			(value.client == undefined ||
-				(typeof value.client == "object" && (value.client.ip == undefined || typeof value.client.ip == "string")))
+				(typeof value.client == "object" && (value.client.ip == undefined || typeof value.client.ip == "string"))) &&
+			(value.reference == undefined || typeof value.reference == "string")
 		)
 	}
 }
