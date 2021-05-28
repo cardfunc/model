@@ -13,7 +13,7 @@ export namespace Creatable {
 	export function is(value: Creatable | any): value is Creatable {
 		return (
 			typeof value == "object" &&
-			typeof value.pan == "string" &&
+			Pan.is(value.pan) &&
 			Expires.is(value.expires) &&
 			(value.csc == undefined || typeof value.csc == "string") &&
 			(value.verification == undefined ||
