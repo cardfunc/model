@@ -31,7 +31,12 @@ export namespace Token {
 						typeof value.verification.data == "object")))
 		)
 	}
-	export function getVerificationTarget(token: Token, baseUrl: string, parent: string): string {
+	export function getVerificationTarget(
+		token: Token,
+		baseUrl: string,
+		parent: string,
+		version?: "2.1.0" | "2.2.0"
+	): string {
 		return (
 			baseUrl +
 			"/card/" +
@@ -39,7 +44,8 @@ export namespace Token {
 			token.expires[0].toString().padStart(2, "0") +
 			token.expires[1].toString().padStart(2, "0") +
 			"/verification?mode=iframe&parent=" +
-			parent
+			parent +
+			(version ? `&v=${version}` : "")
 		)
 	}
 	const transformers = [
