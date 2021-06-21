@@ -1,3 +1,4 @@
+import * as isoly from "isoly"
 import { Change as CardChange } from "./Change"
 import { Creatable as CardCreatable } from "./Creatable"
 import { Expires as CardExpires } from "./Expires"
@@ -14,6 +15,7 @@ export interface Card {
 	expires: CardExpires
 	type?: CardType
 	csc?: "matched" | "mismatched" | "present"
+	country?: isoly.CountryCode.Alpha2
 }
 
 export namespace Card {
