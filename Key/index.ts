@@ -45,7 +45,7 @@ export namespace Key {
 							Audience.is(value.aud) ||
 								(Array.isArray(value.aud) && value.aud.every(Audience.is)) || {
 									property: "aud",
-									type: `"agent" | "account" | "public" | "private"`,
+									type: `"agent" | "customer" | "public" | "private"`,
 									condition: "Key audience.",
 								},
 							typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
@@ -84,7 +84,7 @@ export namespace Key {
 	}
 	export async function extractCardUrl(
 		key: authly.Token | undefined,
-		...audience: ("private" | "public" | "account")[]
+		...audience: ("private" | "public" | "customer")[]
 	): Promise<string | undefined> {
 		let result: string | undefined
 		let unpacked
