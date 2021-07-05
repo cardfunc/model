@@ -67,7 +67,7 @@ describe("Key", () => {
 	it("flaw", () => {
 		expect(model.Key.V1.Key.flaw(merchant)).toEqual({
 			flaws: [],
-			type: "model.Merchant.V1.Key",
+			type: "model.Key.V1.Key",
 		})
 	})
 })
