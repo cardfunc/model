@@ -36,7 +36,7 @@ describe("model.Key.Agent minimal is", () => {
 					type: "model.Merchant.Card.Creatable",
 				},
 			],
-			type: "model.Merchant.Key.Agent",
+			type: "model.Key.Agent",
 		})
 	})
 	it("model.Key.Agent is", () => {
@@ -51,7 +51,7 @@ describe("model.Key.Agent minimal is", () => {
 		expect(model.Key.Agent.is(agent)).toBeTruthy()
 		expect(model.Key.Agent.flaw(agent)).toEqual({
 			flaws: [],
-			type: "model.Merchant.Key.Agent",
+			type: "model.Key.Agent",
 		})
 	})
 })

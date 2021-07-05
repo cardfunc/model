@@ -24,7 +24,7 @@ describe("Key", () => {
 	}
 	it("is", () =>
 		expect(
-			model.Merchant.V1.Key.is({
+			model.Key.V1.Key.is({
 				sub: "par9",
 				iss: "https://api.cardfunc.com",
 				aud: "public",
@@ -46,11 +46,11 @@ describe("Key", () => {
 			})
 		).toBeTruthy())
 	it("is 2", () => {
-		expect(model.Merchant.V1.Key.is(merchant)).toBeTruthy()
+		expect(model.Key.V1.Key.is(merchant)).toBeTruthy()
 	})
 	it("is missing id name", () =>
 		expect(
-			model.Merchant.V1.Key.is({
+			model.Key.V1.Key.is({
 				country: "GB",
 				acquirer: {
 					protocol: "clearhaus",
@@ -65,7 +65,7 @@ describe("Key", () => {
 			})
 		).toBeFalsy())
 	it("flaw", () => {
-		expect(model.Merchant.V1.Key.flaw(merchant)).toEqual({
+		expect(model.Key.V1.Key.flaw(merchant)).toEqual({
 			flaws: [],
 			type: "model.Merchant.V1.Key",
 		})

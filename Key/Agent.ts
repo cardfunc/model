@@ -1,5 +1,5 @@
 import * as gracely from "gracely"
-import * as model from "../index"
+import { Merchant } from "../Merchant"
 
 export interface Agent {
 	sub: string
@@ -8,7 +8,7 @@ export interface Agent {
 	aud: "agent"
 	name: string
 	url?: string
-	card?: model.Merchant.Card.Creatable
+	card?: Merchant.Card.Creatable
 }
 export namespace Agent {
 	export function is(value: any | Agent): value is Agent {
@@ -20,12 +20,12 @@ export namespace Agent {
 			typeof value.iat == "number" &&
 			typeof value.name == "string" &&
 			(value.url == undefined || typeof value.url == "string") &&
-			(value.card == undefined || model.Merchant.Card.Creatable.is(value.card))
+			(value.card == undefined || Merchant.Card.Creatable.is(value.card))
 		)
 	}
 	export function flaw(value: any | Agent): gracely.Flaw {
 		return {
-			type: "model.Merchant.Key.Agent",
+			type: "model.Key.Agent",
 			flaws:
 				typeof value != "object"
 					? undefined
@@ -44,13 +44,13 @@ export namespace Agent {
 							typeof value.iat == "number" || { property: "iat", type: "number", condition: "Issued timestamp." },
 							typeof value.name == "string" || { property: "name", type: "string" },
 							value.url == undefined || typeof value.url == "string" || { property: "url", type: "string | undefined" },
-							...(value.card == undefined || model.Merchant.Card.Creatable.is(value.card)
+							...(value.card == undefined || Merchant.Card.Creatable.is(value.card)
 								? []
 								: [
 										{
 											property: "card",
 											type: "model.Merchant.Card.Creatable",
-											flaws: model.Merchant.Card.Creatable.flaw(value.card).flaws,
+											flaws: Merchant.Card.Creatable.flaw(value.card).flaws,
 										},
 								  ]),
 					  ].filter(gracely.Flaw.is) as gracely.Flaw[]),

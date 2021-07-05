@@ -1,7 +1,5 @@
 import * as gracely from "gracely"
 import * as authly from "authly"
-import { Key as MerchantKey } from "../Key"
-import * as MerchantV1 from "../Key/V1"
 import { Card as MerchantConfiguration } from "./Card"
 import { Creatable as CardCreatable } from "./Card/Creatable"
 import { Emv3d as MerchantEmv3d } from "./Emv3d"
@@ -64,24 +62,6 @@ export namespace Merchant {
 		export namespace Protocol {
 			export const is = MerchantEmv3d.Protocol.is
 			export const flaw = MerchantEmv3d.Protocol.flaw
-		}
-	}
-	export type Key = MerchantKey
-	export namespace Key {
-		export const is = MerchantKey.is
-		export const flaw = MerchantKey.flaw
-		export const extractCardUrl = MerchantKey.extractCardUrl
-		export const upgrade = MerchantKey.upgrade
-		export type Audience = MerchantKey.Audience
-		export namespace Audience {
-			export const is = MerchantKey.Audience.is
-		}
-	}
-	export namespace V1 {
-		export type Key = MerchantV1.Key
-		export namespace Key {
-			export const is = MerchantV1.Key.is
-			export const flaw = MerchantV1.Key.flaw
 		}
 	}
 }
