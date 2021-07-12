@@ -26,7 +26,7 @@ export namespace Key {
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
 		return {
-			type: "model.Merchant.V1.Key",
+			type: "model.Key.V1.Key",
 			flaws:
 				typeof value != "object"
 					? undefined

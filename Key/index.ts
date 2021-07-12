@@ -4,7 +4,7 @@ import { Card } from "../Merchant/Card"
 import { Creatable as CardCreatable } from "../Merchant/Card/Creatable"
 import { Agent as KeyAgent } from "./Agent"
 import { Audience as KeyAudience } from "./Audience"
-import * as V1 from "./V1"
+import * as KeyV1 from "./V1"
 
 export interface Key {
 	sub: string
@@ -31,7 +31,7 @@ export namespace Key {
 	}
 	export function flaw(value: any | Key): gracely.Flaw {
 		return {
-			type: "model.Merchant.Key",
+			type: "model.Key",
 			flaws:
 				typeof value != "object"
 					? undefined
@@ -109,5 +109,12 @@ export namespace Key {
 	export namespace Agent {
 		export const is = KeyAgent.is
 		export const flaw = KeyAgent.flaw
+	}
+	export namespace V1 {
+		export type Key = KeyV1.Key
+		export namespace Key {
+			export const is = KeyV1.Key.is
+			export const flaw = KeyV1.Key.flaw
+		}
 	}
 }
