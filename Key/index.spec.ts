@@ -1,7 +1,7 @@
 import * as model from "../index"
 
 describe("Key", () => {
-	const key: model.Merchant.Key = {
+	const key: model.Key = {
 		aud: "public",
 		card: {
 			url: "http://localhost:7082",
@@ -52,10 +52,10 @@ describe("Key", () => {
 			},
 		},
 	}
-	it("is", () => expect(model.Merchant.Key.is(key)).toBeTruthy())
+	it("is", () => expect(model.Key.is(key)).toBeTruthy())
 	it("is with ch3d1 & ch3d2", () => {
 		expect(
-			model.Merchant.Key.is({
+			model.Key.is({
 				...key,
 				card: {
 					...key.card,
@@ -69,7 +69,7 @@ describe("Key", () => {
 	})
 	it("is missing id name", () =>
 		expect(
-			model.Merchant.Key.is({
+			model.Key.is({
 				country: "GB",
 				acquirer: {
 					protocol: "clearhaus",
@@ -81,51 +81,45 @@ describe("Key", () => {
 			})
 		).toBeFalsy())
 	it("flaw", () => {
-		expect(model.Merchant.Key.flaw(key)).toEqual({
+		expect(model.Key.flaw(key)).toEqual({
 			flaws: [],
-			type: "model.Merchant.Key",
+			type: "model.Key",
 		})
 	})
 	it("extractCardUrl payfunc V1 Keys", async () => {
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "private")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.payfunc.V1.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.private, "public")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.payfunc.V1.private, "public")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "private")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.payfunc.V1.public, "private")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.V1.public, "public")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.payfunc.V1.public, "public")) == "http://localhost:7082"
 		).toBeTruthy()
 	})
 	it("extractCardUrl payfunc Keys", async () => {
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "private")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.payfunc.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
-		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.private, "public")) == "http://localhost:7082"
-		).toBeFalsy()
-		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "private")) == "http://localhost:7082"
-		).toBeFalsy()
-		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.payfunc.public, "public")) == "http://localhost:7082"
-		).toBeTruthy()
+		expect((await model.Key.extractCardUrl(testKeys.payfunc.private, "public")) == "http://localhost:7082").toBeFalsy()
+		expect((await model.Key.extractCardUrl(testKeys.payfunc.public, "private")) == "http://localhost:7082").toBeFalsy()
+		expect((await model.Key.extractCardUrl(testKeys.payfunc.public, "public")) == "http://localhost:7082").toBeTruthy()
 	})
 	it("extractCardUrl cardfunc V1 Keys", async () => {
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "private")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.cardfunc.V1.private, "private")) == "http://localhost:7082"
 		).toBeTruthy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.private, "public")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.cardfunc.V1.private, "public")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "private")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.cardfunc.V1.public, "private")) == "http://localhost:7082"
 		).toBeFalsy()
 		expect(
-			(await model.Merchant.Key.extractCardUrl(testKeys.cardfunc.V1.public, "public")) == "http://localhost:7082"
+			(await model.Key.extractCardUrl(testKeys.cardfunc.V1.public, "public")) == "http://localhost:7082"
 		).toBeTruthy()
 	})
 })
